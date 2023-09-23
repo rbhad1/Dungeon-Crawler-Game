@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.views;
+package com.example.cs2340c_team28.activities;
 
 import static com.example.cs2340c_team28.R.*;
 
@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
-    // private MainActivity mainActRef = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
