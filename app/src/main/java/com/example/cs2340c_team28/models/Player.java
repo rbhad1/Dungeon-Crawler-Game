@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
  */
 public class Player {
 
+    private volatile static Player uniquePlayerInstance;
+
     /**
      * The name of the player
      */
@@ -30,9 +32,25 @@ public class Player {
      * @param name The player's name
      * @param spriteId Chosen sprite id
      */
-    public Player(String name, int spriteId) {
+    private Player(String name, int spriteId) {
         this.name = name;
         this.spriteId = spriteId;
+    }
+
+    public static Player getUniquePlayerInstance() {
+        if (uniquePlayerInstance == null) {
+            synchronized (Player.class) {
+                if (uniquePlayerInstance == null) {
+                    uniquePlayerInstance = new Player(uniquePlayerInstance.getName(), uniquePlayerInstance.getSpriteId());
+                }
+            }
+        }
+        return uniquePlayerInstance;
+    }
+
+    public static Player createNewPlayer(Player uniquePlayerInstance) {
+        uniquePlayerInstance = new Player(uniquePlayerInstance.name, uniquePlayerInstance.spriteId);
+        return uniquePlayerInstance;
     }
 
     public String getName() {
