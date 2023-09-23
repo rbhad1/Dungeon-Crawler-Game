@@ -7,29 +7,27 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainActivity mainActRef = new MainActivity();
+    // private MainActivity mainActRef = new MainActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_main);
         Button configButton = findViewById(id.configButton);
-        Button endButton = findViewById(id.endButton);
+        Button exitButton = findViewById(id.exitButton);
 
         // clicked on end button
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        exitButton.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this, EndScreen.class);
+//            startActivity(intent);
 
-                Intent intent = new Intent(MainActivity.this, EndScreen.class);
-                startActivity(intent);
-
-            }
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
         });
 
 

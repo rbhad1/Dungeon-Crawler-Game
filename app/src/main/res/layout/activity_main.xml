@@ -33,11 +33,11 @@
         android:contentDescription="fab"/>
 
     <Button
-        android:id="@+id/endButton"
+        android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="140dp"
-        android:text="End Game"
+        android:text="Exit Game"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

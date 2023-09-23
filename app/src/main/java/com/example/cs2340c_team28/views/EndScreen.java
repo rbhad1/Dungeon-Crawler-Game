@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EndScreen extends AppCompatActivity {
 
-    private EndScreen endScreenRef = new EndScreen();
+    // private EndScreen endScreenRef = new EndScreen();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
