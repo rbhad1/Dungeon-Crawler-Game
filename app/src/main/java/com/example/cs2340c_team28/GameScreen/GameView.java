@@ -9,6 +9,8 @@ import android.view.SurfaceHolder;
 
 import androidx.annotation.NonNull;
 
+import com.example.cs2340c_team28.R;
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 //    private MainThread thread;
     private CharacterSprite characterSprite;
@@ -22,7 +24,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(),R.drawable.avdgreen));
+        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.person1));
 
 
 //        thread.setRunning(true);
