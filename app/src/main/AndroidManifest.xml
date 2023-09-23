@@ -14,7 +14,7 @@
         tools:targetApi="34">
         <activity
             android:name=".GameScreen.GameActivity"
-            android:exported="true">
+            android:exported="true"/>
         <activity
             android:name=".views.MainActivity"
             android:exported="true"
