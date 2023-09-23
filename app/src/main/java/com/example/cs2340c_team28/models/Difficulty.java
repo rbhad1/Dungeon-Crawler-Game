@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28;
+package com.example.cs2340c_team28.models;
 
 /**
  * Enum class representing game difficulty
