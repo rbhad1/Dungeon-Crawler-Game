@@ -48,7 +48,9 @@ public class Player {
         return uniquePlayerInstance;
     }
 
-    public static Player createNewPlayer(Player uniquePlayerInstance) {
+    public Player createNewPlayer(String name, Difficulty difficulty) {
+        name = getName();
+        hp = initialHp(difficulty);
         uniquePlayerInstance = new Player(uniquePlayerInstance.name, uniquePlayerInstance.spriteId);
         return uniquePlayerInstance;
     }

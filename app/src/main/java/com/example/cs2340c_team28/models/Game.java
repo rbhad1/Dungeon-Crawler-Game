@@ -28,11 +28,11 @@ public class Game {
         }
         return uniqueGameInstance;
     }
-
-    public static Game createNewGame(Game uniqueGameInstance) {
-        uniqueGameInstance = getUniqueGameInstance();
-        return uniqueGameInstance;
-    }
+        public Game createNewGame(Difficulty difficulty) {
+            difficulty = getDifficulty();
+            uniqueGameInstance = getUniqueGameInstance();
+            return uniqueGameInstance;
+        }
 
     /**
      * The difficulty of the game
@@ -46,4 +46,5 @@ public class Game {
     public Difficulty getDifficulty() {
         return difficulty;
     }
+
 }
