@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CS2340C_Team28"
         tools:targetApi="34">
         <activity
+            android:name=".GameScreen.GameActivity"
+            android:exported="true"/>
+        <activity
             android:name=".views.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main_welcome"
@@ -21,8 +24,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
+          </activity>
         <activity
             android:name=".views.EndScreen"
             android:exported="false"
