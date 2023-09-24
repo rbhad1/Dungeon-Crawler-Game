@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameScreen.GameActivity"
-            android:exported="false"/>
+            android:name=".activities.GameActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.EndScreenActivity"
             android:exported="false"

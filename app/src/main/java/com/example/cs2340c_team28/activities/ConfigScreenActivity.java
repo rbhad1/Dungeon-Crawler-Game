@@ -2,6 +2,7 @@ package com.example.cs2340c_team28.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -157,9 +158,8 @@ public class ConfigScreenActivity extends AppCompatActivity {
         // TODO: set game parameters
         // Game.reinitializeGame(...) or equivalent
 
-        // TODO: load game activity
-        // Intent intent = new Intent(ConfigScreenActivity.this, .class);
-        //  startActivity(intent);
+         Intent intent = new Intent(ConfigScreenActivity.this, GameActivity.class);
+         startActivity(intent);
     };
 
     /**

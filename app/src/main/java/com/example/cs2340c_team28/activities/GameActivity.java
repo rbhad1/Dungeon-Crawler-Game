@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.GameScreen;
+package com.example.cs2340c_team28.activities;
 
 import static com.example.cs2340c_team28.R.*;
 
@@ -24,8 +24,16 @@ public class GameActivity extends AppCompatActivity {
         Button endScreenButton = findViewById(id.endScreenButton);
 
         endScreenButton.setOnClickListener(view -> {
-            //Intent intent = new Intent(GameActivity.this, EndScreen.class);
-            //startActivity(intent);
+            Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
+            startActivity(intent);
         });
+    }
+
+    /**
+     * Overridden to stop the user from returning back into the config screen
+     */
+    @Override
+    public void onBackPressed() {
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.GameScreen;
+package com.example.cs2340c_team28.game;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
