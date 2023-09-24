@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.views;
+package com.example.cs2340c_team28.activities;
 
 import static com.example.cs2340c_team28.R.*;
 
@@ -11,8 +11,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    // private MainActivity mainActRef = new MainActivity();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,11 +18,14 @@ public class MainActivity extends AppCompatActivity {
         Button configButton = findViewById(id.configButton);
         Button exitButton = findViewById(id.exitButton);
 
+        // clicked on config button
+        configButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, ConfigScreenActivity.class);
+            startActivity(intent);
+        });
+
         // clicked on end button
         exitButton.setOnClickListener(view -> {
-//            Intent intent = new Intent(MainActivity.this, EndScreen.class);
-//            startActivity(intent);
-
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);
