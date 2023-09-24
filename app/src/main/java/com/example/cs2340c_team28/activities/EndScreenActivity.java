@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.views;
+package com.example.cs2340c_team28.activities;
 
 import android.os.Bundle;
 
@@ -6,9 +6,7 @@ import com.example.cs2340c_team28.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EndScreen extends AppCompatActivity {
-
-    // private EndScreen endScreenRef = new EndScreen();
+public class EndScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
