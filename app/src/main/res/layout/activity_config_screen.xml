@@ -116,9 +116,7 @@
                     android:alpha="1.0"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/person1"
-                    android:tintMode="src_atop"
-                    app:tint="#6D8D1F1F" />
+                    android:src="@drawable/person1" />
 
                 <Button
                     android:id="@+id/spriteButton1"
@@ -143,9 +141,7 @@
                     android:alpha="0.2"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/person1"
-                    android:tintMode="src_atop"
-                    app:tint="#4609E36B" />
+                    android:src="@drawable/person2" />
 
                 <Button
                     android:id="@+id/spriteButton2"
@@ -169,9 +165,7 @@
                     android:alpha="0.2"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/person1"
-                    android:tintMode="src_atop"
-                    app:tint="#601E37B3" />
+                    android:src="@drawable/person3" />
 
                 <Button
                     android:id="@+id/spriteButton3"
