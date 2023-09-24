@@ -18,11 +18,14 @@ public class MainActivity extends AppCompatActivity {
         Button configButton = findViewById(id.configButton);
         Button exitButton = findViewById(id.exitButton);
 
+        // clicked on config button
+        configButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, ConfigScreenActivity.class);
+            startActivity(intent);
+        });
+
         // clicked on end button
         exitButton.setOnClickListener(view -> {
-//            Intent intent = new Intent(MainActivity.this, EndScreen.class);
-//            startActivity(intent);
-
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);

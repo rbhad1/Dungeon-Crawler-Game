@@ -110,8 +110,12 @@
                     android:id="@+id/spriteView1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:alpha="0.2"
-                    android:src="@tools:sample/avatars" />
+                    android:adjustViewBounds="true"
+                    android:alpha="1.0"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/person1"
+                    app:tint="#6D8D1F1F" />
 
                 <Button
                     android:id="@+id/spriteButton1"
@@ -131,8 +135,12 @@
                     android:id="@+id/spriteView2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:alpha="0.2"
-                    android:src="@tools:sample/avatars" />
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/person1"
+                    app:tint="#4609E36B" />
 
                 <Button
                     android:id="@+id/spriteButton2"
@@ -152,8 +160,12 @@
                     android:id="@+id/spriteView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:alpha="0.2"
-                    android:src="@tools:sample/avatars" />
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/person1"
+                    app:tint="#601E37B3" />
 
                 <Button
                     android:id="@+id/spriteButton3"
