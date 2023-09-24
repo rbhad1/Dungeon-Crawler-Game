@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.cs2340c_team28.views.EndScreen;
+
 public class GameActivity extends AppCompatActivity {
 
     @Override
@@ -24,8 +26,8 @@ public class GameActivity extends AppCompatActivity {
         Button endScreenButton = findViewById(id.endScreenButton);
 
         endScreenButton.setOnClickListener(view -> {
-            //Intent intent = new Intent(GameActivity.this, EndScreen.class);
-            //startActivity(intent);
+            Intent intent = new Intent(GameActivity.this, EndScreen.class);
+            startActivity(intent);
         });
     }
 }
