@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Difficulty;
@@ -34,6 +35,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
     ImageView spriteView3;
     ImageView[] spriteViews;
 
+    TextView startHint;
     Button startGameButton;
 
     /**
@@ -76,6 +78,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
         this.spriteView2 = findViewById(R.id.spriteView2);
         this.spriteView3 = findViewById(R.id.spriteView3);
         this.startGameButton = findViewById(R.id.startGameButton);
+        this.startHint = findViewById(R.id.startHint);
 
         // Create arrays representing groups of elements
         spriteButtons = new Button[]{spriteButton1, spriteButton2, spriteButton3};
@@ -173,7 +176,10 @@ public class ConfigScreenActivity extends AppCompatActivity {
 
         boolean difficultyValid = difficulty != null;
 
-        startGameButton.setEnabled(playerNameValid && difficultyValid);
+        boolean canStart = playerNameValid && difficultyValid;
+
+        startHint.setVisibility(canStart ? View.INVISIBLE : View.VISIBLE);
+        startGameButton.setEnabled(canStart);
     }
 
 
