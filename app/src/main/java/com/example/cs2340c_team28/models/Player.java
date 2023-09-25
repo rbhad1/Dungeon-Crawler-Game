@@ -21,6 +21,8 @@ public class Player {
      */
     private int hp;
 
+    private final int originalHp;
+
     /**
      * An integer id representing the player's sprite graphic,
      *  avoids storing resource name in the data model
@@ -32,27 +34,23 @@ public class Player {
      * @param name The player's name
      * @param spriteId Chosen sprite id
      */
-    private Player(String name, int spriteId) {
+    private Player(String name, int spriteId, int initialHp) {
         this.name = name;
         this.spriteId = spriteId;
+        this.hp = initialHp;
+        this.originalHp = initialHp;
     }
 
     public static Player getUniquePlayerInstance() {
-        if (uniquePlayerInstance == null) {
-            synchronized (Player.class) {
-                if (uniquePlayerInstance == null) {
-                    uniquePlayerInstance = new Player(uniquePlayerInstance.getName(), uniquePlayerInstance.getSpriteId());
-                }
-            }
-        }
         return uniquePlayerInstance;
     }
 
-    public Player createNewPlayer(String name, Difficulty difficulty) {
-        name = getName();
-        hp = initialHp(difficulty);
-        uniquePlayerInstance = new Player(uniquePlayerInstance.name, uniquePlayerInstance.spriteId);
-        return uniquePlayerInstance;
+    public static void createNewPlayer(String name, Difficulty difficulty, int spriteId) {
+        uniquePlayerInstance = new Player(
+                name,
+                spriteId,
+                initialHp(difficulty)
+        );
     }
 
     public String getName() {
@@ -66,6 +64,11 @@ public class Player {
     public int getHp() {
         return hp;
     }
+
+    public int getOriginalHp() {
+        return originalHp;
+    }
+
 
     /**
      * Set the player's health points
