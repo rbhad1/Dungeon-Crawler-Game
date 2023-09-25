@@ -53,7 +53,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
     /**
      * The index of the sprite the player wants to use
      */
-    private int spriteIndex = 0;
+    private int spriteIndex = 1;
 
     /**
      * Creates the view.
