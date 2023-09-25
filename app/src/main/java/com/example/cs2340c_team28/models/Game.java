@@ -12,32 +12,25 @@ public class Game {
     /**
      * private constructor for Game class
      */
-    private Game() {}
+    private Game(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 
     /**
      * static method Game method that uses double-checked locking to create a unique Game instance
      * @return the unique game instance that is instantiated
      */
     public static Game getUniqueGameInstance() {
-        if (uniqueGameInstance == null) {
-            synchronized (Game.class) {
-                if (uniqueGameInstance == null) {
-                    uniqueGameInstance = new Game();
-                }
-            }
-        }
         return uniqueGameInstance;
     }
-        public Game createNewGame(Difficulty difficulty) {
-            difficulty = getDifficulty();
-            uniqueGameInstance = getUniqueGameInstance();
-            return uniqueGameInstance;
-        }
+    public static void createNewGame(Difficulty difficulty) {
+        uniqueGameInstance = new Game(difficulty);
+    }
 
     /**
      * The difficulty of the game
      */
-    private Difficulty difficulty;
+    private final Difficulty difficulty;
 
     /**
      * Get the difficulty of the game

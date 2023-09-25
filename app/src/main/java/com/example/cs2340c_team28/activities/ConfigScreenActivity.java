@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Difficulty;
+import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.Player;
 
 /**
  * Activity for game configuration screen.
@@ -134,7 +136,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
             boolean isSelectedSprite = spriteButtons[i].getId() == view.getId();
 
             if (isSelectedSprite) {
-                spriteIndex = i;
+                spriteIndex = i + 1;
             }
 
             spriteButtons[i].setEnabled(!isSelectedSprite);
@@ -158,8 +160,8 @@ public class ConfigScreenActivity extends AppCompatActivity {
      * It is assumed that if this button was pressed, the config params must have been valid
      */
     private final View.OnClickListener onStartGameButtonClick = view -> {
-        // TODO: set game parameters
-        // Game.reinitializeGame(...) or equivalent
+        Game.createNewGame(difficulty);
+        Player.createNewPlayer(playerName, difficulty, spriteIndex);
 
          Intent intent = new Intent(ConfigScreenActivity.this, GameActivity.class);
          startActivity(intent);
