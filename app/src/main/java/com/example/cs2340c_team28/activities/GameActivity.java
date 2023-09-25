@@ -1,7 +1,8 @@
-package com.example.cs2340c_team28.GameScreen;
+package com.example.cs2340c_team28.activities;
 
 import com.example.cs2340c_team28.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +25,16 @@ public class GameActivity extends AppCompatActivity {
         Button endScreenButton = findViewById(R.id.endScreenButton);
 
         endScreenButton.setOnClickListener(view -> {
-            //Intent intent = new Intent(GameActivity.this, EndScreen.class);
-            //startActivity(intent);
+            Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
+            startActivity(intent);
         });
+    }
+
+    /**
+     * Overridden to stop the user from returning back into the config screen
+     */
+    @Override
+    public void onBackPressed() {
+
     }
 }
