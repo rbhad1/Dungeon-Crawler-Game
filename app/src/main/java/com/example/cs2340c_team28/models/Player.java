@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
  */
 public class Player {
 
-    private volatile static Player uniquePlayerInstance;
+    private static volatile Player uniquePlayerInstance;
 
     /**
      * The name of the player
@@ -33,6 +33,7 @@ public class Player {
      * Instantiate the player
      * @param name The player's name
      * @param spriteId Chosen sprite id
+     * @param initialHp Player's starting hp
      */
     private Player(String name, int spriteId, int initialHp) {
         this.name = name;
@@ -94,14 +95,13 @@ public class Player {
      */
     public static int initialHp(@NonNull Difficulty difficulty) {
         switch (difficulty) {
-            case EASY:
-                return 150;
-            case MEDIUM:
-                return 100;
-            case HARD:
-                return 50;
+        case EASY:
+            return 150;
+        case MEDIUM:
+            return 100;
+        default: // corresponds to HARD
+            return 50;
         }
-        return -1;
     }
 
 }

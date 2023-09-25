@@ -23,37 +23,37 @@ import com.example.cs2340c_team28.models.Player;
  */
 public class ConfigScreenActivity extends AppCompatActivity {
 
-    EditText playerNameEditText;
+    private EditText playerNameEditText;
 
-    RadioGroup radioGroup;
+    private RadioGroup radioGroup;
 
-    Button spriteButton1;
-    Button spriteButton2;
-    Button spriteButton3;
-    Button[] spriteButtons;
+    private Button spriteButton1;
+    private Button spriteButton2;
+    private Button spriteButton3;
+    private Button[] spriteButtons;
 
-    ImageView spriteView1;
-    ImageView spriteView2;
-    ImageView spriteView3;
-    ImageView[] spriteViews;
+    private ImageView spriteView1;
+    private ImageView spriteView2;
+    private ImageView spriteView3;
+    private ImageView[] spriteViews;
 
-    TextView startHint;
-    Button startGameButton;
+    private TextView startHint;
+    private Button startGameButton;
 
     /**
      * The difficulty with which to start the game
      */
-    Difficulty difficulty;
+    private Difficulty difficulty;
 
     /**
      * The name entered by the player. This may or may not be valid.
      */
-    String playerName;
+    private String playerName;
 
     /**
      * The index of the sprite the player wants to use
      */
-    int spriteIndex = 0;
+    private int spriteIndex = 0;
 
     /**
      * Creates the view.
@@ -163,8 +163,8 @@ public class ConfigScreenActivity extends AppCompatActivity {
         Game.createNewGame(difficulty);
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
 
-         Intent intent = new Intent(ConfigScreenActivity.this, GameActivity.class);
-         startActivity(intent);
+        Intent intent = new Intent(ConfigScreenActivity.this, GameActivity.class);
+        startActivity(intent);
     };
 
     /**
