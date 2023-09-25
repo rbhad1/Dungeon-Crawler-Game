@@ -7,10 +7,12 @@ package com.example.cs2340c_team28.models;
  */
 public class Game {
     //create instance of Game
-    private volatile static Game uniqueGameInstance;
+    private static volatile Game uniqueGameInstance;
 
     /**
      * private constructor for Game class
+     *
+     * @param difficulty The difficulty of the game to be instantiated
      */
     private Game(Difficulty difficulty) {
         this.difficulty = difficulty;
