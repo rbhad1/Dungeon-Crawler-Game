@@ -3,37 +3,36 @@ package com.example.cs2340c_team28.models;
 /**
  * Class representing a game being played
  *
- * @author Steven Baker
+ * @author Steven Baker, Cameron Loyet
  */
 public class Game {
+    //create instance of Game
+    private static volatile Game uniqueGameInstance;
+
     /**
-     * The player for the game
+     * private constructor for Game class
+     *
+     * @param difficulty The difficulty of the game to be instantiated
      */
-    private final Player player;
+    private Game(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    /**
+     * static method Game method that uses double-checked locking to create a unique Game instance
+     * @return the unique game instance that is instantiated
+     */
+    public static Game getUniqueGameInstance() {
+        return uniqueGameInstance;
+    }
+    public static void createNewGame(Difficulty difficulty) {
+        uniqueGameInstance = new Game(difficulty);
+    }
 
     /**
      * The difficulty of the game
      */
     private final Difficulty difficulty;
-
-    /**
-     * Instantiate the game
-     * @param player the player object
-     * @param difficulty the game difficulty
-     */
-    public Game(Player player, Difficulty difficulty) {
-        this.player = player;
-        player.setHp(Player.initialHp(difficulty));
-        this.difficulty = difficulty;
-    }
-
-    /**
-     * Get the object representing the player
-     * @return The player object
-     */
-    public Player getPlayer() {
-        return player;
-    }
 
     /**
      * Get the difficulty of the game
@@ -42,4 +41,5 @@ public class Game {
     public Difficulty getDifficulty() {
         return difficulty;
     }
+
 }

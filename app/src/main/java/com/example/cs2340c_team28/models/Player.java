@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
  */
 public class Player {
 
+    private static volatile Player uniquePlayerInstance;
+
     /**
      * The name of the player
      */
@@ -18,6 +20,8 @@ public class Player {
      * The health points (hp) of the player
      */
     private int hp;
+
+    private final int originalHp;
 
     /**
      * An integer id representing the player's sprite graphic,
@@ -29,10 +33,25 @@ public class Player {
      * Instantiate the player
      * @param name The player's name
      * @param spriteId Chosen sprite id
+     * @param initialHp Player's starting hp
      */
-    public Player(String name, int spriteId) {
+    private Player(String name, int spriteId, int initialHp) {
         this.name = name;
         this.spriteId = spriteId;
+        this.hp = initialHp;
+        this.originalHp = initialHp;
+    }
+
+    public static Player getUniquePlayerInstance() {
+        return uniquePlayerInstance;
+    }
+
+    public static void createNewPlayer(String name, Difficulty difficulty, int spriteId) {
+        uniquePlayerInstance = new Player(
+                name,
+                spriteId,
+                initialHp(difficulty)
+        );
     }
 
     public String getName() {
@@ -46,6 +65,11 @@ public class Player {
     public int getHp() {
         return hp;
     }
+
+    public int getOriginalHp() {
+        return originalHp;
+    }
+
 
     /**
      * Set the player's health points
@@ -71,14 +95,13 @@ public class Player {
      */
     public static int initialHp(@NonNull Difficulty difficulty) {
         switch (difficulty) {
-            case EASY:
-                return 150;
-            case MEDIUM:
-                return 100;
-            case HARD:
-                return 50;
+        case EASY:
+            return 150;
+        case MEDIUM:
+            return 100;
+        default: // corresponds to HARD
+            return 50;
         }
-        return -1;
     }
 
 }
