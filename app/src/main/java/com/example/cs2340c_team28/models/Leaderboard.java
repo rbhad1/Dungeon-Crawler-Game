@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,7 @@ public class Leaderboard {
 
     private static final Leaderboard INSTANCE = new Leaderboard();
 
-    private List<LeaderboardEntry> leaderboardEntries;
-    private int currentMinEntryScore = Integer.MIN_VALUE;
+    private final List<LeaderboardEntry> leaderboardEntries;
 
     /**
      * Initialize the leaderboard. Private constructor
@@ -45,9 +45,12 @@ public class Leaderboard {
      * @return Whether or not the new score entry was added
      */
     public boolean addNewEntry(String playerName, int score, Date date) {
+        LeaderboardEntry newEntry = new LeaderboardEntry(playerName, score, date);
+
         // See if we're at capacity already
         if (leaderboardEntries.size() == MAX_ENTRIES) {
-            if  (score > currentMinEntryScore) {
+            // Compare the new element to the "lowest" element on the existing leaderboard
+            if  (leaderboardEntries.get(leaderboardEntries.size() - 1).compareTo(newEntry) < 0) {
                 // Remove the last entry to make more space
                 leaderboardEntries.remove(MAX_ENTRIES - 1);
             } else {
@@ -57,11 +60,8 @@ public class Leaderboard {
         }
 
         // Add the new entry to the list and sort
-        leaderboardEntries.add(new LeaderboardEntry(playerName, score, date));
-        leaderboardEntries.sort(LeaderboardEntry::compareTo);
-
-        // Update min entry score
-        currentMinEntryScore = leaderboardEntries.get(leaderboardEntries.size() - 1).getScore();
+        leaderboardEntries.add(newEntry);
+        leaderboardEntries.sort(Collections.reverseOrder());
 
         // Return true to indicate that we did add a new entry
         return true;
@@ -72,7 +72,6 @@ public class Leaderboard {
      */
     public void resetLeaderboard() {
         leaderboardEntries.clear();
-        currentMinEntryScore = Integer.MIN_VALUE;
     }
 
     /**
