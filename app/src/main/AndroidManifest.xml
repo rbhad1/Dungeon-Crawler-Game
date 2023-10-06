@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CS2340C_Team28"
         tools:targetApi="34">
         <activity
+            android:name=".activities.ErrorViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ConfigScreenActivity"
             android:exported="false" />
         <activity
