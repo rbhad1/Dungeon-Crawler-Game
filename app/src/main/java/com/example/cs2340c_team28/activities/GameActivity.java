@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity {
@@ -53,6 +54,8 @@ public class GameActivity extends AppCompatActivity {
             Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
             startActivity(intent);
         });
+
+        Intent intent = new Intent(this, AndroidLauncher.class);
     }
 
     /**
