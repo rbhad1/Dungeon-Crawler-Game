@@ -7,12 +7,14 @@ import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class Leaderboard extends Activity {
+public class Leaderboard {
 
     public static final int MAX_ENTRIES = 5;
 
@@ -43,46 +45,9 @@ public class Leaderboard extends Activity {
      */
     public List<LeaderboardEntry> getLeaderboardEntries() {
         // Return a copied ArrayList so that other classes can't modify the original ArrayList
-        return new ArrayList<>(leaderboardEntries);
+        return leaderboardEntries;
     }
 
-    /**
-     * Add a new entry to the leaderboard
-     *
-     * @param playerName The player's name
-     * @param score      The score
-     * @param date       The date of the score
-     * @return Whether or not the new score entry was added
-     */
-    public boolean addNewEntry(String playerName, int score, Date date) {
-        LeaderboardEntry newEntry = new LeaderboardEntry(playerName, score, date);
-
-        // See if we're at capacity already
-        if (leaderboardEntries.size() == MAX_ENTRIES) {
-            // Compare the new element to the "lowest" element on the existing leaderboard
-            if (leaderboardEntries.get(leaderboardEntries.size() - 1).compareTo(newEntry) < 0) {
-                // Remove the last entry to make more space
-                leaderboardEntries.remove(MAX_ENTRIES - 1);
-            } else {
-                // We're at capacity, can't add another element
-                return false;
-            }
-        }
-
-        // Add the new entry to the list and sort
-        leaderboardEntries.add(newEntry);
-        leaderboardEntries.sort(Collections.reverseOrder());
-
-        // Return true to indicate that we did add a new entry
-        return true;
-    }
-
-    /**
-     * Remove all entries from the leaderboard.
-     */
-    public void resetLeaderboard() {
-        leaderboardEntries.clear();
-    }
 
     /**
      * Class representing an individual entry in the leaderboard
@@ -100,7 +65,7 @@ public class Leaderboard extends Activity {
          * @param score      The score at the end of the game
          * @param date       The date and time of the game
          */
-        private LeaderboardEntry(String playerName, int score, Date date) {
+        public LeaderboardEntry(String playerName, int score, Date date) {
             this.playerName = playerName;
             this.score = score;
             this.date = date;
@@ -149,63 +114,5 @@ public class Leaderboard extends Activity {
         }
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
-
-
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.leadership_board);
-
-
-        TextView entryOne = findViewById(R.id.entry1);
-        LeaderboardEntry entry1 = leaderboardEntries.get(0);
-        verifyEntry(entry1);
-        entryOne.setText(leaderboardEntries.get(0).getDate() + ": " +
-                leaderboardEntries.get(0).getPlayerName() + "   " +
-                leaderboardEntries.get(0).getScore());
-
-
-        TextView entryTwo = findViewById(R.id.entry2);
-        LeaderboardEntry entry2 = leaderboardEntries.get(1);
-        verifyEntry(entry2);
-        entryOne.setText(leaderboardEntries.get(1).getDate() + ": " +
-                leaderboardEntries.get(1).getPlayerName() + "   " +
-                leaderboardEntries.get(1).getScore());
-
-        TextView entryThree = findViewById(R.id.entry3);
-        LeaderboardEntry entry3 = leaderboardEntries.get(2);
-        verifyEntry(entry3);
-        entryOne.setText(leaderboardEntries.get(2).getDate() + ": " +
-                leaderboardEntries.get(2).getPlayerName() + "   " +
-                leaderboardEntries.get(2).getScore());
-
-
-        TextView entryFour = findViewById(R.id.entry3);
-        LeaderboardEntry entry4 = leaderboardEntries.get(3);
-        verifyEntry(entry4);
-        entryOne.setText(leaderboardEntries.get(3).getDate() + ": " +
-                leaderboardEntries.get(3).getPlayerName() + "   " +
-                leaderboardEntries.get(3).getScore());
-
-
-        TextView entryFive = findViewById(R.id.entry1);
-        LeaderboardEntry entry5 = leaderboardEntries.get(4);
-        verifyEntry(entry5);
-        entryOne.setText(leaderboardEntries.get(4).getDate() + ": " +
-                leaderboardEntries.get(4).getPlayerName() + "   " +
-                leaderboardEntries.get(4).getScore());
-
-    }
-
-    private boolean verifyEntry(LeaderboardEntry entry) {
-
-        if (entry != null &&
-                entry.playerName != null &&
-                entry.score >= 0 &&
-                entry.date != null) {
-            return true;
-        }
-        return false;
-    }
 
 }

@@ -12,11 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CS2340C_Team28"
         tools:targetApi="34">
-        <activity
-            android:name=".activities.Screen1"
-            android:exported="false"
-            android:label="@string/title_activity_screen1"
-            android:theme="@style/Theme.CS2340C_Team28" />
+
         <activity
             android:name=".activities.ConfigScreenActivity"
             android:exported="false" />
