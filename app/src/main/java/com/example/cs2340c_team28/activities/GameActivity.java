@@ -55,7 +55,6 @@ public class GameActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Intent intent = new Intent(this, AndroidLauncher.class);
     }
 
     /**

@@ -163,7 +163,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
         Game.createNewGame(difficulty);
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
 
-        Intent intent = new Intent(ConfigScreenActivity.this, GameActivity.class);
+        Intent intent = new Intent(ConfigScreenActivity.this, LibGdxActivity.class);
         startActivity(intent);
     };
 
