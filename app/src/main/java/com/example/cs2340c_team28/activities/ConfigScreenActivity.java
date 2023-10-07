@@ -39,6 +39,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
 
     private TextView startHint;
     private Button startGameButton;
+    private Button startGameButtonGDX;
 
     /**
      * The difficulty with which to start the game
@@ -80,6 +81,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
         this.spriteView2 = findViewById(R.id.spriteView2);
         this.spriteView3 = findViewById(R.id.spriteView3);
         this.startGameButton = findViewById(R.id.startGameButton);
+        this.startGameButtonGDX = findViewById(R.id.startGameButtonGDX);
         this.startHint = findViewById(R.id.startHint);
 
         // Create arrays representing groups of elements
@@ -101,7 +103,17 @@ public class ConfigScreenActivity extends AppCompatActivity {
         }
 
         // Listener for start game select
-        startGameButton.setOnClickListener(onStartGameButtonClick);
+        startGameButton.setOnClickListener(v -> {
+            assignGameAndPlayer();
+            Intent intent = new Intent(ConfigScreenActivity.this, LegacyGameActivity.class);
+            startActivity(intent);
+        });
+
+        startGameButtonGDX.setOnClickListener(v -> {
+            assignGameAndPlayer();
+            Intent intent = new Intent(ConfigScreenActivity.this, LibGdxActivity.class);
+            startActivity(intent);
+        });
     }
 
     /**
@@ -160,12 +172,16 @@ public class ConfigScreenActivity extends AppCompatActivity {
      * It is assumed that if this button was pressed, the config params must have been valid
      */
     private final View.OnClickListener onStartGameButtonClick = view -> {
+
+    };
+
+    /**
+     * Create new game and player by assigning the details from the config screen
+     */
+    private void assignGameAndPlayer() {
         Game.createNewGame(difficulty);
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
-
-        Intent intent = new Intent(ConfigScreenActivity.this, LibGdxActivity.class);
-        startActivity(intent);
-    };
+    }
 
     /**
      * Function to validate whether what the user has selected can be used to start the game
@@ -182,6 +198,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
 
         startHint.setVisibility(canStart ? View.INVISIBLE : View.VISIBLE);
         startGameButton.setEnabled(canStart);
+        startGameButtonGDX.setEnabled(canStart);
     }
 
 
