@@ -14,12 +14,19 @@ public class ErrorViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_error_view);
 
-        TextView textView = findViewById(R.id.errorText);
+        TextView messageView = findViewById(R.id.activityErrorView_message);
+        TextView stackTraceView = findViewById(R.id.activityErrorView_stackTrace);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            String errorText = extras.getString("errorText");
-            if (errorText != null) {
-                textView.setText(errorText);
+            Throwable e = (Throwable) extras.get("throwable");
+            if (e != null) {
+                messageView.setText(e.getMessage());
+                StringBuilder stackTrace = new StringBuilder();
+                for (StackTraceElement element : e.getStackTrace()) {
+                    stackTrace.append(element.toString()).append("\n");
+                }
+                stackTraceView.setText(stackTrace.toString());
             }
         }
 

@@ -32,21 +32,8 @@ public class LibGdxActivity extends AndroidApplication {
                 Log.e("TAG", "Uncaught exception in " + TAG);
 
                 Intent intent = new Intent(LibGdxActivity.this, ErrorViewActivity.class);
-                Bundle extras = new Bundle();
-                extras.putString("errorText", e.getMessage());
-                intent.putExtras(extras);
+                intent.putExtra("throwable", e);
                 startActivity(intent);
-//
-//                Context context = LibGdxActivity.super.getContext();
-//                TextView errorView = new TextView(context);
-//                errorView.setText(e.getMessage());
-//                errorView.setLayoutParams(
-//                        new ViewGroup.LayoutParams(
-//                                ViewGroup.LayoutParams.MATCH_PARENT,
-//                                ViewGroup.LayoutParams.MATCH_PARENT));
-//                errorView.setTextColor(Color.RED);
-//
-//                setContentView(R.layout.activity_main);
             }
         });
 
