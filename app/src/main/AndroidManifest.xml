@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.GameActivity"
+            android:name=".activities.LegacyGameActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LibGdxActivity"

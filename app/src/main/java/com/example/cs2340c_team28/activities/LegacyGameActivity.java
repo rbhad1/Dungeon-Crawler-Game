@@ -11,10 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class GameActivity extends AppCompatActivity {
+public class LegacyGameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class GameActivity extends AppCompatActivity {
         Button endScreenButton = findViewById(R.id.endScreenButton);
 
         endScreenButton.setOnClickListener(view -> {
-            Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
+            Intent intent = new Intent(LegacyGameActivity.this, EndScreenActivity.class);
             startActivity(intent);
         });
 
