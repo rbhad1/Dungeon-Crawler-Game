@@ -8,6 +8,7 @@ android {
 
     aaptOptions {
         ignoreAssetsPattern '*.tiled-project'
+        ignoreAssetsPattern '*.tiled-session'
     }
 
     defaultConfig {
