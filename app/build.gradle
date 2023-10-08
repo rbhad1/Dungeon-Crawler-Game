@@ -6,6 +6,10 @@ android {
     namespace 'com.example.cs2340c_team28'
     compileSdk 34
 
+    aaptOptions {
+        ignoreAssetsPattern '*.tiled-project'
+    }
+
     defaultConfig {
         applicationId "com.example.cs2340c_team28"
         minSdk 24
