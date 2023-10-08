@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CS2340C_Team28"
         tools:targetApi="34">
         <activity
+            android:name=".activities.ErrorViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ConfigScreenActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.GameActivity"
+            android:name=".activities.LegacyGameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LibGdxActivity"
             android:exported="false" />
         <activity
             android:name=".activities.EndScreenActivity"
