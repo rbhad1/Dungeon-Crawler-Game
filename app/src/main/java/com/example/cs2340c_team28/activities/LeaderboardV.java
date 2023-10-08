@@ -17,7 +17,9 @@ public class LeaderboardV extends Activity {
 
     private final List<Leaderboard.LeaderboardEntry> leaderboardEntries
             = leaderBoardVM.getLeaderboardEntries();
-    @SuppressLint("SetTextI18n")
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
