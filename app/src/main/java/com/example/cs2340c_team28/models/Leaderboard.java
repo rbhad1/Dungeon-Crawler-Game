@@ -1,16 +1,7 @@
 package com.example.cs2340c_team28.models;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.cs2340c_team28.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -49,8 +40,6 @@ public class Leaderboard {
         // Return a copied ArrayList so that other classes can't modify the original ArrayList
         return leaderboardEntries;
     }
-
-
 
     /**
      * Class representing an individual entry in the leaderboard
