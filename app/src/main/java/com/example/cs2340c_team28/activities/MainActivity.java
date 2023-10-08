@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.Button;
 
+import com.example.cs2340c_team28.R;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LeaderboardV.class);
             startActivity(intent);
         });
+
 
         // clicked on end button
         exitButton.setOnClickListener(view -> {

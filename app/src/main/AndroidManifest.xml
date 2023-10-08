@@ -35,6 +35,9 @@
             android:exported="false"
             android:label="@string/title_activity_end_screen"
             android:theme="@style/Theme.CS2340C_Team28" />
+        <activity
+            android:name=".activities.LeaderboardV"
+            android:exported="false" />
     </application>
 
 </manifest>

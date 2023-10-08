@@ -22,6 +22,8 @@ public class Leaderboard {
 
     private final List<LeaderboardEntry> leaderboardEntries;
 
+
+
     /**
      * Initialize the leaderboard. Private constructor
      */
@@ -47,6 +49,7 @@ public class Leaderboard {
         // Return a copied ArrayList so that other classes can't modify the original ArrayList
         return leaderboardEntries;
     }
+
 
 
     /**
@@ -113,6 +116,7 @@ public class Leaderboard {
             return result == 0 ? this.date.compareTo(o.date) : result;
         }
     }
+
 
 
 }
