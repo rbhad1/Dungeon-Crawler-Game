@@ -53,6 +53,7 @@ public class ConfigScreenViewModel {
 
         activity.getStartHint().setVisibility(canStart ? View.INVISIBLE : View.VISIBLE);
         activity.getStartGameButton().setEnabled(canStart);
+        activity.getStartGameGdxButton().setEnabled(canStart);
     }
 
     /**
@@ -104,14 +105,23 @@ public class ConfigScreenViewModel {
     }
 
     /**
-     * Listener for the start game button.
+     * Listener for the legacy start game button.
      * It is assumed that if this button was pressed, the config params must have been valid
      */
     public void onStartGameButtonClicked() {
         Game.createNewGame(difficulty);
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
-
         activity.openGameActivity();
+    }
+
+    /**
+     * Listener for the LibGdx start game button.
+     * It is assumed that if this button was pressed, the config params must have been valid
+     */
+    public void onStartGameButtonGdxClicked() {
+        Game.createNewGame(difficulty);
+        Player.createNewPlayer(playerName, difficulty, spriteIndex);
+        activity.openGameGdxActivity();
     }
 
 }

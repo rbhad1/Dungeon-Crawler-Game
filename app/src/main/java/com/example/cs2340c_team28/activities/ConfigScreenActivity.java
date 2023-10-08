@@ -37,6 +37,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
     private TextView startHint;
 
     private Button startGameButton;
+    private Button startGameButtonGdx;
 
     private ConfigScreenViewModel viewModel;
 
@@ -65,6 +66,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
         this.spriteView2 = findViewById(R.id.spriteView2);
         this.spriteView3 = findViewById(R.id.spriteView3);
         this.startGameButton = findViewById(R.id.startGameButton);
+        this.startGameButtonGdx = findViewById(R.id.startGameButtonGDX);
         this.startHint = findViewById(R.id.startHint);
 
         // Create arrays representing groups of elements
@@ -88,6 +90,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
 
         // Listener for start game select
         startGameButton.setOnClickListener(v -> viewModel.onStartGameButtonClicked());
+        startGameButtonGdx.setOnClickListener(v -> viewModel.onStartGameButtonGdxClicked());
     }
 
     /**
@@ -112,7 +115,12 @@ public class ConfigScreenActivity extends AppCompatActivity {
     };
 
     public void openGameActivity() {
-        Intent intent = new Intent(ConfigScreenActivity.this, GameActivity.class);
+        Intent intent = new Intent(ConfigScreenActivity.this, LegacyGameActivity.class);
+        startActivity(intent);
+    }
+
+    public void openGameGdxActivity() {
+        Intent intent = new Intent(ConfigScreenActivity.this, LibGdxActivity.class);
         startActivity(intent);
     }
 
@@ -134,5 +142,9 @@ public class ConfigScreenActivity extends AppCompatActivity {
 
     public Button getStartGameButton() {
         return startGameButton;
+    }
+
+    public Button getStartGameGdxButton() {
+        return startGameButtonGdx;
     }
 }

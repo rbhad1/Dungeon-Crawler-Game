@@ -197,11 +197,29 @@
                     android:gravity="center"
                     android:text="Type a player name and choose difficulty to start." />
 
-                <Button
-                    android:id="@+id/startGameButton"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Start Game" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/startGameButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Start (Legacy)" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/startGameButtonGDX"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Start (LibGDX)" />
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
