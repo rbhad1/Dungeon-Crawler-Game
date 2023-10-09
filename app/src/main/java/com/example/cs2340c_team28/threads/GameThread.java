@@ -1,19 +1,17 @@
 package com.example.cs2340c_team28.threads;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 
-public class GameThread extends ApplicationAdapter {
+public class GameThread extends com.badlogic.gdx.Game {
     /**
      * Current game instance
      */
-    private Game game = Game.getUniqueGameInstance();
+    private final Game game = Game.getUniqueGameInstance();
 
     /**
      * Texture for the player sprite
@@ -30,8 +28,21 @@ public class GameThread extends ApplicationAdapter {
      */
     @Override
     public void create() {
-    //    playerImage = new Texture(imageResource);
-    //    batch = new SpriteBatch();
+        int spriteId = Player.getUniquePlayerInstance().getSpriteId();
+        String imageResource;
+        switch (spriteId) {
+            case 1:
+                imageResource = "person1.png";
+                break;
+            case 2:
+                imageResource = "person2.png";
+                break;
+            default:
+                imageResource = "person3.png";
+                break;
+        }
+        playerImage = new Texture(imageResource);
+        batch = new SpriteBatch();
         Gdx.graphics.setContinuousRendering(false);
         Gdx.graphics.requestRendering();
     }
@@ -41,10 +52,10 @@ public class GameThread extends ApplicationAdapter {
      */
     @Override
     public void render() {
-    //    ScreenUtils.clear(0, 0, 0, 0);
-    //    batch.begin();
-    //    batch.draw(playerImage);
-    //    batch.end();
+        ScreenUtils.clear(0, 0, 0, 0); //placeholder
+        batch.begin();
+        batch.draw(playerImage, 0, 0); //placeholder
+        batch.end();
         updateGameLogic();
     }
 
@@ -68,7 +79,7 @@ public class GameThread extends ApplicationAdapter {
      */
     @Override
     public void dispose() {
-    //    playerImage.dispose();
-    //    batch.dispose();
+        playerImage.dispose();
+        batch.dispose();
     }
 }
