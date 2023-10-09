@@ -37,6 +37,9 @@
             android:name=".activities.LegacyGameActivity2"
             android:exported="false" />
         <activity
+            android:name=".activities.LegacyGameActivity3"
+            android:exported="false" />
+        <activity
             android:name=".activities.LibGdxActivity"
             android:exported="false" />
         <activity

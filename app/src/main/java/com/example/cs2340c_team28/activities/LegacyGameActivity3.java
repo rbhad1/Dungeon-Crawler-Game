@@ -11,11 +11,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-public class LegacyGameActivity2 extends AppCompatActivity {
+public class LegacyGameActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game2);
+        setContentView(R.layout.activity_game3);
         TextView playerName = findViewById(R.id.playerNameField);
         TextView playerHealth = findViewById(R.id.playerHealth);
         TextView difficulty = findViewById(R.id.difficultyField);
@@ -44,10 +43,10 @@ public class LegacyGameActivity2 extends AppCompatActivity {
         imageView.setImageResource(imageResource);
 
 
-        Button nextScreenButton = findViewById(R.id.nextScreenButton);
+        Button endScreenButton = findViewById(R.id.nextScreenButton);
 
-        nextScreenButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LegacyGameActivity2.this, LegacyGameActivity3.class);
+        endScreenButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LegacyGameActivity3.this, EndScreenActivity.class);
             startActivity(intent);
         });
 
