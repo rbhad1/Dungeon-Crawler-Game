@@ -90,4 +90,5 @@ public class LeaderboardTest {
             assertEquals(leaderboardEntries.get(i).getScore(), scores[i].intValue());
         }
     }
+
 }

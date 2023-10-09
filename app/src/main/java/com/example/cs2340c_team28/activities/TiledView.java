@@ -20,7 +20,7 @@ public class TiledView implements Screen {
         renderer.setView(camera);
         renderer.render();
     }
-    // TODO Fix view point so that image takes up entire screen
+    // TODO Fix viewport so that image takes up entire screen @Elijah
     @Override
     public void resize(int width, int height) {
         camera.viewportHeight = height;
