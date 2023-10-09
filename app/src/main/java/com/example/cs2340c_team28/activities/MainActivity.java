@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.Button;
 
-import com.example.cs2340c_team28.R;
 
 public class MainActivity extends AppCompatActivity {
 

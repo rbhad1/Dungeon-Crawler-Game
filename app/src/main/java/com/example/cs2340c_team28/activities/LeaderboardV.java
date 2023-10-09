@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Leaderboard;
-import com.example.cs2340c_team28.viewModel.LeaderBoardVM;
+import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
 
 import java.util.List;
 
@@ -55,6 +55,7 @@ public class LeaderboardV extends Activity {
         case 1:
             entryOne.setText(String.format(entry1.getDate() + "\t" + entry1.getPlayerName() + "\t"
                     + entry1.getScore()));
+            break;
         default:
             entryOne.setText("Start playing to view the leaderboard!");
             break;

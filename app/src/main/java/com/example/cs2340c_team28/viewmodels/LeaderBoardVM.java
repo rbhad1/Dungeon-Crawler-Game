@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.viewModel;
+package com.example.cs2340c_team28.viewmodels;
 
 import com.example.cs2340c_team28.models.Leaderboard;
 
@@ -23,15 +23,17 @@ public class LeaderBoardVM {
      */
     public boolean addNewEntry(String playerName, int score, Date date) {
 
-        Leaderboard.LeaderboardEntry newEntry = new Leaderboard.LeaderboardEntry(playerName, score, date);
+        Leaderboard.LeaderboardEntry newEntry =
+                new Leaderboard.LeaderboardEntry(playerName, score, date);
 
 
         // See if we're at capacity already
-        if (leaderboard.getLeaderboardEntries().size() == leaderboard.MAX_ENTRIES) {
-            // Compare the new element to the "lowest" element on the existing leaderboard
-            if (leaderboard.getLeaderboardEntries().get(leaderboard.getLeaderboardEntries().size() - 1).compareTo(newEntry) < 0) {
+        if (leaderboard.getLeaderboardEntries().size() == Leaderboard.MAX_ENTRIES) {
+            // Compare new element to the "lowest" element on the existing leaderboard
+            if (leaderboard.getLeaderboardEntries()
+                    .get(leaderboard.getLeaderboardEntries().size() - 1).compareTo(newEntry) < 0) {
                 // Remove the last entry to make more space
-                leaderboard.getLeaderboardEntries().remove(leaderboard.MAX_ENTRIES - 1);
+                leaderboard.getLeaderboardEntries().remove(Leaderboard.MAX_ENTRIES - 1);
             } else {
                 // We're at capacity, can't add another element
                 return false;
