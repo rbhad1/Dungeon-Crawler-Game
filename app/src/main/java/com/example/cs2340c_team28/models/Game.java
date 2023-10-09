@@ -27,7 +27,7 @@ public class Game {
     /**
      * System time at which the current game began
      */
-    private static final long START_TIME = System.currentTimeMillis();
+    private final long START_TIME = System.currentTimeMillis();
 
     /**
      * Time since the score was last decremented
@@ -89,7 +89,7 @@ public class Game {
      * Get the time at which the current game began
      * @return The game's starting time
      */
-    public static long getStartTime() { return START_TIME; }
+    public long getStartTime() { return START_TIME; }
 
     /**
      * Get the time since the last score decrement
