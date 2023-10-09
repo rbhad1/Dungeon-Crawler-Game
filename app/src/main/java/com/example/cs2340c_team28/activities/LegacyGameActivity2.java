@@ -1,5 +1,6 @@
 package com.example.cs2340c_team28.activities;
 
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -7,18 +8,14 @@ import com.example.cs2340c_team28.models.Player;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LegacyGameActivity extends AppCompatActivity {
-
-    @Override
+public class LegacyGameActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game2);
         TextView playerName = findViewById(R.id.playerNameField);
         TextView playerHealth = findViewById(R.id.playerHealth);
         TextView difficulty = findViewById(R.id.difficultyField);
@@ -34,15 +31,15 @@ public class LegacyGameActivity extends AppCompatActivity {
 
         int imageResource;
         switch (spriteId) {
-        case 1:
-            imageResource = R.drawable.person1;
-            break;
-        case 2:
-            imageResource = R.drawable.person2;
-            break;
-        default:
-            imageResource = R.drawable.person3;
-            break;
+            case 1:
+                imageResource = R.drawable.person1;
+                break;
+            case 2:
+                imageResource = R.drawable.person2;
+                break;
+            default:
+                imageResource = R.drawable.person3;
+                break;
         }
         imageView.setImageResource(imageResource);
 
@@ -50,7 +47,7 @@ public class LegacyGameActivity extends AppCompatActivity {
         Button nextScreenButton = findViewById(R.id.nextScreenButton);
 
         nextScreenButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LegacyGameActivity.this, LegacyGameActivity2.class);
+            Intent intent = new Intent(LegacyGameActivity2.this, EndScreenActivity.class);
             startActivity(intent);
         });
 
@@ -63,4 +60,5 @@ public class LegacyGameActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
 }
