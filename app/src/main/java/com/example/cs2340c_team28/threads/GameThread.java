@@ -31,15 +31,15 @@ public class GameThread extends com.badlogic.gdx.Game {
         int spriteId = Player.getUniquePlayerInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {
-            case 1:
-                imageResource = "person1.png";
-                break;
-            case 2:
-                imageResource = "person2.png";
-                break;
-            default:
-                imageResource = "person3.png";
-                break;
+        case 1:
+            imageResource = "person1.png";
+            break;
+        case 2:
+            imageResource = "person2.png";
+            break;
+        default:
+            imageResource = "person3.png";
+            break;
         }
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
