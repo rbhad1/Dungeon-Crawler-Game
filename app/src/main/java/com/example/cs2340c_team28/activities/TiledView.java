@@ -26,7 +26,7 @@ public class TiledView implements Screen {
     @Override
     public void show() {
 
-        map = new TmxMapLoader().load("screen1.tmx");
+        map = new TmxMapLoader().load("forest-map.tmx");
 
         renderer = new OrthogonalTiledMapRenderer(map);
     }
