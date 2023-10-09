@@ -12,7 +12,7 @@ public class Game {
     /**
      * The maximum score the player can have
      */
-    private final int MAX_SCORE = 1000;
+    private static final int MAX_SCORE = 1000;
 
     /**
      * The player's score based on their performance in the game
@@ -27,12 +27,12 @@ public class Game {
     /**
      * System time at which the current game began
      */
-    private final long START_TIME = System.currentTimeMillis();
+    private long startTime = System.currentTimeMillis();
 
     /**
      * Time since the score was last decremented
      */
-    private long scoreTime = START_TIME;
+    private long scoreTime = startTime;
 
     /**
      * private constructor for Game class
@@ -71,7 +71,7 @@ public class Game {
      * Get the maximum score the player can have
      * @return The maximum score
      */
-    public int getMaxScore() { return MAX_SCORE; }
+    public static int getMaxScore() { return MAX_SCORE; }
 
     /**
      * Get the score of the current game
@@ -89,7 +89,7 @@ public class Game {
      * Get the time at which the current game began
      * @return The game's starting time
      */
-    public long getStartTime() { return START_TIME; }
+    public long getStartTime() { return startTime; }
 
     /**
      * Get the time since the last score decrement
