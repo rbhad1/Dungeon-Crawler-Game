@@ -30,18 +30,8 @@ public class GameThread extends ApplicationAdapter {
      */
     @Override
     public void create() {
-        int spriteId = Player.getUniquePlayerInstance().getSpriteId();
-        int imageResource;
-        switch (spriteId) {
-            case 1: imageResource = R.drawable.person1;
-            break;
-            case 2: imageResource = R.drawable.person2;
-            break;
-            default: imageResource = R.drawable.person3;
-            break;
-        }
-        playerImage = new Texture(imageResource);
-        batch = new SpriteBatch();
+    //    playerImage = new Texture(imageResource);
+    //    batch = new SpriteBatch();
         Gdx.graphics.setContinuousRendering(false);
         Gdx.graphics.requestRendering();
     }
@@ -51,10 +41,10 @@ public class GameThread extends ApplicationAdapter {
      */
     @Override
     public void render() {
-        ScreenUtils.clear(0, 0, 0, 0);
-        batch.begin();
-        batch.draw(playerImage);
-        batch.end();
+    //    ScreenUtils.clear(0, 0, 0, 0);
+    //    batch.begin();
+    //    batch.draw(playerImage);
+    //    batch.end();
         updateGameLogic();
     }
 
@@ -78,7 +68,7 @@ public class GameThread extends ApplicationAdapter {
      */
     @Override
     public void dispose() {
-        playerImage.dispose();
-        batch.dispose();
+    //    playerImage.dispose();
+    //    batch.dispose();
     }
 }
