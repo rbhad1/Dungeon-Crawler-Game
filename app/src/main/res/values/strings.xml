@@ -13,4 +13,5 @@
     <string name="title_activity_welcome_screen">WelcomeScreenActivity</string>
     <string name="title_activity_end_screen">EndScreen</string>
     <string name="title_activity_main_welcome">MainActivityWelcome</string>
+
 </resources>
