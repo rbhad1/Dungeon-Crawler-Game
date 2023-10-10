@@ -33,6 +33,7 @@ public class TiledView implements Screen {
     private Skin skin;
     private TextButton button1;
     private TextButton button2;
+    private TextButton button3;
     private Stage stage;
     TextButton.TextButtonStyle textButtonStyle;
     Label text;
@@ -63,12 +64,16 @@ public class TiledView implements Screen {
         button1.setTransform(true);
         button1.scaleBy(2f);
         stage.addActor(button1);
-        button2 = new TextButton("To Forest", textButtonStyle);
+        button2 = new TextButton("To Water", textButtonStyle);
         button2.setSize(col_width,row_height);
         button2.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
         button2.setTransform(true);
         button2.scaleBy(2f);
-        stage.addActor(button1);
+        button3 = new TextButton("To Forest", textButtonStyle);
+        button3.setSize(col_width,row_height);
+        button3.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
+        button3.setTransform(true);
+        button3.scaleBy(2f);
         // button to go to dungeon
         button1.addListener(new ChangeListener() {
             @Override
@@ -84,36 +89,25 @@ public class TiledView implements Screen {
         button2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                map = new TmxMapLoader().load("water-map.tmx");
+                renderer = new OrthogonalTiledMapRenderer(map);
+                camera = new OrthographicCamera();
+                stage.addActor(button3);
+                button2.remove();
+            }
+        });
+        button3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
                 map = new TmxMapLoader().load("forest-map.tmx");
                 renderer = new OrthogonalTiledMapRenderer(map);
                 camera = new OrthographicCamera();
                 stage.addActor(button1);
-                button2.remove();
+                button3.remove();
             }
         });
         Gdx.input.setInputProcessor(stage);
-        // scoring text
-        textStyle = new Label.LabelStyle();
-        textStyle.font = new BitmapFont();
-        textStyle.fontColor = Color.WHITE;
-        text = new Label("Score: " + score, textStyle);
-        text.setPosition(col_width,Gdx.graphics.getHeight() - 200);
-        text.setFontScale(4f);
-        stage.addActor(text);
 
-        playerName = new Label(Player.getUniquePlayerInstance().getName(), textStyle);
-        playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
-                + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
-        difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
-        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 50);
-        playerName.setFontScale(4f);
-        playerHealth.setPosition(col_width,Gdx.graphics.getHeight() - 150);
-        playerHealth.setFontScale(4f);
-        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 100);
-        difficulty.setFontScale(4f);
-        stage.addActor(playerName);
-        stage.addActor(playerHealth);
-        stage.addActor(difficulty);
 
     }
     @Override
@@ -122,15 +116,7 @@ public class TiledView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        //updating time score
-        timeState+=Gdx.graphics.getDeltaTime();
-        if(timeState>=1f){
-        // 1 second just passed
-            timeState=0f; // reset our timer
-            score++; // call the function that you want
-        }
 
-        text.setText(score);
         stage.draw();
         stage.act();
         int w = Gdx.graphics.getWidth();
