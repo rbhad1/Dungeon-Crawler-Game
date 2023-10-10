@@ -21,6 +21,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.Player;
 
 public class TiledView implements Screen {
 
@@ -34,6 +36,9 @@ public class TiledView implements Screen {
     private Stage stage;
     TextButton.TextButtonStyle textButtonStyle;
     Label text;
+    Label playerName;
+    Label playerHealth;
+    Label difficulty;
     Label.LabelStyle textStyle;
     BitmapFont font = new BitmapFont();
     private int score;
@@ -46,6 +51,8 @@ public class TiledView implements Screen {
         int col_width = Gdx.graphics.getWidth() / 12;
 
         score = 0;
+
+        //creating buttons
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -62,6 +69,7 @@ public class TiledView implements Screen {
         button2.setTransform(true);
         button2.scaleBy(2f);
         stage.addActor(button1);
+        // button to go to dungeon
         button1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -72,6 +80,7 @@ public class TiledView implements Screen {
                 button1.remove();
             }
         });
+        // button to go to forest
         button2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -80,24 +89,40 @@ public class TiledView implements Screen {
                 camera = new OrthographicCamera();
                 stage.addActor(button1);
                 button2.remove();
-                score++;
             }
         });
         Gdx.input.setInputProcessor(stage);
-
+        // scoring text
         textStyle = new Label.LabelStyle();
         textStyle.font = new BitmapFont();
         textStyle.fontColor = Color.WHITE;
         text = new Label("Score: " + score, textStyle);
-        text.setPosition(col_width,Gdx.graphics.getHeight()/2 - 20);
+        text.setPosition(col_width,Gdx.graphics.getHeight()/2);
         text.setFontScale(4f);
         stage.addActor(text);
+
+        playerName = new Label(Player.getUniquePlayerInstance().getName(), textStyle);
+        playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
+                + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
+        difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
+        playerName.setPosition(col_width,Gdx.graphics.getHeight()/2 - 150);
+        playerName.setFontScale(4f);
+        playerHealth.setPosition(col_width,Gdx.graphics.getHeight()/2 - 50);
+        playerHealth.setFontScale(4f);
+        difficulty.setPosition(col_width,Gdx.graphics.getHeight()/2 - 100);
+        difficulty.setFontScale(4f);
+        stage.addActor(playerName);
+        stage.addActor(playerHealth);
+        stage.addActor(difficulty);
+
     }
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        //updating time score
         timeState+=Gdx.graphics.getDeltaTime();
         if(timeState>=1f){
         // 1 second just passed
