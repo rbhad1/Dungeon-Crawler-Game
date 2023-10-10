@@ -44,6 +44,8 @@ public class TiledView implements Screen {
     BitmapFont font = new BitmapFont();
     private int score;
     float timeState = 0f;
+    private int scoreTime = 0;
+    private long startTime = Game.getUniqueGameInstance().getStartTime();
 
     public void create() {
         stage = new Stage(new ScreenViewport());
@@ -51,7 +53,7 @@ public class TiledView implements Screen {
         int row_height = Gdx.graphics.getHeight() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
 
-        score = 0;
+        score = 1000;
 
         //creating buttons
 
@@ -112,6 +114,7 @@ public class TiledView implements Screen {
         textStyle = new Label.LabelStyle();
         textStyle.font = new BitmapFont();
         textStyle.fontColor = Color.WHITE;
+
         text = new Label("Score: " + score, textStyle);
         text.setPosition(col_width*4,Gdx.graphics.getHeight() - 30);
         text.setFontScale(4f);
@@ -141,9 +144,10 @@ public class TiledView implements Screen {
         timeState+=Gdx.graphics.getDeltaTime();
         if(timeState>=1f){// 1 second just passed
             timeState=0f; // reset our timer
-            score++; // call the function that you want
+            score--; // call the function that you want
         }
 
+        //score = Game.getUniqueGameInstance().getScore();
         text.setText(score);
 
         stage.draw();
