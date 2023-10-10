@@ -52,6 +52,7 @@ public class GameThread extends com.badlogic.gdx.Game {
      */
     @Override
     public void render() {
+        super.render();
         ScreenUtils.clear(0, 0, 0, 0); //placeholder
         batch.begin();
         batch.draw(playerImage, 0, 0); //placeholder
