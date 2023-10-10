@@ -122,10 +122,11 @@ public class TiledView implements Screen {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera(w, h);
-        camera.setToOrtho(true, w, h);
+        camera = new OrthographicCamera(w/2, h/2);
+        camera.setToOrtho(true, w/2, h/2);
         //viewport = new StretchViewport(480, 800, camera);
-        camera.position.set(480, 400, 0);
+        camera.position.set(270, 500, 0);
+
         camera.update();
         renderer.setView(camera);
         renderer.render();
