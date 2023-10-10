@@ -108,16 +108,24 @@ public class TiledView implements Screen {
         });
         Gdx.input.setInputProcessor(stage);
 
+        // scoring text
+        textStyle = new Label.LabelStyle();
+        textStyle.font = new BitmapFont();
+        textStyle.fontColor = Color.WHITE;
+        text = new Label("Score: " + score, textStyle);
+        text.setPosition(col_width*4,Gdx.graphics.getHeight() - 30);
+        text.setFontScale(4f);
+        stage.addActor(text);
 
         playerName = new Label(Player.getUniquePlayerInstance().getName(), textStyle);
         playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
                 + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
         difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
-        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 50);
+        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 30);
         playerName.setFontScale(4f);
-        playerHealth.setPosition(col_width,Gdx.graphics.getHeight() - 150);
+        playerHealth.setPosition(col_width*4,Gdx.graphics.getHeight() - 80);
         playerHealth.setFontScale(4f);
-        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 100);
+        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 80);
         difficulty.setFontScale(4f);
         stage.addActor(playerName);
         stage.addActor(playerHealth);
@@ -129,7 +137,14 @@ public class TiledView implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        //updating time score
+        timeState+=Gdx.graphics.getDeltaTime();
+        if(timeState>=1f){// 1 second just passed
+            timeState=0f; // reset our timer
+            score++; // call the function that you want
+        }
 
+        text.setText(score);
 
         stage.draw();
         stage.act();
