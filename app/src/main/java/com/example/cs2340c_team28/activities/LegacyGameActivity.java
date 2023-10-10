@@ -50,7 +50,7 @@ public class LegacyGameActivity extends AppCompatActivity {
         Button nextScreenButton = findViewById(R.id.nextScreenButton);
 
         nextScreenButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LegacyGameActivity.this, LegacyGameActivity2.class);
+            Intent intent = new Intent(LegacyGameActivity.this, EndScreenActivity.class);
             startActivity(intent);
         });
 
