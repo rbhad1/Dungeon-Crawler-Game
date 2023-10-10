@@ -109,6 +109,20 @@ public class TiledView implements Screen {
         Gdx.input.setInputProcessor(stage);
 
 
+        playerName = new Label(Player.getUniquePlayerInstance().getName(), textStyle);
+        playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
+                + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
+        difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
+        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 50);
+        playerName.setFontScale(4f);
+        playerHealth.setPosition(col_width,Gdx.graphics.getHeight() - 150);
+        playerHealth.setFontScale(4f);
+        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 100);
+        difficulty.setFontScale(4f);
+        stage.addActor(playerName);
+        stage.addActor(playerHealth);
+        stage.addActor(difficulty);
+
     }
     @Override
     public void render(float delta) {
