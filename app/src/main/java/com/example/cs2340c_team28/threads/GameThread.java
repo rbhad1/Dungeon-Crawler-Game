@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.example.cs2340c_team28.activities.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 
@@ -28,6 +29,7 @@ public class GameThread extends com.badlogic.gdx.Game {
      */
     @Override
     public void create() {
+        setScreen(new TiledView());
         int spriteId = Player.getUniquePlayerInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {

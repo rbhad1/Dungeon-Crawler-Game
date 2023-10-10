@@ -32,12 +32,7 @@ public class LibGdxActivity extends AndroidApplication {
             }
         });
 
-        GameThread gameThread = new GameThread() {
-            @Override
-            public void create() {
-                setScreen(new TiledView());
-            }
-        };
+        GameThread gameThread = new GameThread();
         initialize(gameThread);
     }
 }
