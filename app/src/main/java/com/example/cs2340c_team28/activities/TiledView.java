@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -32,6 +33,11 @@ public class TiledView implements Screen {
     private TextButton button2;
     private Stage stage;
     TextButton.TextButtonStyle textButtonStyle;
+    Label text;
+    Label.LabelStyle textStyle;
+    BitmapFont font = new BitmapFont();
+    private int score;
+    float timeState = 0f;
 
     public void create() {
         stage = new Stage(new ScreenViewport());
@@ -39,6 +45,7 @@ public class TiledView implements Screen {
         int row_height = Gdx.graphics.getWidth() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
 
+        score = 0;
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
@@ -73,18 +80,34 @@ public class TiledView implements Screen {
                 camera = new OrthographicCamera();
                 stage.addActor(button1);
                 button2.remove();
+                score++;
             }
         });
         Gdx.input.setInputProcessor(stage);
+
+        textStyle = new Label.LabelStyle();
+        textStyle.font = new BitmapFont();
+        textStyle.fontColor = Color.WHITE;
+        text = new Label("Score: " + score, textStyle);
+        text.setPosition(col_width,Gdx.graphics.getHeight()/2 - 20);
+        text.setFontScale(4f);
+        stage.addActor(text);
     }
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(100, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //create();
+
+        timeState+=Gdx.graphics.getDeltaTime();
+        if(timeState>=1f){
+        // 1 second just passed
+            timeState=0f; // reset our timer
+            score++; // call the function that you want
+        }
+
+        text.setText(score);
         stage.draw();
         stage.act();
-
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
@@ -102,9 +125,9 @@ public class TiledView implements Screen {
     public void resize(int width, int height) {
         //camera.setToOrtho(false, width, height);
         //viewport.update(width, height);
-        //camera.viewportHeight = height;
-        //camera.viewportWidth = width;
-        //camera.update();
+        camera.viewportHeight = height;
+        camera.viewportWidth = width;
+        camera.update();
     }
     @Override
     public void show() {
