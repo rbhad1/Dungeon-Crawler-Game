@@ -47,7 +47,7 @@ public class TiledView implements Screen {
     public void create() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        int row_height = Gdx.graphics.getWidth() / 12;
+        int row_height = Gdx.graphics.getHeight() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
 
         score = 0;
@@ -58,14 +58,14 @@ public class TiledView implements Screen {
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
         button1 = new TextButton("To Dungeon", textButtonStyle);
-        button1.setSize(col_width*4,row_height);
-        button1.setPosition(col_width,Gdx.graphics.getHeight()/2);
+        button1.setSize(col_width,row_height);
+        button1.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
         button1.setTransform(true);
         button1.scaleBy(2f);
         stage.addActor(button1);
         button2 = new TextButton("To Forest", textButtonStyle);
-        button2.setSize(col_width*4,row_height);
-        button2.setPosition(col_width,Gdx.graphics.getHeight()/2);
+        button2.setSize(col_width,row_height);
+        button2.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
         button2.setTransform(true);
         button2.scaleBy(2f);
         stage.addActor(button1);
@@ -97,7 +97,7 @@ public class TiledView implements Screen {
         textStyle.font = new BitmapFont();
         textStyle.fontColor = Color.WHITE;
         text = new Label("Score: " + score, textStyle);
-        text.setPosition(col_width,Gdx.graphics.getHeight()/2);
+        text.setPosition(col_width,Gdx.graphics.getHeight() - 200);
         text.setFontScale(4f);
         stage.addActor(text);
 
@@ -105,11 +105,11 @@ public class TiledView implements Screen {
         playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
                 + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
         difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
-        playerName.setPosition(col_width,Gdx.graphics.getHeight()/2 - 150);
+        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 50);
         playerName.setFontScale(4f);
-        playerHealth.setPosition(col_width,Gdx.graphics.getHeight()/2 - 50);
+        playerHealth.setPosition(col_width,Gdx.graphics.getHeight() - 150);
         playerHealth.setFontScale(4f);
-        difficulty.setPosition(col_width,Gdx.graphics.getHeight()/2 - 100);
+        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 100);
         difficulty.setFontScale(4f);
         stage.addActor(playerName);
         stage.addActor(playerHealth);
@@ -139,7 +139,7 @@ public class TiledView implements Screen {
         camera = new OrthographicCamera(w, h);
         camera.setToOrtho(true, w, h);
         //viewport = new StretchViewport(480, 800, camera);
-        camera.position.set(camera.viewportWidth/2, camera.viewportHeight/2, 0);
+        camera.position.set(480, 400, 0);
         camera.update();
         renderer.setView(camera);
         renderer.render();
