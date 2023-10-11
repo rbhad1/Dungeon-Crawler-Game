@@ -42,7 +42,6 @@ public class TiledView implements Screen {
     Label difficulty;
     Label.LabelStyle textStyle;
     BitmapFont font = new BitmapFont();
-    private int score;
     float timeState = 0f;
     private int scoreTime = 0;
     private long startTime = Game.getUniqueGameInstance().getStartTime();
@@ -52,9 +51,7 @@ public class TiledView implements Screen {
         Gdx.input.setInputProcessor(stage);
         int row_height = Gdx.graphics.getHeight() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
-
-        score = 1000;
-
+        Game.getUniqueGameInstance().setScore(Game.getMaxScore());
         //creating buttons
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -115,7 +112,7 @@ public class TiledView implements Screen {
         textStyle.font = new BitmapFont();
         textStyle.fontColor = Color.WHITE;
 
-        text = new Label("Score: " + score, textStyle);
+        text = new Label("Score: " + Game.getUniqueGameInstance().getScore(), textStyle);
         text.setPosition(col_width*4,Gdx.graphics.getHeight() - 30);
         text.setFontScale(4f);
         stage.addActor(text);
@@ -144,11 +141,11 @@ public class TiledView implements Screen {
         timeState+=Gdx.graphics.getDeltaTime();
         if(timeState>=1f){// 1 second just passed
             timeState=0f; // reset our timer
-            score--; // call the function that you want
+            Game.getUniqueGameInstance().setScore(Game.getUniqueGameInstance().getScore()-1); // call the function that you want
         }
 
         //score = Game.getUniqueGameInstance().getScore();
-        text.setText(score);
+        text.setText(Game.getUniqueGameInstance().getScore());
 
         stage.draw();
         stage.act();
