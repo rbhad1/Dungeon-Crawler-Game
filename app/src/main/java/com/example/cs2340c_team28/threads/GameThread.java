@@ -3,7 +3,6 @@ package com.example.cs2340c_team28.threads;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.example.cs2340c_team28.activities.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -55,9 +54,8 @@ public class GameThread extends com.badlogic.gdx.Game {
     @Override
     public void render() {
         super.render();
-        ScreenUtils.clear(0, 0, 0, 0); //placeholder
         batch.begin();
-        batch.draw(playerImage, 0, 0); //placeholder
+        batch.draw(playerImage, 450, 600);
         batch.end();
         updateGameLogic();
     }
