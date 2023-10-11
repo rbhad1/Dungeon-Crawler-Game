@@ -1,5 +1,10 @@
 package com.example.cs2340c_team28.activities;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.app.Activity;
+import android.content.Intent;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -17,6 +22,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
+import com.example.cs2340c_team28.threads.GameThread;
+import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
 
 public class TiledView implements Screen {
     /**
@@ -68,6 +75,12 @@ public class TiledView implements Screen {
      */
     private Label.LabelStyle textStyle;
 
+    private GameThread gameThread;
+
+    public TiledView(GameThread gameThread) {
+        this.gameThread = gameThread;
+    }
+
     /**
      * Creates the stage with the buttons and text fields
      */
@@ -92,7 +105,7 @@ public class TiledView implements Screen {
         button2.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
         button2.setTransform(true);
         button2.scaleBy(2f);
-        button3 = new TextButton("To Forest", textButtonStyle);
+        button3 = new TextButton("End Game", textButtonStyle);
         button3.setSize(colWidth, rowHeight);
         button3.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
         button3.setTransform(true);
@@ -122,11 +135,7 @@ public class TiledView implements Screen {
         button3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                map = new TmxMapLoader().load("forest-map.tmx");
-                renderer = new OrthogonalTiledMapRenderer(map);
-                camera = new OrthographicCamera();
-                stage.addActor(button1);
-                button3.remove();
+                gameThread.endGame();
             }
         });
         Gdx.input.setInputProcessor(stage);
