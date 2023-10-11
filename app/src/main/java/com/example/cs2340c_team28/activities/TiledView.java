@@ -1,7 +1,6 @@
 package com.example.cs2340c_team28.activities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,14 +12,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 
@@ -51,18 +45,18 @@ public class TiledView implements Screen {
         textButtonStyle.fontColor = Color.WHITE;
         button1 = new TextButton("To Dungeon", textButtonStyle);
         button1.setSize(col_width,row_height);
-        button1.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
+        button1.setPosition(col_width*9,Gdx.graphics.getHeight()-300);
         button1.setTransform(true);
         button1.scaleBy(2f);
         stage.addActor(button1);
         button2 = new TextButton("To Water", textButtonStyle);
         button2.setSize(col_width,row_height);
-        button2.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
+        button2.setPosition(col_width*9,Gdx.graphics.getHeight()-300);
         button2.setTransform(true);
         button2.scaleBy(2f);
         button3 = new TextButton("To Forest", textButtonStyle);
         button3.setSize(col_width,row_height);
-        button3.setPosition(col_width*8,Gdx.graphics.getHeight()-300);
+        button3.setPosition(col_width*9,Gdx.graphics.getHeight()-300);
         button3.setTransform(true);
         button3.scaleBy(2f);
         // button to go to dungeon
@@ -105,7 +99,7 @@ public class TiledView implements Screen {
         textStyle.fontColor = Color.WHITE;
 
         text = new Label("Score: " + Game.getUniqueGameInstance().getScore(), textStyle);
-        text.setPosition(col_width*4,Gdx.graphics.getHeight() - 30);
+        text.setPosition(col_width*7,Gdx.graphics.getHeight() - 30);
         text.setFontScale(4f);
         stage.addActor(text);
 
@@ -115,7 +109,7 @@ public class TiledView implements Screen {
         difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
         playerName.setPosition(col_width,Gdx.graphics.getHeight() - 30);
         playerName.setFontScale(4f);
-        playerHealth.setPosition(col_width*4,Gdx.graphics.getHeight() - 80);
+        playerHealth.setPosition(col_width*7,Gdx.graphics.getHeight() - 80);
         playerHealth.setFontScale(4f);
         difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 80);
         difficulty.setFontScale(4f);
@@ -139,7 +133,7 @@ public class TiledView implements Screen {
 
         camera = new OrthographicCamera(w/2, h/2);
         camera.setToOrtho(true, w/2, h/2);
-        //viewport = new StretchViewport(480, 800, camera);
+
         camera.position.set(270, 500, 0);
 
         camera.update();
@@ -150,8 +144,6 @@ public class TiledView implements Screen {
     // TODO Fix viewport so that image takes up entire screen @Elijah
     @Override
     public void resize(int width, int height) {
-        //camera.setToOrtho(false, width, height);
-        //viewport.update(width, height);
         camera.viewportHeight = height;
         camera.viewportWidth = width;
         camera.update();

@@ -44,12 +44,19 @@ public class ConfigScreenViewModel {
     public void refreshViewsWithConfigState() {
 
         boolean playerNameValid = playerNameValid(playerName);
-        activity.getPlayerNameEditText().setError(
-                playerNameValid ? null : "Player name must start with a letter or number.");
+        if (!playerNameValid) {
+            activity.getPlayerNameEditText().setError(
+                    "Player name must start with a letter or number ");
+        }
+        boolean playerNameLength = playerNameLength(playerName);
+        if (!playerNameLength) {
+            activity.getPlayerNameEditText().setError(
+                    "Player name must be 10 or fewer characters ");
+        }
 
         boolean difficultyValid = difficulty != null;
 
-        boolean canStart = playerNameValid && difficultyValid;
+        boolean canStart = playerNameValid && difficultyValid && playerNameLength;
 
         activity.getStartHint().setVisibility(canStart ? View.INVISIBLE : View.VISIBLE);
         activity.getStartGameButton().setEnabled(canStart);
@@ -65,6 +72,19 @@ public class ConfigScreenViewModel {
         return playerName != null && playerName.matches("[:alnum:].*");
     }
 
+    /**
+     * Determine if the player name is within the required length
+     * @param playerName The inputted name by the player
+     * @return Whether or not the name is 10 or fewer characters
+     */
+    public boolean playerNameLength(String playerName) {
+        return playerName.length() <= 10;
+    }
+
+    /**
+     * Set the player name to the value in the textbox
+     * @param newText The inputted name by the player
+     */
     public void playerNameTextChanged(String newText) {
         playerName = newText;
         refreshViewsWithConfigState();
