@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GameActivity extends AppCompatActivity {
+public class LegacyGameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +47,13 @@ public class GameActivity extends AppCompatActivity {
         imageView.setImageResource(imageResource);
 
 
-        Button endScreenButton = findViewById(R.id.endScreenButton);
+        Button nextScreenButton = findViewById(R.id.nextScreenButton);
 
-        endScreenButton.setOnClickListener(view -> {
-            Intent intent = new Intent(GameActivity.this, EndScreenActivity.class);
+        nextScreenButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LegacyGameActivity.this, EndScreenActivity.class);
             startActivity(intent);
         });
+
     }
 
     /**
