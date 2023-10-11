@@ -123,11 +123,11 @@
                 android:layout_weight="2" />
 
             <Button
-                android:id="@+id/endScreenButton"
+                android:id="@+id/nextScreenButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="End Game" />
+                android:text="Next Game" />
 
             <Space
                 android:layout_width="wrap_content"
