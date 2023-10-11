@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.example.cs2340c_team28.threads.GameThread;
+import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class LibGdxActivity extends AndroidApplication {
 
@@ -32,7 +32,16 @@ public class LibGdxActivity extends AndroidApplication {
             }
         });
 
-        GameThread gameThread = new GameThread();
-        initialize(gameThread);
+        GameViewModel gameViewModel = new GameViewModel(this);
+        initialize(gameViewModel);
+
+
     }
+
+    public void navigateToEndGame() {
+        Intent intent = new Intent(this, LeaderboardActivity.class);
+        startActivity(intent);
+    }
+
+
 }

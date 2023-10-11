@@ -1,7 +1,7 @@
 package com.example.cs2340c_team28;
 
 import com.example.cs2340c_team28.models.Leaderboard;
-import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
+import com.example.cs2340c_team28.viewmodels.LeaderboardViewModel;
 
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class LeaderboardTest {
 
     public Leaderboard leaderboard = Leaderboard.getInstance();
-    public LeaderBoardVM leaderboardVM = new LeaderBoardVM();
+    public LeaderboardViewModel leaderboardVM = new LeaderboardViewModel();
 
     /**
      * Verify that we can reset the leaderboard

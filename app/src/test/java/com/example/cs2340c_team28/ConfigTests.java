@@ -16,20 +16,32 @@ public class ConfigTests {
     @Test
     public void playerNameWhiteSpace() {
         String name = new String("   ");
-        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertFalse(configScreenViewModel.playerNameValid(name));
     }
     @Test
     public void playerNameNull() {
         String name = new String();
-        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertFalse(configScreenViewModel.playerNameValid(name));
     }
 
     @Test
     public void playerNameInvalidCharacter() {
         String name = new String(" \\ $%#$  ");
-        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertFalse(configScreenViewModel.playerNameValid(name));
+    }
+    @Test
+    public void playerNameTooLong() {
+        String name = new String("mmmmmmmmmmmm");
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+        assertFalse(configScreenViewModel.playerNameLength(name));
+    }
+    @Test
+    public void playerNameShort() {
+        String name = new String("mmmmmm");
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+        assertTrue(configScreenViewModel.playerNameLength(name));
     }
 }

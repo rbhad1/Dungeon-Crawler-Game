@@ -7,61 +7,68 @@
     android:layout_height="match_parent"
     tools:context=".activities.LeaderboardV">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        tools:layout_editor_absoluteX="127dp"
-        tools:layout_editor_absoluteY="184dp">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Leaderboard"
-            android:textSize="40dp" />
-
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
         <TextView
             android:id="@+id/entry1"
-            android:layout_width="376dp"
-            android:layout_height="79dp"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+             />
         <TextView
             android:id="@+id/entry2"
-            android:layout_width="376dp"
-            android:layout_height="80dp"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+             />
         <TextView
             android:id="@+id/entry3"
-            android:layout_width="376dp"
-            android:layout_height="81dp"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+             />
         <TextView
             android:id="@+id/entry4"
-            android:layout_width="378dp"
-            android:layout_height="92dp"/>
-
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="top"
+             />
         <TextView
             android:id="@+id/entry5"
-            android:layout_width="379dp"
-            android:layout_height="153dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
         <TextView
             android:id="@+id/latestAttemptTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="LATEST ATTEMPT:" />
         <TextView
             android:id="@+id/latestAttempt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/restartButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Back to Start" />
-
+            android:text="Back to Main"
+             />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

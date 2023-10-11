@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class LeaderBoardVM {
+public class LeaderboardViewModel {
 
     private Leaderboard leaderboard = Leaderboard.getInstance();
 
