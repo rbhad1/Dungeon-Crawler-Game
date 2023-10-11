@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28.viewmodels;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -163,8 +164,11 @@ public class ConfigScreenViewModel extends BaseObservable {
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
 
         Context context = v.getContext();
-        if (context instanceof ConfigScreenActivity) {
-            ((ConfigScreenActivity) context).openGameActivity();
+        if (context instanceof ContextWrapper) {
+            Context baseContext = ((ContextWrapper) context).getBaseContext();
+            if (baseContext instanceof ConfigScreenActivity) {
+                ((ConfigScreenActivity) baseContext).openGameActivity();
+            }
         }
     }
 
@@ -179,9 +183,13 @@ public class ConfigScreenViewModel extends BaseObservable {
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
 
         Context context = v.getContext();
-        if (context instanceof ConfigScreenActivity) {
-            ((ConfigScreenActivity) context).openGameActivity();
+        if (context instanceof ContextWrapper) {
+            Context baseContext = ((ContextWrapper) context).getBaseContext();
+            if (baseContext instanceof ConfigScreenActivity) {
+                ((ConfigScreenActivity) baseContext).openGameGdxActivity();
+            }
         }
+
     }
 
 }
