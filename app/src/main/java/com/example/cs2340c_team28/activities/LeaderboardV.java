@@ -32,33 +32,36 @@ public class LeaderboardV extends Activity {
         TextView entryFour = findViewById(R.id.entry4);
         TextView entryFive = findViewById(R.id.entry5);
 
-        Leaderboard.LeaderboardEntry entry1 = leaderboardEntries.get(0);
-        Leaderboard.LeaderboardEntry entry2 = leaderboardEntries.get(1);
-        Leaderboard.LeaderboardEntry entry3 = leaderboardEntries.get(2);
-        Leaderboard.LeaderboardEntry entry4 = leaderboardEntries.get(3);
-        Leaderboard.LeaderboardEntry entry5 = leaderboardEntries.get(4);
-
-
-        switch (leaderboardEntries.size()) {
-        case 5:
-            entryFive.setText(String.format(entry5.getDate() + "\t" + entry5.getPlayerName() + "\t"
-                    + entry5.getScore()));
-        case 4:
-            entryFour.setText(String.format(entry4.getDate() + "\t" + entry4.getPlayerName() + "\t"
-                    + entry4.getScore()));
-        case 3:
-            entryThree.setText(String.format(entry3.getDate() + "\t" + entry3.getPlayerName() + "\t"
-                    + entry3.getScore()));
-        case 2:
-            entryTwo.setText(String.format(entry2.getDate() + "\t" + entry2.getPlayerName() + "\t"
-                    + entry2.getScore()));
-        case 1:
+        if (leaderboardEntries.size() >= 1) {
+            Leaderboard.LeaderboardEntry entry1 = leaderboardEntries.get(0);
             entryOne.setText(String.format(entry1.getDate() + "\t" + entry1.getPlayerName() + "\t"
                     + entry1.getScore()));
-            break;
-        default:
+        } else {
             entryOne.setText("Start playing to view the leaderboard!");
-            break;
+        }
+
+        if (leaderboardEntries.size() >= 2) {
+            Leaderboard.LeaderboardEntry entry2 = leaderboardEntries.get(1);
+            entryTwo.setText(String.format(entry2.getDate() + "\t" + entry2.getPlayerName() + "\t"
+                    + entry2.getScore()));
+        }
+
+        if (leaderboardEntries.size() >= 3) {
+            Leaderboard.LeaderboardEntry entry3 = leaderboardEntries.get(2);
+            entryThree.setText(String.format(entry3.getDate() + "\t" + entry3.getPlayerName() + "\t"
+                    + entry3.getScore()));
+        }
+
+        if (leaderboardEntries.size() >= 4) {
+            Leaderboard.LeaderboardEntry entry4 = leaderboardEntries.get(3);
+            entryFour.setText(String.format(entry4.getDate() + "\t" + entry4.getPlayerName() + "\t"
+                    + entry4.getScore()));
+        }
+
+        if (leaderboardEntries.size() == 5) {
+            Leaderboard.LeaderboardEntry entry5 = leaderboardEntries.get(4);
+            entryFive.setText(String.format(entry5.getDate() + "\t" + entry5.getPlayerName() + "\t"
+                    + entry5.getScore()));
         }
     }
 
