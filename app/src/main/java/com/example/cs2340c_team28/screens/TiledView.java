@@ -1,4 +1,4 @@
-package com.example.cs2340c_team28.activities;
+package com.example.cs2340c_team28.screens;
 
 
 import com.badlogic.gdx.Gdx;
@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
-import com.example.cs2340c_team28.threads.GameThread;
+import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class TiledView implements Screen {
     /**
@@ -70,10 +70,10 @@ public class TiledView implements Screen {
      */
     private Label.LabelStyle textStyle;
 
-    private GameThread gameThread;
+    private GameViewModel gameViewModel;
 
-    public TiledView(GameThread gameThread) {
-        this.gameThread = gameThread;
+    public TiledView(GameViewModel gameViewModel) {
+        this.gameViewModel = gameViewModel;
     }
 
     /**
@@ -131,7 +131,7 @@ public class TiledView implements Screen {
         button3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                gameThread.endGame();
+                gameViewModel.endGame();
             }
         });
         Gdx.input.setInputProcessor(stage);
@@ -174,8 +174,8 @@ public class TiledView implements Screen {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera(w / 2, h / 2);
-        camera.setToOrtho(true, w / 2, h / 2);
+        camera = new OrthographicCamera(w / 2.0f, h / 2.0f);
+        camera.setToOrtho(true, w / 2.0f, h / 2.0f);
 
         camera.position.set(270, 500, 0);
 

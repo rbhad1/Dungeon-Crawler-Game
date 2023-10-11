@@ -7,16 +7,16 @@ import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Leaderboard;
-import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
+import com.example.cs2340c_team28.viewmodels.LeaderboardViewModel;
 
 import java.util.List;
 
-public class LeaderboardV extends Activity {
+public class LeaderboardActivity extends Activity {
 
-    private final LeaderBoardVM leaderBoardVM = new LeaderBoardVM();
+    private final LeaderboardViewModel leaderboardViewModel = new LeaderboardViewModel();
 
     private final List<Leaderboard.LeaderboardEntry> leaderboardEntries
-            = leaderBoardVM.getLeaderboardEntries();
+            = leaderboardViewModel.getLeaderboardEntries();
 
 
 
