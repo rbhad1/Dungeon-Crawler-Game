@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -56,7 +55,7 @@ public class ConfigScreenViewModel extends BaseObservable {
     /**
      * Error text to show if player name isn't valid
      */
-    private String playerNameError = "";
+    private String playerNameError = null;
 
     /**
      * The difficulty with which to start the game
@@ -83,27 +82,19 @@ public class ConfigScreenViewModel extends BaseObservable {
         notifyPropertyChanged(BR.spriteIndex);
     }
 
-    //    /**
-//     * Constructor for the view model.
-//     * @param activity An active {@link ConfigScreenActivity}
-//     */
-//    public ConfigScreenViewModel(ConfigScreenActivity activity) {
-//        this.activity = activity;
-//    }
-
     /**
      * Function to validate whether what the user has selected can be used to start the game
      */
     public void refreshErrorRelatedFields() {
 
-        boolean playerNameValid = !playerNameValid(playerName);
-        boolean playerNameLength = !playerNameLength(playerName);
+        boolean playerNameValid = playerNameValid(playerName);
+        boolean playerNameLength = playerNameLength(playerName);
         if (!playerNameValid) {
             playerNameError = "Player name must start with a letter or number.";
         } else if (!playerNameLength) {
             playerNameError = "Player name must be 10 or fewer characters.";
         } else {
-            playerNameError = "";
+            playerNameError = null;
         }
 
         boolean difficultyValid = difficulty != null;
@@ -155,16 +146,17 @@ public class ConfigScreenViewModel extends BaseObservable {
      * Listener for the difficulty selector buttons.
      * Updates the {@link #difficulty} variable based on the selected difficulty
      *
-     * @param group The radio group that was toggled
-     * @param checkedId The id of the specific element that was changed
+     * @param difficultyIndex An "index" starting from 1 representing difficulty selected
      */
     public void onDifficultyButtonClicked(int difficultyIndex) {
-        setDifficulty(Difficulty.values()[difficultyIndex-1]);
+        setDifficulty(Difficulty.values()[difficultyIndex - 1]);
     }
 
     /**
      * Listener for the legacy start game button.
      * It is assumed that if this button was pressed, the config params must have been valid
+     *
+     * @param v The button that was pressed, as a View element
      */
     public void onStartGameButtonClicked(View v) {
         Game.createNewGame(difficulty);
@@ -179,6 +171,8 @@ public class ConfigScreenViewModel extends BaseObservable {
     /**
      * Listener for the LibGdx start game button.
      * It is assumed that if this button was pressed, the config params must have been valid
+     *
+     * @param v The button that was pressed, as a View element
      */
     public void onStartGameButtonGdxClicked(View v) {
         Game.createNewGame(difficulty);
