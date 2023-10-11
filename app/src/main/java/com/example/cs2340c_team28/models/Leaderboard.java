@@ -50,6 +50,13 @@ public class Leaderboard {
     }
 
     /**
+     * Setter for the latest attempt
+     */
+    public void setLatestAttempt(LeaderboardEntry latestAttempt) {
+        this.latestAttempt = latestAttempt;
+    }
+
+    /**
      * Class representing an individual entry in the leaderboard
      */
     public static class LeaderboardEntry implements Comparable<LeaderboardEntry> {
