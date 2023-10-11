@@ -16,20 +16,20 @@ public class ConfigTests {
     @Test
     public void playerNameWhiteSpace() {
         String name = new String("   ");
-        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertFalse(configScreenViewModel.playerNameValid(name));
     }
     @Test
     public void playerNameNull() {
         String name = new String();
-        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertFalse(configScreenViewModel.playerNameValid(name));
     }
 
     @Test
     public void playerNameInvalidCharacter() {
         String name = new String(" \\ $%#$  ");
-        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertFalse(configScreenViewModel.playerNameValid(name));
     }
 }
