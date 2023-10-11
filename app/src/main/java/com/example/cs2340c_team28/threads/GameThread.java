@@ -1,16 +1,12 @@
 package com.example.cs2340c_team28.threads;
 
-import android.app.Activity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.activities.TiledView;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.Leaderboard;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
 
@@ -105,11 +101,13 @@ public class GameThread extends com.badlogic.gdx.Game {
 
     /**
      * Getter for activity
+     * @return this activity object
      */
 
     public LibGdxActivity getActivity() {
         return this.activity;
     }
+
 
     public void endGame() {
         new LeaderBoardVM().addNewEntry(

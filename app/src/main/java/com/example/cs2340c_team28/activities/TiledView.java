@@ -1,9 +1,5 @@
 package com.example.cs2340c_team28.activities;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
-import android.app.Activity;
-import android.content.Intent;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.threads.GameThread;
-import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
 
 public class TiledView implements Screen {
     /**
