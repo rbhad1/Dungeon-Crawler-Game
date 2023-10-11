@@ -1,7 +1,14 @@
 package com.example.cs2340c_team28.viewmodels;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioGroup;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 
 import com.example.cs2340c_team28.activities.ConfigScreenActivity;
 import com.example.cs2340c_team28.models.Difficulty;
@@ -11,56 +18,108 @@ import com.example.cs2340c_team28.models.Player;
 /**
  * View model for the game configuration screen.
  */
-public class ConfigScreenViewModel {
+public class ConfigScreenViewModel extends BaseObservable {
 
-    private final ConfigScreenActivity activity;
+    private static final String TAG = ConfigScreenViewModel.class.getName();
+
+    /**
+     * Represents whether or not the game can start
+     */
+    private boolean gameCanStart = false;
+
+    @Bindable public boolean isGameCanStart() {
+        return gameCanStart;
+    }
+
+    private void setGameCanStart(boolean gameCanStart) {
+        this.gameCanStart = gameCanStart;
+        notifyPropertyChanged(BR.gameCanStart);
+    }
 
     /**
      * The name entered by the player. This may or may not be valid.
      */
     private String playerName = "";
 
+    @Bindable public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        if (!this.playerName.equals(playerName)) {
+            this.playerName = playerName;
+            refreshErrorRelatedFields();
+            Log.i(TAG, "setPlayerNameData: " + playerName);
+        }
+    }
+
+    /**
+     * Error text to show if player name isn't valid
+     */
+    private String playerNameError = "";
+
     /**
      * The difficulty with which to start the game
      */
     private Difficulty difficulty;
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+        refreshErrorRelatedFields();
+    }
 
     /**
      * The index of the sprite the player wants to use
      */
     private int spriteIndex = 1;
 
-    /**
-     * Constructor for the view model.
-     * @param activity An active {@link ConfigScreenActivity}
-     */
-    public ConfigScreenViewModel(ConfigScreenActivity activity) {
-        this.activity = activity;
+    @Bindable
+    public int getSpriteIndex() {
+        return spriteIndex;
     }
+
+    private void setSpriteIndex(int spriteIndex) {
+        this.spriteIndex = spriteIndex;
+        notifyPropertyChanged(BR.spriteIndex);
+    }
+
+    //    /**
+//     * Constructor for the view model.
+//     * @param activity An active {@link ConfigScreenActivity}
+//     */
+//    public ConfigScreenViewModel(ConfigScreenActivity activity) {
+//        this.activity = activity;
+//    }
 
     /**
      * Function to validate whether what the user has selected can be used to start the game
      */
-    public void refreshViewsWithConfigState() {
+    public void refreshErrorRelatedFields() {
 
-        boolean playerNameValid = playerNameValid(playerName);
+        boolean playerNameValid = !playerNameValid(playerName);
+        boolean playerNameLength = !playerNameLength(playerName);
         if (!playerNameValid) {
-            activity.getPlayerNameEditText().setError(
-                    "Player name must start with a letter or number ");
-        }
-        boolean playerNameLength = playerNameLength(playerName);
-        if (!playerNameLength) {
-            activity.getPlayerNameEditText().setError(
-                    "Player name must be 10 or fewer characters ");
+            playerNameError = "Player name must start with a letter or number.";
+        } else if (!playerNameLength) {
+            playerNameError = "Player name must be 10 or fewer characters.";
+        } else {
+            playerNameError = "";
         }
 
         boolean difficultyValid = difficulty != null;
 
-        boolean canStart = playerNameValid && difficultyValid && playerNameLength;
+        setGameCanStart(playerNameValid && playerNameLength && difficultyValid);
 
-        activity.getStartHint().setVisibility(canStart ? View.INVISIBLE : View.VISIBLE);
-        activity.getStartGameButton().setEnabled(canStart);
-        activity.getStartGameGdxButton().setEnabled(canStart);
+    }
+
+    /**
+     * Called after the player name is entered to update the error message (if any)
+     *
+     * @param e EditText object to potentially set error on
+     */
+    public void updatePlayerNameEditText(EditText e) {
+        Log.v(TAG, "updatePlayerNameEditText(...) called");
+        e.setError(playerNameError);
     }
 
     /**
@@ -82,32 +141,14 @@ public class ConfigScreenViewModel {
     }
 
     /**
-     * Set the player name to the value in the textbox
-     * @param newText The inputted name by the player
-     */
-    public void playerNameTextChanged(String newText) {
-        playerName = newText;
-        refreshViewsWithConfigState();
-    }
-
-    /**
      * Handler for the sprite selector button click.
      * Updates the {@link #spriteIndex} variable based on the selected button.
      * Sets sprite ImageView opacity and button enable/disable flags.
      *
-     * @param v The view object representing the sprite button that was clicked
+     * @param i The index of the sprite button that was clicked
      */
-    public void onSpriteButtonClicked(View v) {
-        for (int i = 0; i < activity.getSpriteButtons().length; i++) {
-            boolean isSelectedSprite = activity.getSpriteButtons()[i].getId() == v.getId();
-
-            if (isSelectedSprite) {
-                spriteIndex = i + 1;
-            }
-
-            activity.getSpriteButtons()[i].setEnabled(!isSelectedSprite);
-            activity.getSpriteViews()[i].setAlpha(isSelectedSprite ? 1.0f : 0.2f);
-        }
+    public void onSpriteButtonClicked(int i) {
+        this.setSpriteIndex(i);
     }
 
     /**
@@ -117,31 +158,36 @@ public class ConfigScreenViewModel {
      * @param group The radio group that was toggled
      * @param checkedId The id of the specific element that was changed
      */
-    public void onDifficultyButtonClicked(RadioGroup group, int checkedId) {
-        View radioButton = group.findViewById(checkedId);
-        int index = group.indexOfChild(radioButton);
-        difficulty = Difficulty.values()[index];
-        refreshViewsWithConfigState();
+    public void onDifficultyButtonClicked(int difficultyIndex) {
+        setDifficulty(Difficulty.values()[difficultyIndex-1]);
     }
 
     /**
      * Listener for the legacy start game button.
      * It is assumed that if this button was pressed, the config params must have been valid
      */
-    public void onStartGameButtonClicked() {
+    public void onStartGameButtonClicked(View v) {
         Game.createNewGame(difficulty);
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
-        activity.openGameActivity();
+
+        Context context = v.getContext();
+        if (context instanceof ConfigScreenActivity) {
+            ((ConfigScreenActivity) context).openGameActivity();
+        }
     }
 
     /**
      * Listener for the LibGdx start game button.
      * It is assumed that if this button was pressed, the config params must have been valid
      */
-    public void onStartGameButtonGdxClicked() {
+    public void onStartGameButtonGdxClicked(View v) {
         Game.createNewGame(difficulty);
         Player.createNewPlayer(playerName, difficulty, spriteIndex);
-        activity.openGameGdxActivity();
+
+        Context context = v.getContext();
+        if (context instanceof ConfigScreenActivity) {
+            ((ConfigScreenActivity) context).openGameActivity();
+        }
     }
 
 }

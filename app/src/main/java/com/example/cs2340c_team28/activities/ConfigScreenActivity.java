@@ -1,6 +1,8 @@
 package com.example.cs2340c_team28.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
+import com.example.cs2340c_team28.databinding.ActivityConfigScreenBinding;
 import com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel;
 
 /**
@@ -56,6 +59,11 @@ public class ConfigScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_screen);
 
+        ConfigScreenViewModel viewModel = new ConfigScreenViewModel();
+        ActivityConfigScreenBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_config_screen);
+        binding.setViewModel(viewModel);
+
         // Get view elements
         this.playerNameEditText = findViewById(R.id.playerNameEditText);
         this.radioGroup = findViewById(R.id.radioGroup);
@@ -73,24 +81,22 @@ public class ConfigScreenActivity extends AppCompatActivity {
         spriteButtons = new Button[]{spriteButton1, spriteButton2, spriteButton3};
         spriteViews = new ImageView[]{spriteView1, spriteView2, spriteView3};
 
-        viewModel = new ConfigScreenViewModel(this);
-
-        viewModel.refreshViewsWithConfigState();
+        this.viewModel = new ConfigScreenViewModel();
 
         // Listener for player name input
         playerNameEditText.addTextChangedListener(onPlayerNameTextChange);
 
         // Listener for difficulty select
-        radioGroup.setOnCheckedChangeListener(viewModel::onDifficultyButtonClicked);
+//        radioGroup.setOnCheckedChangeListener(viewModel::onDifficultyButtonClicked);
 
         // Listener for sprite select
         for (Button button: spriteButtons) {
-            button.setOnClickListener(viewModel::onSpriteButtonClicked);
+//            button.setOnClickListener(viewModel::onSpriteButtonClicked);
         }
 
         // Listener for start game select
-        startGameButton.setOnClickListener(v -> viewModel.onStartGameButtonClicked());
-        startGameButtonGdx.setOnClickListener(v -> viewModel.onStartGameButtonGdxClicked());
+//        startGameButton.setOnClickListener(v -> this.viewModel.onStartGameButtonClicked());
+//        startGameButtonGdx.setOnClickListener(v -> this.viewModel.onStartGameButtonGdxClicked());
     }
 
     /**
@@ -110,7 +116,7 @@ public class ConfigScreenActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            viewModel.playerNameTextChanged(s.toString());
+//            viewModel.playerNameTextChanged(s.toString());
         }
     };
 
