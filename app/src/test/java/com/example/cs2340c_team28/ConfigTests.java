@@ -32,4 +32,16 @@ public class ConfigTests {
         ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
         assertFalse(configScreenViewModel.playerNameValid(name));
     }
+    @Test
+    public void playerNameTooLong() {
+        String name = new String("mmmmmmmmmmmm");
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        assertFalse(configScreenViewModel.playerNameLength(name));
+    }
+    @Test
+    public void playerNameShort() {
+        String name = new String("mmmmmm");
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel(null);
+        assertTrue(configScreenViewModel.playerNameLength(name));
+    }
 }
