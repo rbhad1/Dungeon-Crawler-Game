@@ -1,11 +1,20 @@
 package com.example.cs2340c_team28.threads;
 
+import android.app.Activity;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.example.cs2340c_team28.R;
+import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.activities.TiledView;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.Leaderboard;
 import com.example.cs2340c_team28.models.Player;
+import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
+
+import java.util.Date;
 
 public class GameThread extends com.badlogic.gdx.Game {
     /**
@@ -23,12 +32,18 @@ public class GameThread extends com.badlogic.gdx.Game {
      */
     private SpriteBatch batch;
 
+    private LibGdxActivity activity;
+
+    public GameThread(LibGdxActivity activity) {
+        this.activity = activity;
+    }
+
     /**
      * Loads images and handles how often the game renders
      */
     @Override
     public void create() {
-        setScreen(new TiledView());
+        setScreen(new TiledView(this));
         int spriteId = Player.getUniquePlayerInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {
@@ -87,4 +102,22 @@ public class GameThread extends com.badlogic.gdx.Game {
         playerImage.dispose();
         batch.dispose();
     }
+
+    /**
+     * Getter for activity
+     */
+
+    public LibGdxActivity getActivity() {
+        return this.activity;
+    }
+
+    public void endGame() {
+        new LeaderBoardVM().addNewEntry(
+                Player.getUniquePlayerInstance().getName(),
+                game.getScore(),
+                new Date());
+        activity.navigateToEndGame();
+
+    }
+
 }
