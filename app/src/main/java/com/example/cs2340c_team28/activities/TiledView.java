@@ -108,7 +108,7 @@ public class TiledView implements Screen {
                 button1.remove();
             }
         });
-        // button to go to forest
+        // button to go to water
         button2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -119,6 +119,7 @@ public class TiledView implements Screen {
                 button2.remove();
             }
         });
+        //button to go to forest
         button3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
