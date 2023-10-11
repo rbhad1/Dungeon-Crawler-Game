@@ -32,7 +32,16 @@ public class LibGdxActivity extends AndroidApplication {
             }
         });
 
-        GameThread gameThread = new GameThread();
+        GameThread gameThread = new GameThread(this);
         initialize(gameThread);
+
+
     }
+
+    public void navigateToEndGame() {
+        Intent intent = new Intent(this, LeaderboardV.class);
+        startActivity(intent);
+    }
+
+
 }
