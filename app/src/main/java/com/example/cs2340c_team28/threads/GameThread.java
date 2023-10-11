@@ -44,8 +44,12 @@ public class GameThread extends com.badlogic.gdx.Game {
         }
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
-        Gdx.graphics.setContinuousRendering(false);
+        Gdx.graphics.setContinuousRendering(true);
         Gdx.graphics.requestRendering();
+
+        game.setScore(Game.MAX_SCORE);
+        game.setTime(0.0);
+        game.setScoreTime(System.currentTimeMillis());
     }
 
     /**

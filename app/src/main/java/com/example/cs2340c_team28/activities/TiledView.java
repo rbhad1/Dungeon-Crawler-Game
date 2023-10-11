@@ -44,9 +44,6 @@ public class TiledView implements Screen {
         Gdx.input.setInputProcessor(stage);
         int row_height = Gdx.graphics.getHeight() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
-        Game.getUniqueGameInstance().setScore(Game.getMaxScore());
-        Game.getUniqueGameInstance().setTime(Game.getUniqueGameInstance().getStartTime());
-        Game.getUniqueGameInstance().setScoreTime(Game.getUniqueGameInstance().getStartTime());
         //creating buttons
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -133,13 +130,6 @@ public class TiledView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //updating time score
-        Game.getUniqueGameInstance().setTime(Game.getUniqueGameInstance().getTime() + Gdx.graphics.getDeltaTime());
-
-        if(Game.getUniqueGameInstance().getTime()>=1 + Game.getUniqueGameInstance().getScoreTime()){// 1 second passed since score time
-            Game.getUniqueGameInstance().setScoreTime((long) Game.getUniqueGameInstance().getTime()); // set score time to time
-            Game.getUniqueGameInstance().setScore(Game.getUniqueGameInstance().getScore()-1);
-        }
-
         text.setText(Game.getUniqueGameInstance().getScore());
 
         stage.draw();
