@@ -31,20 +31,24 @@ public class LeaderBoardVM {
         Leaderboard.LeaderboardEntry newEntry =
                 new Leaderboard.LeaderboardEntry(playerName, score, date);
 
-        // Add the new entry to the list
-        leaderboard.getLeaderboardEntries().add(newEntry);
+        leaderboard.setLatestAttempt(newEntry);
 
-        // Sort the entries in descending order
-        leaderboard.getLeaderboardEntries().sort(Collections.reverseOrder());
-
-        // Trim the list to the maximum allowed entries
-        if (leaderboard.getLeaderboardEntries().size() > Leaderboard.MAX_ENTRIES) {
-            leaderboard.getLeaderboardEntries().subList(Leaderboard.MAX_ENTRIES,
-                    leaderboard.getLeaderboardEntries().size()).clear();
+        // See if we're at capacity already
+        if (leaderboard.getLeaderboardEntries().size() == Leaderboard.MAX_ENTRIES) {
+            // Compare new element to the "lowest" element on the existing leaderboard
+            if (leaderboard.getLeaderboardEntries()
+                    .get(leaderboard.getLeaderboardEntries().size() - 1).compareTo(newEntry) < 0) {
+                // Remove the last entry to make more space
+                leaderboard.getLeaderboardEntries().remove(Leaderboard.MAX_ENTRIES - 1);
+            } else {
+                // We're at capacity, can't add another element
+                return false;
+            }
         }
 
-        // Set the latest attempt to the new entry
-        leaderboard.setLatestAttempt(newEntry);
+        // Add the new entry to the list and sort
+        leaderboard.getLeaderboardEntries().add(newEntry);
+        leaderboard.getLeaderboardEntries().sort(Collections.reverseOrder());
 
         // Return true to indicate that we did add a new entry
         return true;
