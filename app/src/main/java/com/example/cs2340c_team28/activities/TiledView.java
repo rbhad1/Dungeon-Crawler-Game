@@ -29,22 +29,15 @@ public class TiledView implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private Viewport viewport;
-    private Skin skin;
     private TextButton button1;
     private TextButton button2;
     private TextButton button3;
     private Stage stage;
-    TextButton.TextButtonStyle textButtonStyle;
     Label text;
     Label playerName;
     Label playerHealth;
     Label difficulty;
     Label.LabelStyle textStyle;
-    BitmapFont font = new BitmapFont();
-    float timeState = 0f;
-    private int scoreTime = 0;
-    private long startTime = Game.getUniqueGameInstance().getStartTime();
 
     public void create() {
         stage = new Stage(new ScreenViewport());
@@ -52,6 +45,8 @@ public class TiledView implements Screen {
         int row_height = Gdx.graphics.getHeight() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
         Game.getUniqueGameInstance().setScore(Game.getMaxScore());
+        Game.getUniqueGameInstance().setTime(Game.getUniqueGameInstance().getStartTime());
+        Game.getUniqueGameInstance().setScoreTime(Game.getUniqueGameInstance().getStartTime());
         //creating buttons
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -138,13 +133,13 @@ public class TiledView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //updating time score
-        timeState+=Gdx.graphics.getDeltaTime();
-        if(timeState>=1f){// 1 second just passed
-            timeState=0f; // reset our timer
-            Game.getUniqueGameInstance().setScore(Game.getUniqueGameInstance().getScore()-1); // call the function that you want
+        Game.getUniqueGameInstance().setTime(Game.getUniqueGameInstance().getTime() + Gdx.graphics.getDeltaTime());
+
+        if(Game.getUniqueGameInstance().getTime()>=1 + Game.getUniqueGameInstance().getScoreTime()){// 1 second passed since score time
+            Game.getUniqueGameInstance().setScoreTime((long) Game.getUniqueGameInstance().getTime()); // set score time to time
+            Game.getUniqueGameInstance().setScore(Game.getUniqueGameInstance().getScore()-1);
         }
 
-        //score = Game.getUniqueGameInstance().getScore();
         text.setText(Game.getUniqueGameInstance().getScore());
 
         stage.draw();
