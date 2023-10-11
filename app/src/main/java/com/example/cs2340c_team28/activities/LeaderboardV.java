@@ -2,7 +2,9 @@ package com.example.cs2340c_team28.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
@@ -60,6 +62,17 @@ public class LeaderboardV extends Activity {
             entryOne.setText("Start playing to view the leaderboard!");
             break;
         }
+
+        // TODO update last attempt
+        TextView lastAttempt = findViewById(R.id.latestAttempt);
+
+        // click on reset button and navigate to main screen
+        Button restartButton = findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LeaderboardV.this, MainActivity.class);
+            startActivity(intent);
+        });
+
     }
 
 }

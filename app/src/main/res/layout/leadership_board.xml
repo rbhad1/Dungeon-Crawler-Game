@@ -26,38 +26,36 @@
         <TextView
             android:id="@+id/entry1"
             android:layout_width="376dp"
-            android:layout_height="79dp"
-            android:text="1) " />
+            android:layout_height="79dp"/>
 
         <TextView
             android:id="@+id/entry2"
             android:layout_width="376dp"
-            android:layout_height="80dp"
-            android:text="2)" />
+            android:layout_height="80dp"/>
 
         <TextView
             android:id="@+id/entry3"
             android:layout_width="376dp"
-            android:layout_height="81dp"
-            android:text="3)" />
+            android:layout_height="81dp"/>
 
         <TextView
             android:id="@+id/entry4"
             android:layout_width="378dp"
-            android:layout_height="92dp"
-            android:text="4)" />
+            android:layout_height="92dp"/>
 
         <TextView
             android:id="@+id/entry5"
             android:layout_width="379dp"
-            android:layout_height="153dp"
-            android:text="5)" />
-
+            android:layout_height="153dp"/>
         <TextView
-            android:id="@+id/latestAttempt"
+            android:id="@+id/latestAttemptTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="LATEST ATTEMPT:" />
+        <TextView
+            android:id="@+id/latestAttempt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:id="@+id/restartButton"
