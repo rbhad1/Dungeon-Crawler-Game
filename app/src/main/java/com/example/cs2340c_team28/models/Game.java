@@ -12,7 +12,7 @@ public class Game {
     /**
      * The maximum score the player can have
      */
-    private static final int MAX_SCORE = 1000;
+    public static final int MAX_SCORE = 1000;
 
     /**
      * The player's score based on their performance in the game

@@ -29,30 +29,21 @@ public class TiledView implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private Viewport viewport;
-    private Skin skin;
     private TextButton button1;
     private TextButton button2;
     private TextButton button3;
     private Stage stage;
-    TextButton.TextButtonStyle textButtonStyle;
     Label text;
     Label playerName;
     Label playerHealth;
     Label difficulty;
     Label.LabelStyle textStyle;
-    BitmapFont font = new BitmapFont();
-    private int score;
-    float timeState = 0f;
 
     public void create() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         int row_height = Gdx.graphics.getHeight() / 12;
         int col_width = Gdx.graphics.getWidth() / 12;
-
-        score = 0;
-
         //creating buttons
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -108,6 +99,29 @@ public class TiledView implements Screen {
         });
         Gdx.input.setInputProcessor(stage);
 
+        // scoring text
+        textStyle = new Label.LabelStyle();
+        textStyle.font = new BitmapFont();
+        textStyle.fontColor = Color.WHITE;
+
+        text = new Label("Score: " + Game.getUniqueGameInstance().getScore(), textStyle);
+        text.setPosition(col_width*4,Gdx.graphics.getHeight() - 30);
+        text.setFontScale(4f);
+        stage.addActor(text);
+
+        playerName = new Label(Player.getUniquePlayerInstance().getName(), textStyle);
+        playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
+                + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
+        difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
+        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 30);
+        playerName.setFontScale(4f);
+        playerHealth.setPosition(col_width*4,Gdx.graphics.getHeight() - 80);
+        playerHealth.setFontScale(4f);
+        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 80);
+        difficulty.setFontScale(4f);
+        stage.addActor(playerName);
+        stage.addActor(playerHealth);
+        stage.addActor(difficulty);
 
     }
     @Override
@@ -115,7 +129,8 @@ public class TiledView implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        //updating time score
+        text.setText(Game.getUniqueGameInstance().getScore());
 
         stage.draw();
         stage.act();
