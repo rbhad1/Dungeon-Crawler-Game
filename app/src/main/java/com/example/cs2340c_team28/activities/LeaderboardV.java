@@ -22,6 +22,8 @@ public class LeaderboardV extends Activity {
 
 
 
+
+
     @SuppressLint("SetTextI18n")
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -66,8 +68,14 @@ public class LeaderboardV extends Activity {
                     + entry5.getScore()));
         }
 
-        // TODO update last attempt
-        TextView lastAttempt = findViewById(R.id.latestAttempt);
+        Leaderboard.LeaderboardEntry latestAttempt = leaderBoardVM.getLatestAttempt();
+        if (latestAttempt != null) {
+            TextView latestAttemptText = findViewById(R.id.latestAttempt);
+            latestAttemptText
+                    .setText(String.format(latestAttempt.getDate() + "\t"
+                    + latestAttempt.getPlayerName() + latestAttempt.getScore()));
+        }
+
 
         // click on reset button and navigate to main screen
         Button restartButton = findViewById(R.id.restartButton);

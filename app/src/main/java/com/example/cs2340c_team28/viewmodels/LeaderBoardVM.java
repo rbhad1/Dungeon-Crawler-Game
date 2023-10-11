@@ -13,6 +13,11 @@ public class LeaderBoardVM {
     public List<Leaderboard.LeaderboardEntry> getLeaderboardEntries() {
         return leaderboard.getLeaderboardEntries();
     }
+
+     public Leaderboard.LeaderboardEntry getLatestAttempt() {
+        return leaderboard.getLatestAttempt();
+    }
+
     /**
      * Add a new entry to the leaderboard
      *
@@ -25,7 +30,6 @@ public class LeaderBoardVM {
 
         Leaderboard.LeaderboardEntry newEntry =
                 new Leaderboard.LeaderboardEntry(playerName, score, date);
-
 
         // See if we're at capacity already
         if (leaderboard.getLeaderboardEntries().size() == Leaderboard.MAX_ENTRIES) {
@@ -43,6 +47,7 @@ public class LeaderBoardVM {
         // Add the new entry to the list and sort
         leaderboard.getLeaderboardEntries().add(newEntry);
         leaderboard.getLeaderboardEntries().sort(Collections.reverseOrder());
+        leaderboard.getLeaderboardEntries().add(newEntry);
 
         // Return true to indicate that we did add a new entry
         return true;
