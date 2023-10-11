@@ -1,18 +1,17 @@
-package com.example.cs2340c_team28.threads;
+package com.example.cs2340c_team28.viewmodels;
 
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
-import com.example.cs2340c_team28.activities.TiledView;
+import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
-import com.example.cs2340c_team28.viewmodels.LeaderBoardVM;
 
 import java.util.Date;
 
-public class GameThread extends com.badlogic.gdx.Game {
+public class GameViewModel extends com.badlogic.gdx.Game {
     /**
      * Current game instance
      */
@@ -30,7 +29,7 @@ public class GameThread extends com.badlogic.gdx.Game {
 
     private LibGdxActivity activity;
 
-    public GameThread(LibGdxActivity activity) {
+    public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
     }
 
@@ -91,7 +90,7 @@ public class GameThread extends com.badlogic.gdx.Game {
     }
 
     /**
-     * Disposes of the native assets in GameThread
+     * Disposes of the native assets in GameViewModel
      */
     @Override
     public void dispose() {
@@ -110,12 +109,11 @@ public class GameThread extends com.badlogic.gdx.Game {
 
 
     public void endGame() {
-        new LeaderBoardVM().addNewEntry(
+        new LeaderboardViewModel().addNewEntry(
                 Player.getUniquePlayerInstance().getName(),
                 game.getScore(),
                 new Date());
         activity.navigateToEndGame();
-
     }
 
 }

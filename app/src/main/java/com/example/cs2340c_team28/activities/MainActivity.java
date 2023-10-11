@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         leaderButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, LeaderboardV.class);
+            Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
             startActivity(intent);
         });
 
