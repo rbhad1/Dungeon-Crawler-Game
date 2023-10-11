@@ -19,44 +19,82 @@ import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 
 public class TiledView implements Screen {
-
+    /**
+     * Tile map for background
+     */
     private TiledMap map;
+    /**
+     * Renderer for the tilemap
+     */
     private OrthogonalTiledMapRenderer renderer;
+    /**
+     * Camera that allows us to view the screen correctly
+     */
     private OrthographicCamera camera;
+    /**
+     * Button to open dungeon map
+     */
     private TextButton button1;
+    /**
+     * Button to open water map
+     */
     private TextButton button2;
+    /**
+     * Button to return to forest
+     */
     private TextButton button3;
+    /**
+     * Stage for the text and buttons
+     */
     private Stage stage;
-    Label text;
-    Label playerName;
-    Label playerHealth;
-    Label difficulty;
-    Label.LabelStyle textStyle;
+    /**
+     * Text to display health, difficulty, name, score
+     */
+    private Label text;
+    /**
+     * The player's name
+     */
+    private Label playerName;
+    /**
+     * The player's health
+     */
+    private Label playerHealth;
+    /**
+     * The difficulty level
+     */
+    private Label difficulty;
+    /**
+     * The text styling for the Text and buttons
+     */
+    private Label.LabelStyle textStyle;
 
+    /**
+     * Creates the stage with the buttons and text fields
+     */
     public void create() {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        int row_height = Gdx.graphics.getHeight() / 12;
-        int col_width = Gdx.graphics.getWidth() / 12;
+        int rowHeight = Gdx.graphics.getHeight() / 12;
+        int colWidth = Gdx.graphics.getWidth() / 12;
         //creating buttons
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
         button1 = new TextButton("To Dungeon", textButtonStyle);
-        button1.setSize(col_width,row_height);
-        button1.setPosition(col_width*9,Gdx.graphics.getHeight()-300);
+        button1.setSize(colWidth, rowHeight);
+        button1.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
         button1.setTransform(true);
         button1.scaleBy(2f);
         stage.addActor(button1);
         button2 = new TextButton("To Water", textButtonStyle);
-        button2.setSize(col_width,row_height);
-        button2.setPosition(col_width*9,Gdx.graphics.getHeight()-300);
+        button2.setSize(colWidth, rowHeight);
+        button2.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
         button2.setTransform(true);
         button2.scaleBy(2f);
         button3 = new TextButton("To Forest", textButtonStyle);
-        button3.setSize(col_width,row_height);
-        button3.setPosition(col_width*9,Gdx.graphics.getHeight()-300);
+        button3.setSize(colWidth, rowHeight);
+        button3.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
         button3.setTransform(true);
         button3.scaleBy(2f);
         // button to go to dungeon
@@ -99,7 +137,7 @@ public class TiledView implements Screen {
         textStyle.fontColor = Color.WHITE;
 
         text = new Label("Score: " + Game.getUniqueGameInstance().getScore(), textStyle);
-        text.setPosition(col_width*7,Gdx.graphics.getHeight() - 30);
+        text.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 30);
         text.setFontScale(4f);
         stage.addActor(text);
 
@@ -107,11 +145,11 @@ public class TiledView implements Screen {
         playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
                 + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
         difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
-        playerName.setPosition(col_width,Gdx.graphics.getHeight() - 30);
+        playerName.setPosition(colWidth, Gdx.graphics.getHeight() - 30);
         playerName.setFontScale(4f);
-        playerHealth.setPosition(col_width*7,Gdx.graphics.getHeight() - 80);
+        playerHealth.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 80);
         playerHealth.setFontScale(4f);
-        difficulty.setPosition(col_width,Gdx.graphics.getHeight() - 80);
+        difficulty.setPosition(colWidth, Gdx.graphics.getHeight() - 80);
         difficulty.setFontScale(4f);
         stage.addActor(playerName);
         stage.addActor(playerHealth);
@@ -131,8 +169,8 @@ public class TiledView implements Screen {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera(w/2, h/2);
-        camera.setToOrtho(true, w/2, h/2);
+        camera = new OrthographicCamera(w / 2, h / 2);
+        camera.setToOrtho(true, w / 2, h / 2);
 
         camera.position.set(270, 500, 0);
 
@@ -141,7 +179,7 @@ public class TiledView implements Screen {
         renderer.render();
 
     }
-    // TODO Fix viewport so that image takes up entire screen @Elijah
+
     @Override
     public void resize(int width, int height) {
         camera.viewportHeight = height;
@@ -154,7 +192,6 @@ public class TiledView implements Screen {
         map = new TmxMapLoader().load("forest-map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-
     }
 
     @Override
