@@ -49,7 +49,6 @@ public class ConfigScreenViewModel extends BaseObservable {
         if (!this.playerName.equals(playerName)) {
             this.playerName = playerName;
             refreshErrorRelatedFields();
-            Log.i(TAG, "setPlayerNameData: " + playerName);
         }
     }
 
@@ -120,7 +119,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      * @return Whether or not the inputted player name is valid
      */
     public boolean playerNameValid(String playerName) {
-        return playerName != null && playerName.matches("[:alnum:].*");
+        return playerName != null && playerName.matches("[a-zA-Z0-9].*");
     }
 
     /**
