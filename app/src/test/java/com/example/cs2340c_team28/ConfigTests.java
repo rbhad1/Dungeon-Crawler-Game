@@ -1,12 +1,14 @@
 package com.example.cs2340c_team28;
 
+import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
 import org.junit.Test;
 
-
-
 import static org.junit.Assert.*;
+
+import android.widget.RadioGroup;
 
 /**
  * Unit tests for the config screen
@@ -44,4 +46,20 @@ public class ConfigTests {
         ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
         assertTrue(configScreenViewModel.playerNameLength(name));
     }
+
+    @Test
+    public void testGameCannotStart() {
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+        assertFalse(configScreenViewModel.isGameCanStart());
+    }
+
+    @Test
+    public void testGameCanStart() {
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+        configScreenViewModel.setPlayerName("Player");
+        configScreenViewModel.setDifficulty(Difficulty.EASY);
+        assertTrue(configScreenViewModel.isGameCanStart());
+    }
+
+
 }
