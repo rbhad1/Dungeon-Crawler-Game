@@ -5,14 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.LeaderboardV">
+    tools:context=".activities.LeaderboardActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:orientation="vertical" >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/title"
@@ -20,55 +28,69 @@
             android:layout_height="wrap_content"
             android:text="Leaderboard"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
         <TextView
             android:id="@+id/entry1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="top"
-             />
+            android:gravity="top" />
+
         <TextView
             android:id="@+id/entry2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="top"
-             />
+            android:gravity="top" />
+
         <TextView
             android:id="@+id/entry3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="top"
-             />
+            android:gravity="top" />
+
         <TextView
             android:id="@+id/entry4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="top"
-             />
+            android:gravity="top" />
+
         <TextView
             android:id="@+id/entry5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
         <TextView
             android:id="@+id/latestAttemptTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="LATEST ATTEMPT:" />
+            android:text="LATEST ATTEMPT"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
         <TextView
             android:id="@+id/latestAttempt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Once you play a game, your latest attempt will be shown here!" />
 
         <Button
             android:id="@+id/restartButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Back to Main"
-             />
+            android:text="Return" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
