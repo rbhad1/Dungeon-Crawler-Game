@@ -68,7 +68,7 @@ public class LeaderboardActivity extends Activity {
                     + entry5.getScore()));
         }
 
-        Leaderboard.LeaderboardEntry latestAttempt = leaderBoardVM.getLatestAttempt();
+        Leaderboard.LeaderboardEntry latestAttempt = leaderboardViewModel.getLatestAttempt();
         if (latestAttempt != null) {
             TextView latestAttemptText = findViewById(R.id.latestAttempt);
             latestAttemptText
@@ -80,7 +80,7 @@ public class LeaderboardActivity extends Activity {
         // click on reset button and navigate to main screen
         Button restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LeaderboardV.this, MainActivity.class);
+            Intent intent = new Intent(LeaderboardActivity.this, MainActivity.class);
             startActivity(intent);
         });
 
