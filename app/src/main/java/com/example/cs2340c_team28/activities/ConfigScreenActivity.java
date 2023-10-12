@@ -47,10 +47,12 @@ public class ConfigScreenActivity extends AppCompatActivity {
     public void openGameActivity() {
         Intent intent = new Intent(ConfigScreenActivity.this, LegacyGameActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void openGameGdxActivity() {
         Intent intent = new Intent(ConfigScreenActivity.this, LibGdxActivity.class);
         startActivity(intent);
+        finish();
     }
 }

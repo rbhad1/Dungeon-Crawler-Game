@@ -232,9 +232,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Start (Legacy)"
+                            android:enabled="@{viewModel.gameCanStart}"
                             android:onClick="@{viewModel::onStartGameButtonClicked}"
-                            android:enabled="@{viewModel.gameCanStart}"/>
+                            android:text="Start (Legacy)"
+                            android:visibility="gone" />
 
                         <Space
                             android:layout_width="10dp"
@@ -245,9 +246,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Start (LibGDX)"
+                            android:enabled="@{viewModel.gameCanStart}"
                             android:onClick="@{viewModel::onStartGameButtonGdxClicked}"
-                            android:enabled="@{viewModel.gameCanStart}"/>
+                            android:text="Start Game" />
                     </LinearLayout>
 
                 </LinearLayout>
