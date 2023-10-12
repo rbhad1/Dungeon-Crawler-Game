@@ -61,5 +61,23 @@ public class ConfigTests {
         assertTrue(configScreenViewModel.isGameCanStart());
     }
 
+    @Test
+    public void playerNameValidNotDifficulty() {
+        String name = "Player";
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+        configScreenViewModel.setPlayerName(name);
+        assertTrue(configScreenViewModel.playerNameLength(name));
+        assertTrue(configScreenViewModel.playerNameValid(name));
+        assertFalse(configScreenViewModel.isGameCanStart());
+    }
 
+    @Test
+    public void difficultyValidNotPlayer() {
+        String name = "+Gamer123";
+        ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+        configScreenViewModel.setPlayerName(name);
+        assertTrue(configScreenViewModel.playerNameLength(name));
+        assertFalse(configScreenViewModel.playerNameValid(name));
+        assertFalse(configScreenViewModel.isGameCanStart());
+    }
 }
