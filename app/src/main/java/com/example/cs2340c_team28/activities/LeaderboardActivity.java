@@ -7,15 +7,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.badlogic.gdx.Gdx;
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.models.Leaderboard;
 import com.example.cs2340c_team28.viewmodels.LeaderboardViewModel;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Locale;
 

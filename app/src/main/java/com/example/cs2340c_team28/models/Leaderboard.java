@@ -51,6 +51,8 @@ public class Leaderboard {
 
     /**
      * Setter for the latest attempt
+     *
+     * @param latestAttempt The latest score attempt (from most recent game)
      */
     public void setLatestAttempt(LeaderboardEntry latestAttempt) {
         this.latestAttempt = latestAttempt;
