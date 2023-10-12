@@ -13,7 +13,7 @@ public class Leaderboard {
 
     private final List<LeaderboardEntry> leaderboardEntries;
 
-
+    private LeaderboardEntry latestAttempt;
 
     /**
      * Initialize the leaderboard. Private constructor
@@ -39,6 +39,21 @@ public class Leaderboard {
     public List<LeaderboardEntry> getLeaderboardEntries() {
         // Return a copied ArrayList so that other classes can't modify the original ArrayList
         return leaderboardEntries;
+    }
+
+    /**
+     * Get the latest attempt
+     * @return The Leaderboard entry of the latest attempt
+     */
+    public LeaderboardEntry getLatestAttempt() {
+        return latestAttempt;
+    }
+
+    /**
+     * Setter for the latest attempt
+     */
+    public void setLatestAttempt(LeaderboardEntry latestAttempt) {
+        this.latestAttempt = latestAttempt;
     }
 
     /**

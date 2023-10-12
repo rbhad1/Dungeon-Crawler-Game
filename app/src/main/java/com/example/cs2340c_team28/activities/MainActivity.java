@@ -31,13 +31,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-
         // clicked on end button
         exitButton.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             startActivity(intent);
         });
+
+
 
 
 

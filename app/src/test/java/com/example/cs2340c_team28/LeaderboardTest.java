@@ -70,7 +70,7 @@ public class LeaderboardTest {
      * Ensure that the leaderboard properly sorts scores that are added to it
      */
     @Test
-    public void leaderboardAdhersToSortedOrder() {
+    public void leaderboardAdheresToSortedOrder() {
         // Reset the leaderboard
         leaderboardVM.resetLeaderboard();
 

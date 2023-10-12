@@ -2,7 +2,9 @@ package com.example.cs2340c_team28.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
@@ -17,6 +19,8 @@ public class LeaderboardActivity extends Activity {
 
     private final List<Leaderboard.LeaderboardEntry> leaderboardEntries
             = leaderboardViewModel.getLeaderboardEntries();
+
+
 
 
 
@@ -63,6 +67,23 @@ public class LeaderboardActivity extends Activity {
             entryFive.setText(String.format(entry5.getDate() + "\t" + entry5.getPlayerName() + "\t"
                     + entry5.getScore()));
         }
+
+        Leaderboard.LeaderboardEntry latestAttempt = leaderboardViewModel.getLatestAttempt();
+        if (latestAttempt != null) {
+            TextView latestAttemptText = findViewById(R.id.latestAttempt);
+            latestAttemptText
+                    .setText(String.format(latestAttempt.getDate() + "\t"
+                    + latestAttempt.getPlayerName() + latestAttempt.getScore()));
+        }
+
+
+        // click on reset button and navigate to main screen
+        Button restartButton = findViewById(R.id.restartButton);
+        restartButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LeaderboardActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
     }
 
 }

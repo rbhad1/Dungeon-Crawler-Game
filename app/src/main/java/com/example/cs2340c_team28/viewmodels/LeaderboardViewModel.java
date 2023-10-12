@@ -13,6 +13,11 @@ public class LeaderboardViewModel {
     public List<Leaderboard.LeaderboardEntry> getLeaderboardEntries() {
         return leaderboard.getLeaderboardEntries();
     }
+
+     public Leaderboard.LeaderboardEntry getLatestAttempt() {
+        return leaderboard.getLatestAttempt();
+    }
+
     /**
      * Add a new entry to the leaderboard
      *
@@ -26,6 +31,7 @@ public class LeaderboardViewModel {
         Leaderboard.LeaderboardEntry newEntry =
                 new Leaderboard.LeaderboardEntry(playerName, score, date);
 
+        leaderboard.setLatestAttempt(newEntry);
 
         // See if we're at capacity already
         if (leaderboard.getLeaderboardEntries().size() == Leaderboard.MAX_ENTRIES) {
@@ -47,6 +53,7 @@ public class LeaderboardViewModel {
         // Return true to indicate that we did add a new entry
         return true;
     }
+
 
     /**
      * Remove all entries from the leaderboard.
