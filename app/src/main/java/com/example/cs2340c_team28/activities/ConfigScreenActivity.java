@@ -2,17 +2,9 @@ package com.example.cs2340c_team28.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
 import com.example.cs2340c_team28.databinding.ActivityConfigScreenBinding;

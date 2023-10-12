@@ -14,7 +14,7 @@ public class LeaderboardViewModel {
         return leaderboard.getLeaderboardEntries();
     }
 
-     public Leaderboard.LeaderboardEntry getLatestAttempt() {
+    public Leaderboard.LeaderboardEntry getLatestAttempt() {
         return leaderboard.getLatestAttempt();
     }
 
