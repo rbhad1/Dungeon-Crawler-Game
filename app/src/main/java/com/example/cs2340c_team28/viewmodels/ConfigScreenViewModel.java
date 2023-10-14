@@ -13,6 +13,7 @@ import androidx.databinding.library.baseAdapters.BR;
 import com.example.cs2340c_team28.activities.ConfigScreenActivity;
 import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.MovementStrategy;
 import com.example.cs2340c_team28.models.Player;
 
 /**
@@ -61,6 +62,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      * The difficulty with which to start the game
      */
     private Difficulty difficulty;
+    private MovementStrategy movementStrategy;
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
@@ -160,7 +162,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      */
     public void onStartGameButtonClicked(View v) {
         Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex);
+        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 0, 0);
 
         Context context = v.getContext();
         if (context instanceof ContextWrapper) {
@@ -179,7 +181,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      */
     public void onStartGameButtonGdxClicked(View v) {
         Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex);
+        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 0, 0);
 
         Context context = v.getContext();
         if (context instanceof ContextWrapper) {
