@@ -28,6 +28,7 @@ public class Player {
      *  avoids storing resource name in the data model
      */
     private final int spriteId;
+    private MovementStrategy movementStrategy;
 
     /**
      * Instantiate the player
@@ -35,22 +36,25 @@ public class Player {
      * @param spriteId Chosen sprite id
      * @param initialHp Player's starting hp
      */
-    private Player(String name, int spriteId, int initialHp) {
+    private Player(String name, int spriteId, int initialHp, MovementStrategy movementStrategy) {
         this.name = name;
         this.spriteId = spriteId;
         this.hp = initialHp;
         this.originalHp = initialHp;
+        this.movementStrategy = movementStrategy;
     }
 
     public static Player getUniquePlayerInstance() {
         return uniquePlayerInstance;
     }
 
-    public static void createNewPlayer(String name, Difficulty difficulty, int spriteId) {
+    public static void createNewPlayer(String name, Difficulty difficulty,
+                                       int spriteId, MovementStrategy movementStrategy) {
         uniquePlayerInstance = new Player(
                 name,
                 spriteId,
-                initialHp(difficulty)
+                initialHp(difficulty),
+                movementStrategy
         );
     }
 
@@ -102,6 +106,9 @@ public class Player {
         default: // corresponds to HARD
             return 50;
         }
+    }
+    public void setMovementStrategy(MovementStrategy movementStrategy) {
+        this.movementStrategy = movementStrategy;
     }
 
 }
