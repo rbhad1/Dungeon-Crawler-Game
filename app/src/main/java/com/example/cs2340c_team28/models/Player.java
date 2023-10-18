@@ -1,5 +1,7 @@
 package com.example.cs2340c_team28.models;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -31,6 +33,9 @@ public class Player {
     private MovementStrategy movementStrategy;
     private int x;
     private int y;
+    private boolean leftMove;
+    private boolean rightMove;
+    private static final String TAG = Player.class.getSimpleName();
 
     /**
      * Instantiate the player
@@ -129,5 +134,27 @@ public class Player {
     }
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setLeftMove(boolean t) {
+        if (rightMove && t) {
+            rightMove = false;
+        }
+        leftMove = t;
+    }
+    public void setRightMove(boolean t) {
+        if(leftMove && t) {
+            leftMove = false;
+        }
+        rightMove = t;
+    }
+    public void updateMovement() {
+        Log.d(TAG, String.format("leftmove: %s, rightmove %s", leftMove, rightMove));
+        if (leftMove) {
+            Player.getUniquePlayerInstance().setX(Player.getUniquePlayerInstance().getX() - 10);
+        }
+        if (rightMove) {
+            Player.getUniquePlayerInstance().setX(Player.getUniquePlayerInstance().getX() + 10);
+        }
     }
 }

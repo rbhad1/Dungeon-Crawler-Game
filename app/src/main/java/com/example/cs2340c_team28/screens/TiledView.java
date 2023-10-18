@@ -6,17 +6,22 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.example.cs2340c_team28.models.ConcreteMovement;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.MovementListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
@@ -71,6 +76,15 @@ public class TiledView implements Screen {
     private Label.LabelStyle textStyle;
 
     private GameViewModel gameViewModel;
+    /**
+     * Texture for the player sprite
+     */
+    private Texture playerImage;
+
+    /**
+     * Batch of sprites to be rendered
+     */
+    private SpriteBatch batch;
 
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
@@ -81,7 +95,9 @@ public class TiledView implements Screen {
      */
     public void create() {
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
+        MovementListener listener = new MovementListener();
+        listener.setMovementStrategy(new ConcreteMovement());
+        stage.addListener(listener);
         int rowHeight = Gdx.graphics.getHeight() / 12;
         int colWidth = Gdx.graphics.getWidth() / 12;
         //creating buttons
@@ -134,6 +150,9 @@ public class TiledView implements Screen {
                 gameViewModel.endGame();
             }
         });
+
+
+
         Gdx.input.setInputProcessor(stage);
 
         // scoring text
@@ -160,9 +179,26 @@ public class TiledView implements Screen {
         stage.addActor(playerHealth);
         stage.addActor(difficulty);
 
+        int spriteId = Player.getUniquePlayerInstance().getSpriteId();
+        String imageResource;
+        switch (spriteId) {
+            case 1:
+                imageResource = "person1.png";
+                break;
+            case 2:
+                imageResource = "person2.png";
+                break;
+            default:
+                imageResource = "person3.png";
+                break;
+        }
+        playerImage = new Texture(imageResource);
+        batch = new SpriteBatch();
+
     }
     @Override
     public void render(float delta) {
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -182,7 +218,11 @@ public class TiledView implements Screen {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-
+        Player.getUniquePlayerInstance().updateMovement();
+        batch.begin();
+        batch.draw(playerImage, Player.getUniquePlayerInstance().getX(),
+                Player.getUniquePlayerInstance().getY());
+        batch.end();
     }
 
     @Override
@@ -216,5 +256,4 @@ public class TiledView implements Screen {
         map.dispose();
         renderer.dispose();
     }
-
 }

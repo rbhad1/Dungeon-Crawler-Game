@@ -181,7 +181,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      */
     public void onStartGameButtonGdxClicked(View v) {
         Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 0, 0);
+        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 440, 600);
 
         Context context = v.getContext();
         if (context instanceof ContextWrapper) {

@@ -68,9 +68,6 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     @Override
     public void render() {
         super.render();
-        batch.begin();
-        batch.draw(playerImage, 450, 600);
-        batch.end();
         updateGameLogic();
     }
 
