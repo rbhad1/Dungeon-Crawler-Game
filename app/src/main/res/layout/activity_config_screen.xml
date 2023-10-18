@@ -1,228 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ConfigScreenActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:context=".activities.ConfigScreenActivity">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Configure Game"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Configure Game"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Choose Your Name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
 
-                <EditText
-                    android:id="@+id/playerNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:hint="Player Name"
-                    android:imeOptions="actionDone"
-                    android:importantForAccessibility="no"
-                    android:inputType="text" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Select Difficulty"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="102dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Easy" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="109dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Medium" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="94dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Hard" />
-                </RadioGroup>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Select Sprite"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/spriteView1"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:adjustViewBounds="true"
-                            android:alpha="1.0"
-                            android:padding="10dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/person1" />
-
-                        <Button
-                            android:id="@+id/spriteButton1"
-                            style="@style/Widget.AppCompat.Button.Colored"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:text="Sprite 1" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/spriteView2"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:adjustViewBounds="true"
-                            android:alpha="0.2"
-                            android:padding="10dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/person2" />
-
-                        <Button
-                            android:id="@+id/spriteButton2"
-                            style="@style/Widget.AppCompat.Button.Colored"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Sprite 2" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/spriteView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:adjustViewBounds="true"
-                            android:alpha="0.2"
-                            android:padding="10dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/person3" />
-
-                        <Button
-                            android:id="@+id/spriteButton3"
-                            style="@style/Widget.AppCompat.Button.Colored"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Sprite 3" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/startHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Type a player name and choose difficulty to start." />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/startGameButton"
+                    <TextView
+                        android:id="@+id/textView5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Start (Legacy)" />
+                        android:text="Choose Your Name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <EditText
+                        android:id="@+id/playerNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:ems="10"
+                        android:hint="Player Name"
+                        android:text="@={viewModel.playerName}"
+                        android:afterTextChanged=
+                            "@{()->viewModel.updatePlayerNameEditText(playerNameEditText)}"
+                        android:imeOptions="actionDone"
+                        android:importantForAccessibility="no"
+                        android:inputType="text" />
 
                     <Space
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
 
-                    <Button
-                        android:id="@+id/startGameButtonGDX"
+                    <TextView
+                        android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Start (LibGDX)" />
+                        android:text="Select Difficulty"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioButton1"
+                            android:layout_width="102dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Easy"
+                            android:onClick=
+                                "@{()->viewModel.onDifficultyButtonClicked(1)}"/>
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="109dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Medium"
+                            android:onClick=
+                                "@{()->viewModel.onDifficultyButtonClicked(2)}"/>
+
+                        <RadioButton
+                            android:id="@+id/radioButton3"
+                            android:layout_width="94dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Hard"
+                            android:onClick=
+                                "@{()->viewModel.onDifficultyButtonClicked(3)}"/>
+                    </RadioGroup>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Select Sprite"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/spriteView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:adjustViewBounds="true"
+                                android:alpha="@{viewModel.spriteIndex == 1 ? 1.0f : 0.2f}"
+                                android:padding="10dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/person1" />
+
+                            <Button
+                                android:id="@+id/spriteButton1"
+                                style="@style/Widget.AppCompat.Button.Colored"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.spriteIndex != 1}"
+                                android:text="Sprite 1"
+                                android:onClick="@{()->viewModel.onSpriteButtonClicked(1)}"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/spriteView2"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:adjustViewBounds="true"
+                                android:alpha="@{viewModel.spriteIndex == 2 ? 1.0f : 0.2f}"
+                                android:padding="10dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/person2" />
+
+                            <Button
+                                android:id="@+id/spriteButton2"
+                                style="@style/Widget.AppCompat.Button.Colored"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.spriteIndex != 2}"
+                                android:text="Sprite 2"
+                                android:onClick="@{()->viewModel.onSpriteButtonClicked(2)}" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/spriteView3"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:adjustViewBounds="true"
+                                android:alpha="@{viewModel.spriteIndex == 3 ? 1.0f : 0.2f}"
+                                android:padding="10dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/person3" />
+
+                            <Button
+                                android:id="@+id/spriteButton3"
+                                style="@style/Widget.AppCompat.Button.Colored"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:enabled="@{viewModel.spriteIndex != 3}"
+                                android:text="Sprite 3"
+                                android:onClick="@{()->viewModel.onSpriteButtonClicked(3)}" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/startHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility=
+                            "@{viewModel.gameCanStart ? View.INVISIBLE : View.VISIBLE}"
+                        android:text="Type a player name and choose difficulty to start." />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/startGameButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="@{viewModel.gameCanStart}"
+                            android:onClick="@{viewModel::onStartGameButtonClicked}"
+                            android:text="Start (Legacy)"
+                            android:visibility="gone" />
+
+                        <Space
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/startGameButtonGDX"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="@{viewModel.gameCanStart}"
+                            android:onClick="@{viewModel::onStartGameButtonGdxClicked}"
+                            android:text="Start Game" />
+                    </LinearLayout>
+
                 </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

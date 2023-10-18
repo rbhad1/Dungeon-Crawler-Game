@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28;
 
 import com.example.cs2340c_team28.models.Leaderboard;
+import com.example.cs2340c_team28.viewmodels.LeaderboardViewModel;
 
 import org.junit.Test;
 
@@ -18,6 +19,7 @@ import static org.junit.Assert.*;
 public class LeaderboardTest {
 
     public Leaderboard leaderboard = Leaderboard.getInstance();
+    public LeaderboardViewModel leaderboardVM = new LeaderboardViewModel();
 
     /**
      * Verify that we can reset the leaderboard
@@ -26,18 +28,18 @@ public class LeaderboardTest {
     @Test
     public void leaderboardDoesClearAndResetMin() {
         // Reset the leaderboard
-        leaderboard.resetLeaderboard();
+        leaderboardVM.resetLeaderboard();
 
         // Add a new entry and verify that leaderboard size is 1
-        assertTrue(leaderboard.addNewEntry("Player 1", 50, new Date()));
+        assertTrue(leaderboardVM.addNewEntry("Player 1", 50, new Date()));
         assertEquals(leaderboard.getLeaderboardEntries().size(), 1);
 
         // Reset the leaderboard and verify that leaderboard size is 0
-        leaderboard.resetLeaderboard();
+        leaderboardVM.resetLeaderboard();
         assertEquals(leaderboard.getLeaderboardEntries().size(), 0);
 
         // Add a new entry and verify that leaderboard size is 1
-        assertTrue(leaderboard.addNewEntry("Player 2", 0, new Date()));
+        assertTrue(leaderboardVM.addNewEntry("Player 2", 0, new Date()));
         assertEquals(leaderboard.getLeaderboardEntries().size(), 1);
     }
 
@@ -49,11 +51,11 @@ public class LeaderboardTest {
         System.out.println("Testing leaderboardAdheresToCapacity()...");
 
         // Reset the leaderboard
-        leaderboard.resetLeaderboard();
+        leaderboardVM.resetLeaderboard();
 
         for (int i = 0; i < Leaderboard.MAX_ENTRIES + 1; i++) {
             // Assert that we can add elements to the leaderboard until we're over capacity
-            boolean couldAddElement = leaderboard.addNewEntry(
+            boolean couldAddElement = leaderboardVM.addNewEntry(
                             "Player", 15, Date.from(Instant.EPOCH));
             boolean shouldHaveAddedElement = i < Leaderboard.MAX_ENTRIES;
 
@@ -68,14 +70,14 @@ public class LeaderboardTest {
      * Ensure that the leaderboard properly sorts scores that are added to it
      */
     @Test
-    public void leaderboardAdhersToSortedOrder() {
+    public void leaderboardAdheresToSortedOrder() {
         // Reset the leaderboard
-        leaderboard.resetLeaderboard();
+        leaderboardVM.resetLeaderboard();
 
         // Create an array of scores and try adding all of those scores into the leaderboard
         Integer[] scores = new Integer[] {40, 24, 60, 1, 8, 2, 9};
         for (int score: scores) {
-            leaderboard.addNewEntry("Player", score, new Date());
+            leaderboardVM.addNewEntry("Player", score, new Date());
         }
 
         // Sort the scores

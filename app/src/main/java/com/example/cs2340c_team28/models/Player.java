@@ -1,5 +1,7 @@
 package com.example.cs2340c_team28.models;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 /**
@@ -28,29 +30,44 @@ public class Player {
      *  avoids storing resource name in the data model
      */
     private final int spriteId;
+    private MovementStrategy movementStrategy;
+    private int x;
+    private int y;
+    private boolean leftMove;
+    private boolean rightMove;
+    private static final String TAG = Player.class.getSimpleName();
 
     /**
      * Instantiate the player
      * @param name The player's name
      * @param spriteId Chosen sprite id
      * @param initialHp Player's starting hp
+     * @param movementStrategy the chosen way of movement
      */
-    private Player(String name, int spriteId, int initialHp) {
+    private Player(String name, int spriteId, int initialHp, MovementStrategy movementStrategy, int x, int y) {
         this.name = name;
         this.spriteId = spriteId;
         this.hp = initialHp;
         this.originalHp = initialHp;
+        this.movementStrategy = movementStrategy;
+        this.x = x;
+        this.y = y;
     }
 
     public static Player getUniquePlayerInstance() {
         return uniquePlayerInstance;
     }
 
-    public static void createNewPlayer(String name, Difficulty difficulty, int spriteId) {
+    public static void createNewPlayer(String name, Difficulty difficulty,
+                                       int spriteId, MovementStrategy movementStrategy,
+                                       int x, int y) {
         uniquePlayerInstance = new Player(
                 name,
                 spriteId,
-                initialHp(difficulty)
+                initialHp(difficulty),
+                movementStrategy,
+                x,
+                y
         );
     }
 
@@ -103,5 +120,41 @@ public class Player {
             return 50;
         }
     }
+    public void setMovementStrategy(MovementStrategy movementStrategy) {
+        this.movementStrategy = movementStrategy;
+    }
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
 
+    public void setLeftMove(boolean t) {
+        if (rightMove && t) {
+            rightMove = false;
+        }
+        leftMove = t;
+    }
+    public void setRightMove(boolean t) {
+        if(leftMove && t) {
+            leftMove = false;
+        }
+        rightMove = t;
+    }
+    public void updateMovement() {
+        Log.d(TAG, String.format("leftmove: %s, rightmove %s", leftMove, rightMove));
+        if (leftMove) {
+            Player.getUniquePlayerInstance().setX(Player.getUniquePlayerInstance().getX() - 10);
+        }
+        if (rightMove) {
+            Player.getUniquePlayerInstance().setX(Player.getUniquePlayerInstance().getX() + 10);
+        }
+    }
 }

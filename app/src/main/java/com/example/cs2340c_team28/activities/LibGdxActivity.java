@@ -7,9 +7,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class LibGdxActivity extends AndroidApplication {
 
@@ -32,12 +32,17 @@ public class LibGdxActivity extends AndroidApplication {
             }
         });
 
-        Game game = new Game() {
-            @Override
-            public void create() {
-                setScreen(new TiledView());
-            }
-        };
-        initialize(game);
+        GameViewModel gameViewModel = new GameViewModel(this);
+        initialize(gameViewModel);
+
+
     }
+
+    public void navigateToEndGame() {
+        Intent intent = new Intent(this, LeaderboardActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 }
