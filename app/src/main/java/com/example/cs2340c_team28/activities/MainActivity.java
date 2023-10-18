@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.Button;
 
+import com.example.cs2340c_team28.models.Difficulty;
+import com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
         configButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, ConfigScreenActivity.class);
             startActivity(intent);
+        });
+
+        configButton.setOnLongClickListener(view -> {
+            ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
+            configScreenViewModel.setPlayerName("Player");
+            configScreenViewModel.setDifficulty(Difficulty.MEDIUM);
+            configScreenViewModel.assignGameAndPlayerDetails();
+
+            Intent intent = new Intent(MainActivity.this, LibGdxActivity.class);
+            startActivity(intent);
+
+            return true;
         });
 
         leaderButton.setOnClickListener(view -> {

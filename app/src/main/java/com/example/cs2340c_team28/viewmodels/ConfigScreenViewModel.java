@@ -180,9 +180,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      * @param v The button that was pressed, as a View element
      */
     public void onStartGameButtonGdxClicked(View v) {
-        Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 440, 600);
-
+        assignGameAndPlayerDetails();
         Context context = v.getContext();
         if (context instanceof ContextWrapper) {
             Context baseContext = ((ContextWrapper) context).getBaseContext();
@@ -191,6 +189,14 @@ public class ConfigScreenViewModel extends BaseObservable {
             }
         }
 
+    }
+
+    /**
+     * Set properties for the game and player
+     */
+    public void assignGameAndPlayerDetails() {
+        Game.createNewGame(difficulty);
+        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 440, 600);
     }
 
 }
