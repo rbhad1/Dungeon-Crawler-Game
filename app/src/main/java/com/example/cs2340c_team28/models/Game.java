@@ -20,28 +20,14 @@ public class Game {
     private int score;
 
     /**
-     * Time in seconds since the game began
-     */
-    private double time;
-
-    /**
      * System time at which the current game began
      */
-    private long startTime = System.currentTimeMillis();
+    private long startTime;
 
     /**
      * Time since the score was last decremented
      */
     private long scoreTime = startTime;
-
-    /**
-     * private constructor for Game class
-     *
-     * @param difficulty The difficulty of the game to be instantiated
-     */
-    private Game(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
 
     /**
      * static method Game method that uses double-checked locking to create a unique Game instance
@@ -50,14 +36,11 @@ public class Game {
     public static Game getUniqueGameInstance() {
         return uniqueGameInstance;
     }
-    public static void createNewGame(Difficulty difficulty) {
-        uniqueGameInstance = new Game(difficulty);
-    }
 
     /**
      * The difficulty of the game
      */
-    private final Difficulty difficulty;
+    private Difficulty difficulty;
 
     /**
      * Get the difficulty of the game
@@ -81,14 +64,6 @@ public class Game {
      */
     public int getScore() {
         return score;
-    }
-
-    /**
-     * Get the time of the game
-     * @return The current time
-     */
-    public double getTime() {
-        return time;
     }
 
     /**
@@ -123,12 +98,12 @@ public class Game {
         this.scoreTime = scoreTime;
     }
 
-    /**
-     * Set the current time of the game
-     * @param time The game's new time
-     */
-    public void setTime(double time) {
-        this.time = time;
+    public void setStartTime(long time) {
+        this.startTime = time;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
 }
