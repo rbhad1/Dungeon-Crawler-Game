@@ -94,6 +94,8 @@ public class TiledView implements Screen {
      * Creates the stage with the buttons and text fields
      */
     public void create() {
+        Player.getUniquePlayerInstance().setX(Gdx.graphics.getWidth() / 2);
+        Player.getUniquePlayerInstance().setY(Gdx.graphics.getHeight() / 2);
         stage = new Stage(new ScreenViewport());
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new ConcreteMovement());
@@ -210,10 +212,10 @@ public class TiledView implements Screen {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera(w / 2.0f, h / 2.0f);
-        camera.setToOrtho(true, w / 2.0f, h / 2.0f);
+        camera = new OrthographicCamera(w / 4, h / 4);
+        camera.setToOrtho(true, w / 4, h / 4);
 
-        camera.position.set(270, 500, 0);
+        camera.position.set(135, 250, 0);
 
         camera.update();
         renderer.setView(camera);
