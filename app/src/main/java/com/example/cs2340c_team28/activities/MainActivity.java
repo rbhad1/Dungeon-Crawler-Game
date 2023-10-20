@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             ConfigScreenViewModel configScreenViewModel = new ConfigScreenViewModel();
             configScreenViewModel.setPlayerName("Player");
             configScreenViewModel.setDifficulty(Difficulty.MEDIUM);
-            configScreenViewModel.assignGameAndPlayerDetails();
+            configScreenViewModel.assignGameProperties();
 
             Intent intent = new Intent(MainActivity.this, LibGdxActivity.class);
             startActivity(intent);
