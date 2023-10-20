@@ -25,6 +25,7 @@ import com.example.cs2340c_team28.models.ConcreteMovement;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
 import com.example.cs2340c_team28.models.Player;
+import com.example.cs2340c_team28.models.TileBasedMovement;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class TiledView implements Screen {
@@ -98,13 +99,15 @@ public class TiledView implements Screen {
      * Creates the stage with the buttons and text fields
      */
     public void create() {
-        fitted = new FitViewport(288, 512);
+        camera = new OrthographicCamera();
+        fitted = new FitViewport(9 * 32, 16 * 32, camera);
 
-        Player.getUniquePlayerInstance().setX(Gdx.graphics.getWidth() / 2);
-        Player.getUniquePlayerInstance().setY(Gdx.graphics.getHeight() / 2);
+        Player.getUniquePlayerInstance().setX(4 * 32);
+        Player.getUniquePlayerInstance().setY(4 * 32);
+
         stage = new Stage(fitted);
         MovementListener listener = new MovementListener();
-        listener.setMovementStrategy(new ConcreteMovement());
+        listener.setMovementStrategy(new TileBasedMovement());
         stage.addListener(listener);
         int rowHeight = Gdx.graphics.getHeight() / 12;
         int colWidth = Gdx.graphics.getWidth() / 12;
@@ -203,6 +206,8 @@ public class TiledView implements Screen {
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
 
+
+
     }
     @Override
     public void render(float delta) {
@@ -215,31 +220,21 @@ public class TiledView implements Screen {
 
         stage.draw();
         stage.act();
-        int w = Gdx.graphics.getWidth();
-        int h = Gdx.graphics.getHeight();
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(true, 288, 512);
-
-        camera.position.set(144, 256, 0);
-
-        //camera.update();
-
-        //fitted = new FitViewport(288, 512, camera);
 
         renderer.setView(camera);
         renderer.render();
         Player.getUniquePlayerInstance().updateMovement();
+
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(playerImage, Player.getUniquePlayerInstance().getX(),
-                Player.getUniquePlayerInstance().getY());
+                Player.getUniquePlayerInstance().getY(), 32, 32);
         batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportHeight = height;
-        camera.viewportWidth = width;
+        fitted.setScreenSize(width, height);
         camera.update();
     }
     @Override
@@ -247,7 +242,6 @@ public class TiledView implements Screen {
         create();
         map = new TmxMapLoader().load("forest-map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        camera = new OrthographicCamera();
     }
 
     @Override
