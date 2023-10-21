@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 public class TileBasedMovement implements MovementStrategy {
     public void moveUp() {
         int y = Player.getUniquePlayerInstance().getY();
-        if (y + 32 <= 32 * 16) {
+        if (y + 32 < 32 * 16) {
             Player.getUniquePlayerInstance().setY(y + 32);
         }
     }
