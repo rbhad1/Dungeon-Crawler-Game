@@ -62,7 +62,6 @@ public class ConfigScreenViewModel extends BaseObservable {
      * The difficulty with which to start the game
      */
     private Difficulty difficulty;
-    private MovementStrategy movementStrategy;
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
@@ -203,7 +202,6 @@ public class ConfigScreenViewModel extends BaseObservable {
         Player.getUniquePlayerInstance().setHp(
                 Player.getUniquePlayerInstance().getOriginalHp()
         );
-        Player.getUniquePlayerInstance().setMovementStrategy(movementStrategy);
         Player.getUniquePlayerInstance().setX(440);
         Player.getUniquePlayerInstance().setY(600);
     }
