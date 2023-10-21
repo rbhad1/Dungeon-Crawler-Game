@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.example.cs2340c_team28.models.ConcreteMovement;
 import com.example.cs2340c_team28.models.Game;
@@ -85,6 +87,8 @@ public class TiledView implements Screen {
      * Batch of sprites to be rendered
      */
     private SpriteBatch batch;
+    private FitViewport fitted;
+    private ExtendViewport extended;
 
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
@@ -94,7 +98,11 @@ public class TiledView implements Screen {
      * Creates the stage with the buttons and text fields
      */
     public void create() {
-        stage = new Stage(new ScreenViewport());
+        fitted = new FitViewport(288, 512);
+
+        Player.getUniquePlayerInstance().setX(Gdx.graphics.getWidth() / 2);
+        Player.getUniquePlayerInstance().setY(Gdx.graphics.getHeight() / 2);
+        stage = new Stage(fitted);
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new ConcreteMovement());
         stage.addListener(listener);
@@ -210,12 +218,15 @@ public class TiledView implements Screen {
         int w = Gdx.graphics.getWidth();
         int h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera(w / 2.0f, h / 2.0f);
-        camera.setToOrtho(true, w / 2.0f, h / 2.0f);
+        camera = new OrthographicCamera();
+        camera.setToOrtho(true, 288, 512);
 
-        camera.position.set(270, 500, 0);
+        camera.position.set(144, 256, 0);
 
-        camera.update();
+        //camera.update();
+
+        //fitted = new FitViewport(288, 512, camera);
+
         renderer.setView(camera);
         renderer.render();
         Player.getUniquePlayerInstance().updateMovement();
