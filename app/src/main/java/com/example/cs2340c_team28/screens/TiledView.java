@@ -241,7 +241,7 @@ public class TiledView implements Screen {
     @Override
     public void show() {
         create();
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(Game.getInstance().getCurrentMap());
     }
 
     @Override
@@ -258,7 +258,6 @@ public class TiledView implements Screen {
     }
 
     public void dispose() {
-        map.dispose();
         renderer.dispose();
     }
 }
