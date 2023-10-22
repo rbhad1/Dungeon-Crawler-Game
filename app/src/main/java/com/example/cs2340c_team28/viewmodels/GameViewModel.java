@@ -15,7 +15,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     /**
      * Current game instance
      */
-    private final Game game = Game.getUniqueGameInstance();
+    private final Game game = Game.getInstance();
 
     /**
      * Texture for the player sprite
@@ -44,7 +44,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void create() {
         setScreen(new TiledView(this));
         setupGame();
-        int spriteId = Player.getUniquePlayerInstance().getSpriteId();
+        int spriteId = Player.getInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {
         case 1:
@@ -109,7 +109,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
     public void endGame() {
         new LeaderboardViewModel().addNewEntry(
-                Player.getUniquePlayerInstance().getName(),
+                Player.getInstance().getName(),
                 game.getScore(),
                 new Date());
         activity.navigateToEndGame();
@@ -120,8 +120,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     }
 
     public void setupGame() {
-        Game.getUniqueGameInstance().setStartTime(getTime());
-        Game.getUniqueGameInstance().setScoreTime(getTime());
+        Game.getInstance().setStartTime(getTime());
+        Game.getInstance().setScoreTime(getTime());
     }
 
 }

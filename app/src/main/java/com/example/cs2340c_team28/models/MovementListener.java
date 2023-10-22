@@ -40,11 +40,11 @@ public class MovementListener extends InputListener {
     public boolean keyUp(InputEvent event, int keycode) {
         switch (keycode) {
             case Input.Keys.LEFT:
-                //Player.getUniquePlayerInstance().setLeftMove(false);
+                //Player.getInstance().setLeftMove(false);
                 Log.d(TAG, "keyUp: " + keycode);
                 break;
             case Input.Keys.RIGHT:
-                //Player.getUniquePlayerInstance().setRightMove(false);
+                //Player.getInstance().setRightMove(false);
                 Log.d(TAG, "keyUp: " + keycode);
                 break;
             default:

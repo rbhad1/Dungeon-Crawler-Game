@@ -11,7 +11,14 @@ import androidx.annotation.NonNull;
  */
 public class Player {
 
-    private static volatile Player uniquePlayerInstance;
+    private static final Player INSTANCE = new Player();
+
+    /**
+     * Private constructor to adhere to singleton pattern
+     */
+    private Player() {
+
+    }
 
     /**
      * The name of the player
@@ -37,8 +44,8 @@ public class Player {
     private boolean rightMove;
     private static final String TAG = Player.class.getSimpleName();
 
-    public static Player getUniquePlayerInstance() {
-        return uniquePlayerInstance;
+    public static Player getInstance() {
+        return INSTANCE;
     }
 
     public String getName() {
@@ -133,10 +140,10 @@ public class Player {
     public void updateMovement() {
         Log.d(TAG, String.format("leftmove: %s, rightmove %s", leftMove, rightMove));
         if (leftMove) {
-            Player.getUniquePlayerInstance().setX(Player.getUniquePlayerInstance().getX() - 10);
+            Player.getInstance().setX(Player.getInstance().getX() - 10);
         }
         if (rightMove) {
-            Player.getUniquePlayerInstance().setX(Player.getUniquePlayerInstance().getX() + 10);
+            Player.getInstance().setX(Player.getInstance().getX() + 10);
         }
     }
 }
