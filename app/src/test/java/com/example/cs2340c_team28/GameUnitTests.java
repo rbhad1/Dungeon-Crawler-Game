@@ -131,7 +131,7 @@ public class GameUnitTests {
         assertEquals(player.getY(true), 1);
     }
     @Test
-    public void directMovementSuccess() {
+    public void directMovement() {
         int startX = 4;
         int startY = 9;
         Movement movement = new Movement(startX, startY, 16, 0);
@@ -159,7 +159,7 @@ public class GameUnitTests {
         player.setX(15, true);
         player.setY(1, true);
 
-        new TileMovementStrategy().moveLeft();
+        new TileMovementStrategy().moveRight();
         gameViewModel.updateGameLogic();
 
         assertEquals(player.getX(true), 15);
