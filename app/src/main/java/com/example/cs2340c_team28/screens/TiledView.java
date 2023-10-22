@@ -93,6 +93,10 @@ public class TiledView implements Screen {
     private FitViewport fitted;
     private ExtendViewport extended;
 
+    private TiledMap forest = new TmxMapLoader().load("forest-map.tmx");
+    private TiledMap water = new TmxMapLoader().load("water-map.tmx");
+    private TiledMap dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
     }
@@ -105,7 +109,7 @@ public class TiledView implements Screen {
         fitted = new FitViewport(9 * 32, 16 * 32, camera);
 
         Player.getInstance().setX(4 * 32);
-        Player.getInstance().setY(4 * 32);
+        Player.getInstance().setY(9 * 32);
 
         stage = new Stage(fitted);
         MovementListener listener = new MovementListener();
@@ -221,6 +225,25 @@ public class TiledView implements Screen {
 
         //updating time score
         text.setText(Game.getInstance().getScore());
+        if (Game.getInstance().getMap().equals(forest)) {
+            if (Player.getInstance().getX() == 7 * 32 && Player.getInstance().getY() == 0) {
+                Game.getInstance().setMap(water);
+                renderer.setMap(water);
+            }
+        }
+        if (Game.getInstance().getMap().equals(water)) {
+            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 15 * 32) {
+                Game.getInstance().setMap(dungeon);
+                renderer.setMap(dungeon);
+            }
+        }
+        if (Game.getInstance().getMap().equals(dungeon)) {
+            if (32 < Player.getInstance().getX() && Player.getInstance().getX() < 7 * 32
+                    && 0 < Player.getInstance().getY() && Player.getInstance().getY() < 12 * 32) {
+                gameViewModel.endGame();
+            }
+        }
+
 
         stage.draw();
         stage.act();
@@ -246,6 +269,8 @@ public class TiledView implements Screen {
         create();
         map = new TmxMapLoader().load("forest-map.tmx");
         currentMapName = map.getProperties().get("forest-map",String.class);
+        map = forest;
+        Game.getInstance().setMap(forest);
         renderer = new OrthogonalTiledMapRenderer(map);
     }
 
@@ -272,5 +297,15 @@ public class TiledView implements Screen {
     }
     public TiledMap getMap() {
         return map;
+    }
+
+    public TiledMap getForest() {
+        return forest;
+    }
+    public TiledMap getWater() {
+        return water;
+    }
+    public TiledMap getDungeon() {
+        return dungeon;
     }
 }
