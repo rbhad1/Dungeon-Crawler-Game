@@ -3,9 +3,6 @@ package com.example.cs2340c_team28.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Class representing a game being played
  *
@@ -71,13 +68,7 @@ public class Game {
         return currentMap;
     }
 
-    /**
-     * Get the maximum score the player can have
-     * @return The maximum score
-     */
-    public static int getMaxScore() {
-        return MAX_SCORE;
-    }
+
 
     /**
      * Get the score of the current game
@@ -87,13 +78,7 @@ public class Game {
         return score;
     }
 
-    /**
-     * Get the time at which the current game began
-     * @return The game's starting time
-     */
-    public long getStartTime() {
-        return startTime;
-    }
+
 
     /**
      * Get the time since the last score decrement
