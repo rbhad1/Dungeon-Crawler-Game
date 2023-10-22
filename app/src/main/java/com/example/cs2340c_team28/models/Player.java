@@ -43,11 +43,7 @@ public class Player extends Movable {
      *  avoids storing resource name in the data model
      */
     private int spriteId;
-    private MovementStrategy movementStrategy;
-    private int x;
-    private int y;
-    private boolean leftMove;
-    private boolean rightMove;
+
     private static final String TAG = Player.class.getSimpleName();
 
     public static Player getInstance() {
@@ -114,55 +110,5 @@ public class Player extends Movable {
         default: // corresponds to HARD
             return 50;
         }
-    }
-    public void setMovementStrategy(MovementStrategy movementStrategy) {
-        this.movementStrategy = movementStrategy;
-    }
-    public int getX() {
-        return this.x;
-    }
-
-    public int getXByTile() {
-        return this.x / 32;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public int getYByTile() {
-        return this.y / 32;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    int oldX = x;
-    int oldY = y;
-    boolean collisionX = false;
-    boolean collisionY = false;
-
-
-
-
-    public boolean checkCollisionsX() {
-        // going left
-        if (collisionLayer.getCell(( (oldX - 32)), y).getTile().getId() != 0) {
-            collisionX = true;
-        } else if (collisionLayer.getCell(( (oldX + 32)), y).getTile().getId() != 0) {
-            collisionX = true;
-        }
-        return collisionX;
-    }
-    public boolean checkCollisionsY() {
-
-        return false;
-    }
-    public int getOldX() {
-        return oldX;
     }
 }
