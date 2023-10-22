@@ -4,6 +4,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.example.cs2340c_team28.screens.TiledView;
+
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Class representing a player in the game
  *
@@ -125,25 +131,45 @@ public class Player {
         this.y = y;
     }
 
-    public void setLeftMove(boolean t) {
-        if (rightMove && t) {
-            rightMove = false;
+    TiledMapTileLayer collisionLayer;
+    TiledView tiledView;
+
+    public void setCollisionLayer() {
+
+//        map = tiledView.getMap();
+        switch (tiledView.getCurrentMapName()) {
+            case ("water-map"):
+                collisionLayer = (TiledMapTileLayer) tiledView.getMap().getLayers().get("water");
+                break;
+            case ("dungeon-map"):
+                collisionLayer = (TiledMapTileLayer) tiledView.getMap().getLayers().get("portal");
+                break;
+            case ("forest-map"):
+                collisionLayer = (TiledMapTileLayer) tiledView.getMap().getLayers().get("path");
         }
-        leftMove = t;
     }
-    public void setRightMove(boolean t) {
-        if (leftMove && t) {
-            leftMove = false;
+    int oldX = x;
+    int oldY = y;
+    boolean collisionX = false;
+    boolean collisionY = false;
+
+
+
+
+    public boolean checkCollisionsX() {
+        // going left
+        if (collisionLayer.getCell(( (oldX - 32)), y).getTile().getId() != 0) {
+            collisionX = true;
+        } else if (collisionLayer.getCell(( (oldX + 32)), y).getTile().getId() != 0) {
+            collisionX = true;
         }
-        rightMove = t;
+        return collisionX;
     }
-    public void updateMovement() {
-        Log.d(TAG, String.format("leftmove: %s, rightmove %s", leftMove, rightMove));
-        if (leftMove) {
-            Player.getInstance().setX(Player.getInstance().getX() - 10);
-        }
-        if (rightMove) {
-            Player.getInstance().setX(Player.getInstance().getX() + 10);
-        }
+    public boolean checkCollisionsY() {
+
+        return false;
+    }
+    public int getOldX() {
+        return oldX;
     }
 }

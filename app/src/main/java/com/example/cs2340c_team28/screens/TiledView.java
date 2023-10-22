@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,6 +31,10 @@ public class TiledView implements Screen {
      * Tile map for background
      */
     private TiledMap map;
+    /**
+     * Name of tile map
+     */
+    private String currentMapName;
     /**
      * Renderer for the tilemap
      */
@@ -134,6 +139,7 @@ public class TiledView implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 map = new TmxMapLoader().load("dungeon-map.tmx");
+                currentMapName = map.getProperties().get("dungeon-map",String.class);
                 renderer = new OrthogonalTiledMapRenderer(map);
                 camera = new OrthographicCamera();
                 stage.addActor(button2);
@@ -145,6 +151,7 @@ public class TiledView implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 map = new TmxMapLoader().load("water-map.tmx");
+                currentMapName = map.getProperties().get("water-map",String.class);
                 renderer = new OrthogonalTiledMapRenderer(map);
                 camera = new OrthographicCamera();
                 stage.addActor(button3);
@@ -220,7 +227,7 @@ public class TiledView implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-        Player.getInstance().updateMovement();
+        //Player.getInstance().updateMovement();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -238,6 +245,7 @@ public class TiledView implements Screen {
     public void show() {
         create();
         map = new TmxMapLoader().load("forest-map.tmx");
+        currentMapName = map.getProperties().get("forest-map",String.class);
         renderer = new OrthogonalTiledMapRenderer(map);
     }
 
@@ -257,5 +265,12 @@ public class TiledView implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+    }
+
+    public String getCurrentMapName() {
+        return currentMapName;
+    }
+    public TiledMap getMap() {
+        return map;
     }
 }

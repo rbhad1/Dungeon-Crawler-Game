@@ -11,6 +11,7 @@ public class TileBasedMovement implements MovementStrategy {
     public void moveDown() {
         int y = Player.getInstance().getY();
         if (y - 32 >= 0) {
+
             Player.getInstance().setY(y - 32);
         }
     }
@@ -18,7 +19,12 @@ public class TileBasedMovement implements MovementStrategy {
     public void moveLeft() {
         int x = Player.getInstance().getX();
         if (x - 32 >= 0) {
-            Player.getInstance().setX(x - 32);
+            // check collision
+            if (Player.getInstance().checkCollisionsX()) {
+                Player.getInstance().setX(Player.getInstance().getOldX());
+            } else {
+                Player.getInstance().setX(x - 32);
+            }
         }
     }
     @Override
@@ -28,4 +34,6 @@ public class TileBasedMovement implements MovementStrategy {
             Player.getInstance().setX(x + 32);
         }
     }
+
+
 }
