@@ -138,6 +138,36 @@ public class GameUnitTests {
         assertEquals(movement.getEndTileX(), 16);
         assertEquals(movement.getEndTileY(), 0);
     }
+
+    @Test
+    public void testTileMovementStrategy() {
+        Player player = Player.getInstance();
+
+        int startX = 4;
+        int startY = 9;
+
+        // Set starting position for the player
+        player.setX(startX, true);
+        player.setY(startY, true);
+
+        // Generate a left movement
+        new TileMovementStrategy().moveLeft();
+        assertEquals(player.getCurrentMovement().getEndTileX(), startX - 1);
+        assertEquals(player.getCurrentMovement().getEndTileY(), startY);
+
+        new TileMovementStrategy().moveRight();
+        assertEquals(player.getCurrentMovement().getEndTileX(), startX + 1);
+        assertEquals(player.getCurrentMovement().getEndTileY(), startY);
+
+        new TileMovementStrategy().moveUp();
+        assertEquals(player.getCurrentMovement().getEndTileX(), startX);
+        assertEquals(player.getCurrentMovement().getEndTileY(), startY + 1);
+
+        new TileMovementStrategy().moveDown();
+        assertEquals(player.getCurrentMovement().getEndTileX(), startX);
+        assertEquals(player.getCurrentMovement().getEndTileY(), startY - 1);
+    }
+
     @Test
     public void playerInBounds() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
