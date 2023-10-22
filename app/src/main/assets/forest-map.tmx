@@ -24,7 +24,7 @@
 633,634,5882,5883,5884,1124,1125,1126,1127
 </data>
  </layer>
- <layer id="2" name="path" width="9" height="16">
+ <layer id="2" name="walkable" width="9" height="16">
   <properties>
    <property name="collision" value="collision"/>
   </properties>

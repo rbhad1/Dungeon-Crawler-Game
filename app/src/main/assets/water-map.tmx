@@ -24,7 +24,7 @@
 5562,5563,5564,5565,5566,5242,5243,5244,5245
 </data>
  </layer>
- <layer id="3" name="water" width="9" height="16">
+ <layer id="3" name="walkable" width="9" height="16">
   <data encoding="csv">
 6625,0,6713,6713,6625,0,6537,0,0,
 6625,6537,6537,6537,6537,6537,6537,6537,6537,

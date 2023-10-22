@@ -22,7 +22,7 @@
 7756,7757,7758,7759,7760,7761,7762,7763,7764
 </data>
  </layer>
- <layer id="3" name="portal" width="9" height="16">
+ <layer id="3" name="walkable" width="9" height="16">
   <data encoding="csv">
 808,809,0,1570,1571,1572,1573,0,1575,
 850,851,1611,1612,1613,1614,1615,1616,1617,
