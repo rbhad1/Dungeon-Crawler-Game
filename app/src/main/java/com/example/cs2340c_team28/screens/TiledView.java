@@ -107,6 +107,7 @@ public class TiledView implements Screen {
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new TileMovementStrategy());
         stage.addListener(listener);
+        Gdx.input.setInputProcessor(stage);
         int rowHeight = Gdx.graphics.getHeight() / 12;
         int colWidth = Gdx.graphics.getWidth() / 12;
         //creating buttons
@@ -114,50 +115,10 @@ public class TiledView implements Screen {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = new BitmapFont();
         textButtonStyle.fontColor = Color.WHITE;
-        button1 = new TextButton("To Dungeon", textButtonStyle);
-        button1.setSize(colWidth, rowHeight);
-        button1.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button1.setTransform(true);
-        button1.scaleBy(2f);
-        stage.addActor(button1);
-        button2 = new TextButton("To Water", textButtonStyle);
-        button2.setSize(colWidth, rowHeight);
-        button2.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button2.setTransform(true);
-        button2.scaleBy(2f);
-        button3 = new TextButton("End Game", textButtonStyle);
-        button3.setSize(colWidth, rowHeight);
-        button3.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button3.setTransform(true);
-        button3.scaleBy(2f);
-        // button to go to dungeon
-        button1.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Game.getInstance().setCurrentMap(gameViewModel.getDungeon());
-                stage.addActor(button2);
-                button1.remove();
-            }
-        });
-        // button to go to water
-        button2.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Game.getInstance().setCurrentMap(gameViewModel.getWater());
-                stage.addActor(button3);
-                button2.remove();
-            }
-        });
-        //button to go to forest
-        button3.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                gameViewModel.endGame();
-            }
-        });
 
 
-        Gdx.input.setInputProcessor(stage);
+
+
 
         // scoring text
         textStyle = new Label.LabelStyle();
