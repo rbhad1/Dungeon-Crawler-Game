@@ -38,6 +38,18 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     private TiledMap water;
     private TiledMap dungeon;
 
+    public TiledMap getForest() {
+        return forest;
+    }
+
+    public TiledMap getWater() {
+        return water;
+    }
+
+    public TiledMap getDungeon() {
+        return dungeon;
+    }
+
     public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
     }

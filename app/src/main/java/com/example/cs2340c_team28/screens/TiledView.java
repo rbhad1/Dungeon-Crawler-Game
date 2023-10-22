@@ -26,10 +26,6 @@ import com.example.cs2340c_team28.models.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class TiledView implements Screen {
-    /**
-     * Tile map for background
-     */
-    private TiledMap map;
 
     /**
      * Renderer for the tilemap
@@ -138,9 +134,7 @@ public class TiledView implements Screen {
         button1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                map = new TmxMapLoader().load("dungeon-map.tmx");
-                renderer = new OrthogonalTiledMapRenderer(map);
-                camera = new OrthographicCamera();
+                Game.getInstance().setCurrentMap(gameViewModel.getDungeon());
                 stage.addActor(button2);
                 button1.remove();
             }
@@ -149,9 +143,7 @@ public class TiledView implements Screen {
         button2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                map = new TmxMapLoader().load("water-map.tmx");
-                renderer = new OrthogonalTiledMapRenderer(map);
-                camera = new OrthographicCamera();
+                Game.getInstance().setCurrentMap(gameViewModel.getWater());
                 stage.addActor(button3);
                 button2.remove();
             }
@@ -194,15 +186,15 @@ public class TiledView implements Screen {
         int spriteId = Player.getInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {
-            case 1:
-                imageResource = "person1.png";
-                break;
-            case 2:
-                imageResource = "person2.png";
-                break;
-            default:
-                imageResource = "person3.png";
-                break;
+        case 1:
+            imageResource = "person1.png";
+            break;
+        case 2:
+            imageResource = "person2.png";
+            break;
+        default:
+            imageResource = "person3.png";
+            break;
         }
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
@@ -269,9 +261,4 @@ public class TiledView implements Screen {
         map.dispose();
         renderer.dispose();
     }
-
-    public TiledMap getMap() {
-        return map;
-    }
-
 }
