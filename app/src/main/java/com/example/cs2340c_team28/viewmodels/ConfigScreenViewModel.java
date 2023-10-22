@@ -201,8 +201,8 @@ public class ConfigScreenViewModel extends BaseObservable {
         Player.getInstance().setHp(
                 Player.getInstance().getOriginalHp()
         );
-        Player.getInstance().setX(440);
-        Player.getInstance().setY(600);
+        Player.getInstance().setX(1, true);
+        Player.getInstance().setY(1, true);
     }
 
 }

@@ -4,7 +4,12 @@ package com.example.cs2340c_team28.viewmodels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
+import com.example.cs2340c_team28.models.Movable;
+import com.example.cs2340c_team28.models.Movement;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -16,6 +21,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
      * Current game instance
      */
     private final Game game = Game.getInstance();
+    private final Player player = Player.getInstance();
 
     /**
      * Texture for the player sprite
@@ -28,6 +34,22 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     private SpriteBatch batch;
 
     private LibGdxActivity activity;
+    
+    private TiledMap forest;
+    private TiledMap water;
+    private TiledMap dungeon;
+
+    public TiledMap getForest() {
+        return forest;
+    }
+
+    public TiledMap getWater() {
+        return water;
+    }
+
+    public TiledMap getDungeon() {
+        return dungeon;
+    }
 
     public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
@@ -43,8 +65,14 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     @Override
     public void create() {
         setScreen(new TiledView(this));
+
+        this.forest = new TmxMapLoader().load("forest-map.tmx");
+        this.water = new TmxMapLoader().load("water-map.tmx");
+        this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+        game.setCurrentMap(forest);
+                
         setupGame();
-        int spriteId = Player.getInstance().getSpriteId();
+        int spriteId = player.getSpriteId();
         String imageResource;
         switch (spriteId) {
         case 1:
@@ -86,6 +114,51 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             game.setScore(game.getScore() - 1);
             game.setScoreTime(currentTime);
         }
+
+        if (Game.getInstance().getCurrentMap().equals(forest)) {
+            if (player.getX(true) == 7 && player.getY(true) == 0) {
+                Game.getInstance().setCurrentMap(water);
+            }
+        }
+        if (Game.getInstance().getCurrentMap().equals(water)) {
+            if (player.getX(true) == 0 && player.getY(false) == 15 * 32) {
+                Game.getInstance().setCurrentMap(dungeon);
+            }
+        }
+        
+        if (Game.getInstance().getCurrentMap().equals(dungeon)) {
+            if (1 < player.getX(true) && player.getX(true) < 7
+                    && 0 < player.getY(true) && player.getY(true) < 12) {
+                this.endGame();
+            }
+        }
+
+        handleMovement(player, player.getCurrentMovement());
+    }
+
+    private void handleMovement(Movable movable, Movement movement) {
+        if (movable == null || movement == null) {
+            return;
+        }
+
+        if (movement.isComplete()) {
+            return;
+        }
+
+        TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
+                .getCell(movement.getEndTileX(), movement.getEndTileY());
+
+        // Collision detection here
+        if (newCell != null && newCell.getTile().getId() != 0) {
+            movable.setX(movement.getEndTileX(), true);
+            movable.setY(movement.getEndTileY(), true);
+        } else {
+            // implicit collision here
+            movement.setCollided(true);
+        }
+
+        movement.setComplete(true);
+
     }
 
     /**
@@ -109,7 +182,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
     public void endGame() {
         new LeaderboardViewModel().addNewEntry(
-                Player.getInstance().getName(),
+                player.getName(),
                 game.getScore(),
                 new Date());
         activity.navigateToEndGame();

@@ -1,7 +1,10 @@
 package com.example.cs2340c_team28.models;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class representing a game being played
@@ -52,7 +55,8 @@ public class Game {
      */
     private Difficulty difficulty;
 
-    private TiledMap map;
+    private TiledMap currentMap;
+    private TiledMapTileLayer walkableLayer;
 
     /**
      * Get the difficulty of the game
@@ -62,8 +66,8 @@ public class Game {
         return difficulty;
     }
 
-    public TiledMap getMap() {
-        return map;
+    public TiledMap getCurrentMap() {
+        return currentMap;
     }
 
     /**
@@ -121,8 +125,13 @@ public class Game {
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
     }
-    public void setMap(TiledMap map) {
-        this.map = map;
+
+    public void setCurrentMap(TiledMap currentMap) {
+        this.currentMap = currentMap;
+        this.walkableLayer = (TiledMapTileLayer) currentMap.getLayers().get("walkable");
     }
 
+    public TiledMapTileLayer getWalkableLayer() {
+        return walkableLayer;
+    }
 }

@@ -4,12 +4,18 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.example.cs2340c_team28.screens.TiledView;
+
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Class representing a player in the game
  *
  * @author Steven Baker
  */
-public class Player {
+public class Player extends Movable {
 
     private static final Player INSTANCE = new Player();
 
@@ -37,11 +43,7 @@ public class Player {
      *  avoids storing resource name in the data model
      */
     private int spriteId;
-    private MovementStrategy movementStrategy;
-    private int x;
-    private int y;
-    private boolean leftMove;
-    private boolean rightMove;
+
     private static final String TAG = Player.class.getSimpleName();
 
     public static Player getInstance() {
@@ -107,43 +109,6 @@ public class Player {
             return 100;
         default: // corresponds to HARD
             return 50;
-        }
-    }
-    public void setMovementStrategy(MovementStrategy movementStrategy) {
-        this.movementStrategy = movementStrategy;
-    }
-    public int getX() {
-        return this.x;
-    }
-    public int getY() {
-        return this.y;
-    }
-    public void setX(int x) {
-        this.x = x;
-    }
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setLeftMove(boolean t) {
-        if (rightMove && t) {
-            rightMove = false;
-        }
-        leftMove = t;
-    }
-    public void setRightMove(boolean t) {
-        if (leftMove && t) {
-            leftMove = false;
-        }
-        rightMove = t;
-    }
-    public void updateMovement() {
-        Log.d(TAG, String.format("leftmove: %s, rightmove %s", leftMove, rightMove));
-        if (leftMove) {
-            Player.getInstance().setX(Player.getInstance().getX() - 10);
-        }
-        if (rightMove) {
-            Player.getInstance().setX(Player.getInstance().getX() + 10);
         }
     }
 }
