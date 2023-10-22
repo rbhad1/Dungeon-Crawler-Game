@@ -31,11 +31,17 @@ public class LeaderboardActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leadership_board);
 
+        TextView title = findViewById(R.id.title);
         TextView entryOne = findViewById(R.id.entry1);
         TextView entryTwo = findViewById(R.id.entry2);
         TextView entryThree = findViewById(R.id.entry3);
         TextView entryFour = findViewById(R.id.entry4);
         TextView entryFive = findViewById(R.id.entry5);
+
+        boolean didComeFromWin = getIntent().getBooleanExtra("win", false);
+        if (didComeFromWin) {
+            title.setText("You Win!");
+        }
 
         if (leaderboardEntries.size() >= 1) {
             Leaderboard.LeaderboardEntry entry1 = leaderboardEntries.get(0);

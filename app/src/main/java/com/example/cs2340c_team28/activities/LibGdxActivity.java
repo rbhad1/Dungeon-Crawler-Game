@@ -40,6 +40,7 @@ public class LibGdxActivity extends AndroidApplication {
 
     public void navigateToEndGame() {
         Intent intent = new Intent(this, LeaderboardActivity.class);
+        intent.putExtra("win", true);
         startActivity(intent);
         finish();
     }
