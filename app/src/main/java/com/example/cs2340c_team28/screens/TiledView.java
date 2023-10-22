@@ -3,21 +3,13 @@ package com.example.cs2340c_team28.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
@@ -36,43 +28,12 @@ public class TiledView implements Screen {
      */
     private OrthographicCamera camera;
     /**
-     * Button to open dungeon map
-     */
-    private TextButton button1;
-    /**
-     * Button to open water map
-     */
-    private TextButton button2;
-    /**
-     * Button to return to forest
-     */
-    private TextButton button3;
-    /**
      * Stage for the text and buttons
      */
     private Stage stage;
-
     /**
-     * Text to display health, difficulty, name, score
+     * The gameview model
      */
-    private Label text;
-    /**
-     * The player's name
-     */
-    private Label playerName;
-    /**
-     * The player's health
-     */
-    private Label playerHealth;
-    /**
-     * The difficulty level
-     */
-    private Label difficulty;
-    /**
-     * The text styling for the Text and buttons
-     */
-    private Label.LabelStyle textStyle;
-
     private GameViewModel gameViewModel;
     /**
      * Texture for the player sprite
@@ -83,11 +44,19 @@ public class TiledView implements Screen {
      * Batch of sprites to be rendered
      */
     private SpriteBatch batch;
+    /**
+     * The fitted viewport for the stage
+     */
     private FitViewport fitted;
-    private ExtendViewport extended;
-
+    /**
+     * The font for the text
+     */
     private BitmapFont font;
 
+    /**
+     * TiledView Constructor
+     * @param gameViewModel the view model the the tile model takes in
+     */
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
     }
@@ -107,81 +76,7 @@ public class TiledView implements Screen {
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new TileMovementStrategy());
         stage.addListener(listener);
-        int rowHeight = Gdx.graphics.getHeight() / 12;
-        int colWidth = Gdx.graphics.getWidth() / 12;
-        //creating buttons
-
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = new BitmapFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        button1 = new TextButton("To Dungeon", textButtonStyle);
-        button1.setSize(colWidth, rowHeight);
-        button1.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button1.setTransform(true);
-        button1.scaleBy(2f);
-        stage.addActor(button1);
-        button2 = new TextButton("To Water", textButtonStyle);
-        button2.setSize(colWidth, rowHeight);
-        button2.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button2.setTransform(true);
-        button2.scaleBy(2f);
-        button3 = new TextButton("End Game", textButtonStyle);
-        button3.setSize(colWidth, rowHeight);
-        button3.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button3.setTransform(true);
-        button3.scaleBy(2f);
-        // button to go to dungeon
-        button1.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Game.getInstance().setCurrentMap(gameViewModel.getDungeon());
-                stage.addActor(button2);
-                button1.remove();
-            }
-        });
-        // button to go to water
-        button2.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Game.getInstance().setCurrentMap(gameViewModel.getWater());
-                stage.addActor(button3);
-                button2.remove();
-            }
-        });
-        //button to go to forest
-        button3.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                gameViewModel.endGame();
-            }
-        });
-
-
         Gdx.input.setInputProcessor(stage);
-
-        // scoring text
-        textStyle = new Label.LabelStyle();
-        textStyle.font = new BitmapFont();
-        textStyle.fontColor = Color.WHITE;
-
-        text = new Label("Score: " + Game.getInstance().getScore(), textStyle);
-        text.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 30);
-        text.setFontScale(4f);
-        //stage2.addActor(text);
-
-        playerName = new Label(Player.getInstance().getName(), textStyle);
-        playerHealth = new Label(Player.getInstance().getHp()
-                + "/" + Player.getInstance().getOriginalHp() + " HP", textStyle);
-        difficulty = new Label(Game.getInstance().getDifficulty().toString(), textStyle);
-        playerName.setPosition(colWidth, Gdx.graphics.getHeight() - 30);
-        playerName.setFontScale(4f);
-        playerHealth.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 80);
-        playerHealth.setFontScale(4f);
-        difficulty.setPosition(colWidth, Gdx.graphics.getHeight() - 80);
-        difficulty.setFontScale(4f);
-        //stage2.addActor(playerName);
-        //stage2.addActor(playerHealth);
-        //stage2.addActor(difficulty);
 
         int spriteId = Player.getInstance().getSpriteId();
         String imageResource;
@@ -210,16 +105,11 @@ public class TiledView implements Screen {
 
         renderer.setMap(Game.getInstance().getCurrentMap());
 
-        //updating time score
-        text.setText(Game.getInstance().getScore());
-
         stage.draw();
         stage.act();
 
-
         renderer.setView(camera);
         renderer.render();
-        //Player.getInstance().updateMovement();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
