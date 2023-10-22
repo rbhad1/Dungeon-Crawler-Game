@@ -62,7 +62,6 @@ public class ConfigScreenViewModel extends BaseObservable {
      * The difficulty with which to start the game
      */
     private Difficulty difficulty;
-    private MovementStrategy movementStrategy;
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
@@ -161,8 +160,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      * @param v The button that was pressed, as a View element
      */
     public void onStartGameButtonClicked(View v) {
-        Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 0, 0);
+        assignGameProperties();
 
         Context context = v.getContext();
         if (context instanceof ContextWrapper) {
@@ -180,10 +178,7 @@ public class ConfigScreenViewModel extends BaseObservable {
      * @param v The button that was pressed, as a View element
      */
     public void onStartGameButtonGdxClicked(View v) {
-        assignGameAndPlayerDetails();
-        Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex,
-                movementStrategy, 440, 600);
+        assignGameProperties();
         Context context = v.getContext();
         if (context instanceof ContextWrapper) {
             Context baseContext = ((ContextWrapper) context).getBaseContext();
@@ -197,9 +192,18 @@ public class ConfigScreenViewModel extends BaseObservable {
     /**
      * Set properties for the game and player
      */
-    public void assignGameAndPlayerDetails() {
-        Game.createNewGame(difficulty);
-        Player.createNewPlayer(playerName, difficulty, spriteIndex, movementStrategy, 440, 600);
+    public void assignGameProperties() {
+        Game.getUniqueGameInstance().setDifficulty(difficulty);
+        Player.getUniquePlayerInstance().setName(playerName);
+        Player.getUniquePlayerInstance().setSpriteId(spriteIndex);
+        Player.getUniquePlayerInstance().setOriginalHp(
+                Player.initialHp(Game.getUniqueGameInstance().getDifficulty())
+        );
+        Player.getUniquePlayerInstance().setHp(
+                Player.getUniquePlayerInstance().getOriginalHp()
+        );
+        Player.getUniquePlayerInstance().setX(440);
+        Player.getUniquePlayerInstance().setY(600);
     }
 
 }

@@ -33,12 +33,17 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         this.activity = activity;
     }
 
+    public GameViewModel() {
+        this.activity = new LibGdxActivity();
+    }
+
     /**
      * Loads images and handles how often the game renders
      */
     @Override
     public void create() {
         setScreen(new TiledView(this));
+        setupGame();
         int spriteId = Player.getUniquePlayerInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {
@@ -58,8 +63,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         Gdx.graphics.requestRendering();
 
         game.setScore(Game.MAX_SCORE);
-        game.setTime(0.0);
-        game.setScoreTime(System.currentTimeMillis());
+        game.setScoreTime(getTime());
     }
 
     /**
@@ -75,9 +79,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
      * Updates score and time of the game
      */
     private void updateGameLogic() {
-        long currentTime = System.currentTimeMillis();
-        long elapsedTime = currentTime - game.getStartTime();
-        game.setTime((double) elapsedTime / 1000.0);
+        long currentTime = getTime();
         long timeSinceLastDecrement = currentTime - game.getScoreTime();
 
         if (timeSinceLastDecrement >= 1000) {
@@ -111,6 +113,15 @@ public class GameViewModel extends com.badlogic.gdx.Game {
                 game.getScore(),
                 new Date());
         activity.navigateToEndGame();
+    }
+
+    public long getTime() {
+        return System.currentTimeMillis();
+    }
+
+    public void setupGame() {
+        Game.getUniqueGameInstance().setStartTime(getTime());
+        Game.getUniqueGameInstance().setScoreTime(getTime());
     }
 
 }

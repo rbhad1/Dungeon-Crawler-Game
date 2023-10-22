@@ -16,20 +16,20 @@ public class Player {
     /**
      * The name of the player
      */
-    private final String name;
+    private String name;
 
     /**
      * The health points (hp) of the player
      */
     private int hp;
 
-    private final int originalHp;
+    private int originalHp;
 
     /**
      * An integer id representing the player's sprite graphic,
      *  avoids storing resource name in the data model
      */
-    private final int spriteId;
+    private int spriteId;
     private MovementStrategy movementStrategy;
     private int x;
     private int y;
@@ -37,38 +37,8 @@ public class Player {
     private boolean rightMove;
     private static final String TAG = Player.class.getSimpleName();
 
-    /**
-     * Instantiate the player
-     * @param name The player's name
-     * @param spriteId Chosen sprite id
-     * @param initialHp Player's starting hp
-     * @param movementStrategy the chosen way of movement
-     */
-    private Player(String name, int spriteId, int initialHp, MovementStrategy movementStrategy, int x, int y) {
-        this.name = name;
-        this.spriteId = spriteId;
-        this.hp = initialHp;
-        this.originalHp = initialHp;
-        this.movementStrategy = movementStrategy;
-        this.x = x;
-        this.y = y;
-    }
-
     public static Player getUniquePlayerInstance() {
         return uniquePlayerInstance;
-    }
-
-    public static void createNewPlayer(String name, Difficulty difficulty,
-                                       int spriteId, MovementStrategy movementStrategy,
-                                       int x, int y) {
-        uniquePlayerInstance = new Player(
-                name,
-                spriteId,
-                initialHp(difficulty),
-                movementStrategy,
-                x,
-                y
-        );
     }
 
     public String getName() {
@@ -102,6 +72,18 @@ public class Player {
      */
     public int getSpriteId() {
         return spriteId;
+    }
+
+    public void setSpriteId(int spriteId) {
+        this.spriteId = spriteId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOriginalHp(int originalHp) {
+        this.originalHp = originalHp;
     }
 
     /**
@@ -143,7 +125,7 @@ public class Player {
         leftMove = t;
     }
     public void setRightMove(boolean t) {
-        if(leftMove && t) {
+        if (leftMove && t) {
             leftMove = false;
         }
         rightMove = t;
