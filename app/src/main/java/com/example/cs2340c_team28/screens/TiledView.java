@@ -108,30 +108,6 @@ public class TiledView implements Screen {
         listener.setMovementStrategy(new TileMovementStrategy());
         stage.addListener(listener);
         Gdx.input.setInputProcessor(stage);
-        int rowHeight = Gdx.graphics.getHeight() / 12;
-        int colWidth = Gdx.graphics.getWidth() / 12;
-        //creating buttons
-
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = new BitmapFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        button1 = new TextButton("To Dungeon", textButtonStyle);
-        button1.setSize(colWidth, rowHeight);
-        button1.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button1.setTransform(true);
-        button1.scaleBy(2f);
-        stage.addActor(button1);
-        button2 = new TextButton("To Water", textButtonStyle);
-        button2.setSize(colWidth, rowHeight);
-        button2.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button2.setTransform(true);
-        button2.scaleBy(2f);
-        button3 = new TextButton("End Game", textButtonStyle);
-        button3.setSize(colWidth, rowHeight);
-        button3.setPosition(colWidth * 9, Gdx.graphics.getHeight() - 300);
-        button3.setTransform(true);
-        button3.scaleBy(2f);
-        // button to go to dungeon
 
         int spriteId = Player.getInstance().getSpriteId();
         String imageResource;
