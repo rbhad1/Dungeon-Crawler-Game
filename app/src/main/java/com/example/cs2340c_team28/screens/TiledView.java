@@ -104,7 +104,7 @@ public class TiledView implements Screen {
         fitted = new FitViewport(9 * 32, 16 * 32, camera);
 
         Player.getInstance().setX(4 * 32);
-        Player.getInstance().setY(4 * 32);
+        Player.getInstance().setY(9 * 32);
 
         stage = new Stage(fitted);
         MovementListener listener = new MovementListener();
@@ -219,20 +219,20 @@ public class TiledView implements Screen {
         //updating time score
         text.setText(Game.getInstance().getScore());
         if (Game.getInstance().getMap().equals(forest)) {
-            if (Player.getInstance().getX() == 224 && Player.getInstance().getY() == 0) {
+            if (Player.getInstance().getX() == 7 * 32 && Player.getInstance().getY() == 0) {
                 Game.getInstance().setMap(water);
                 renderer.setMap(water);
             }
         }
         if (Game.getInstance().getMap().equals(water)) {
-            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 480) {
+            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 15 * 32) {
                 Game.getInstance().setMap(dungeon);
                 renderer.setMap(dungeon);
             }
         }
         if (Game.getInstance().getMap().equals(dungeon)) {
-            if (32 < Player.getInstance().getX() && Player.getInstance().getX() < 224
-                    && 0 < Player.getInstance().getY() && Player.getInstance().getY() < 384) {
+            if (32 < Player.getInstance().getX() && Player.getInstance().getX() < 7 * 32
+                    && 0 < Player.getInstance().getY() && Player.getInstance().getY() < 12 * 32) {
                 gameViewModel.endGame();
             }
         }
