@@ -35,9 +35,9 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
     private LibGdxActivity activity;
     
-    private TiledMap forest;
-    private TiledMap water;
-    private TiledMap dungeon;
+    protected TiledMap forest;
+    protected TiledMap water;
+    protected TiledMap dungeon;
 
     public TiledMap getForest() {
         return forest;
@@ -59,6 +59,13 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         this.activity = new LibGdxActivity();
     }
 
+    protected void loadAssets() {
+        this.forest = new TmxMapLoader().load("forest-map.tmx");
+        this.water = new TmxMapLoader().load("water-map.tmx");
+        this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+        game.setCurrentMap(forest);
+    }
+
     /**
      * Loads images and handles how often the game renders
      */
@@ -66,11 +73,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void create() {
         setScreen(new TiledView(this));
 
-        this.forest = new TmxMapLoader().load("forest-map.tmx");
-        this.water = new TmxMapLoader().load("water-map.tmx");
-        this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
-        game.setCurrentMap(forest);
-                
+        this.loadAssets();
+
         setupGame();
         int spriteId = player.getSpriteId();
         String imageResource;
@@ -106,7 +110,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     /**
      * Updates score and time of the game
      */
-    private void updateGameLogic() {
+    public void updateGameLogic() {
         long currentTime = getTime();
         long timeSinceLastDecrement = currentTime - game.getScoreTime();
 

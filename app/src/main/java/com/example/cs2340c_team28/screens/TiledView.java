@@ -75,6 +75,7 @@ public class TiledView implements Screen {
 
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new TileMovementStrategy());
+
         stage.addListener(listener);
         Gdx.input.setInputProcessor(stage);
 
