@@ -105,6 +105,8 @@ public class GameUnitTests {
         assertEquals(player.getX(true), 0);
         assertEquals(player.getY(true), 3);
 
+        assertTrue(player.getCurrentMovement().isCollided());
+
 
     }
 
@@ -119,15 +121,15 @@ public class GameUnitTests {
 
         Player player = Player.getInstance();
 
-        player.setX(4, true);
-        player.setY(1, true);
+        player.setX(0, true);
+        player.setY(0, true);
 
         new TileMovementStrategy().moveUp();
         gameViewModel.updateGameLogic();
 
-
-        assertEquals(player.getX(true), 4);
+        assertEquals(player.getX(true), 0);
         assertEquals(player.getY(true), 1);
+        assertFalse(player.getCurrentMovement().isCollided());
     }
 
 }
