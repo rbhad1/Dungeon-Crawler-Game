@@ -214,6 +214,24 @@ public class TiledView implements Screen {
 
         //updating time score
         text.setText(Game.getInstance().getScore());
+        if (Game.getInstance().getMap() == new TmxMapLoader().load("forest-map.tmx")) {
+            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 0) {
+                Game.getInstance().setMap(new TmxMapLoader().load("water-map.tmx"));
+                renderer = new OrthogonalTiledMapRenderer(Game.getInstance().getMap());
+            }
+        }
+        if (Game.getInstance().getMap() == new TmxMapLoader().load("water-map.tmx")) {
+            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == Gdx.graphics.getHeight() / 16) {
+                Game.getInstance().setMap(new TmxMapLoader().load("dungeon-map.tmx"));
+                renderer = new OrthogonalTiledMapRenderer(Game.getInstance().getMap());
+            }
+        }
+        if (Game.getInstance().getMap() == new TmxMapLoader().load("dungeon-map.tmx")) {
+            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 2 * Gdx.graphics.getHeight() / 16) {
+                gameViewModel.endGame();
+            }
+        }
+
 
         stage.draw();
         stage.act();

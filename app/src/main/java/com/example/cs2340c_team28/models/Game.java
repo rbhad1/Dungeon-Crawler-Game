@@ -1,5 +1,8 @@
 package com.example.cs2340c_team28.models;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
 /**
  * Class representing a game being played
  *
@@ -49,12 +52,18 @@ public class Game {
      */
     private Difficulty difficulty;
 
+    private TiledMap map;
+
     /**
      * Get the difficulty of the game
      * @return The game difficulty
      */
     public Difficulty getDifficulty() {
         return difficulty;
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
 
     /**
@@ -111,6 +120,9 @@ public class Game {
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
+    }
+    public void setMap(TiledMap map) {
+        this.map = map;
     }
 
 }
