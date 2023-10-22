@@ -84,6 +84,53 @@ public class GameUnitTests {
         assertEquals(player.getX(true), 4);
         assertEquals(player.getY(true), 10);
     }
+    @Test
+    public void playerMultipleMovements() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+
+        gameViewModel.doPreinitialization();
+
+        Player player = Player.getInstance();
+        Game game = Game.getInstance();
+
+        player.setX(4, true);
+        player.setY(9,true);
+
+        new TileMovementStrategy().moveLeft();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveLeft();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveRight();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveRight();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveDown();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveLeft();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveLeft();
+        gameViewModel.updateGameLogic();
+        new TileMovementStrategy().moveLeft();
+        gameViewModel.updateGameLogic();
+
+        assertEquals(player.getX(true), 1);
+        assertEquals(player.getY(true), 1);
+    }
+
 
 
 }
