@@ -2,7 +2,7 @@
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
  <tileset firstgid="1" source="dungeon.tsx"/>
  <tileset firstgid="2521" source="fire.tsx"/>
- <layer id="2" name="background" width="9" height="16">
+ <layer id="2" name="fire" width="9" height="16">
   <data encoding="csv">
 6556,6557,6558,6559,6560,6561,6562,6563,6564,
 6636,6637,6638,6639,6640,6641,6642,6643,6644,
@@ -22,7 +22,7 @@
 7756,7757,7758,7759,7760,7761,7762,7763,7764
 </data>
  </layer>
- <layer id="3" name="walkable" width="9" height="16">
+ <layer id="3" name="portal" width="9" height="16">
   <data encoding="csv">
 808,809,0,1570,1571,1572,1573,0,1575,
 850,851,1611,1612,1613,1614,1615,1616,1617,
