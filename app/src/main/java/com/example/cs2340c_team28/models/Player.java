@@ -1,14 +1,6 @@
 package com.example.cs2340c_team28.models;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.example.cs2340c_team28.screens.TiledView;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class representing a player in the game
