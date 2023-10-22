@@ -1,6 +1,8 @@
 package com.example.cs2340c_team28.models;
 
+
 import androidx.annotation.NonNull;
+
 
 /**
  * Class representing a player in the game
@@ -36,7 +38,6 @@ public class Player extends Movable {
      */
     private int spriteId;
 
-    private static final String TAG = Player.class.getSimpleName();
 
     public static Player getInstance() {
         return INSTANCE;
