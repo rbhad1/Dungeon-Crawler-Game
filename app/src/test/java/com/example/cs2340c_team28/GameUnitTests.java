@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.Movement;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.models.TileMovementStrategy;
@@ -69,7 +68,7 @@ public class GameUnitTests {
         gameViewModel.doPreinitialization();
 
         Player player = Player.getInstance();
-        Game game = Game.getInstance();
+        // Game game = Game.getInstance();
 
         // Set the player's position to the location of the door in the forest
         player.setX(4, true);
@@ -85,5 +84,50 @@ public class GameUnitTests {
         assertEquals(player.getY(true), 10);
     }
 
+    @Test
+    public void playerCollisionInForestMap() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+
+        gameViewModel.doPreinitialization();
+
+        Player player = Player.getInstance();
+        Game game = Game.getInstance();
+        game.setCurrentMap(gameViewModel.getForest());
+
+
+        player.setX(0, true);
+        player.setY(3, true);
+
+        new TileMovementStrategy().moveRight();
+        gameViewModel.updateGameLogic();
+
+
+        assertEquals(player.getX(true), 0);
+        assertEquals(player.getY(true), 3);
+
+
+    }
+
+    @Test
+    public void playerNoCollisionInWaterMap() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+        game.setCurrentMap(gameViewModel.getWater());
+
+
+        Player player = Player.getInstance();
+
+        player.setX(4, true);
+        player.setY(1, true);
+
+        new TileMovementStrategy().moveUp();
+        gameViewModel.updateGameLogic();
+
+
+        assertEquals(player.getX(true), 4);
+        assertEquals(player.getY(true), 1);
+    }
 
 }
