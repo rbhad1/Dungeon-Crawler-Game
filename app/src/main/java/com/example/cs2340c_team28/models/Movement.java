@@ -8,6 +8,7 @@ public class Movement {
     private final int endTileY;
 
     private boolean complete;
+    private boolean collided;
 
     public int getStartTileX() {
         return startTileX;
@@ -27,6 +28,14 @@ public class Movement {
 
     public boolean isComplete() {
         return complete;
+    }
+
+    public boolean isCollided() {
+        return collided;
+    }
+
+    public void setCollided(boolean collided) {
+        this.collided = collided;
     }
 
     public void setComplete(boolean complete) {

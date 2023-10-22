@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.models.Movable;
@@ -144,14 +145,16 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             return;
         }
 
-        int newTileId = game.getWalkableLayer()
-                .getCell(movement.getEndTileX(), movement.getEndTileY())
-                .getTile().getId();
+        TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
+                .getCell(movement.getEndTileX(), movement.getEndTileY());
 
         // Collision detection here
-        if (newTileId != 0) {
+        if (newCell != null && newCell.getTile().getId() != 0) {
             movable.setX(movement.getEndTileX(), true);
-            movable.setX(movement.getEndTileY(), true);
+            movable.setY(movement.getEndTileY(), true);
+        } else {
+            // implicit collision here
+            movement.setCollided(true);
         }
 
         movement.setComplete(true);
