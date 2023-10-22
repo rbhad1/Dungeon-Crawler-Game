@@ -54,6 +54,7 @@ public class TiledView implements Screen {
      * Stage for the text and buttons
      */
     private Stage stage;
+
     /**
      * Text to display health, difficulty, name, score
      */
@@ -91,6 +92,7 @@ public class TiledView implements Screen {
     private TiledMap forest = new TmxMapLoader().load("forest-map.tmx");
     private TiledMap water = new TmxMapLoader().load("water-map.tmx");
     private TiledMap dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+    private BitmapFont font;
 
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
@@ -107,6 +109,7 @@ public class TiledView implements Screen {
         Player.getInstance().setY(9 * 32);
 
         stage = new Stage(fitted);
+
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new TileBasedMovement());
         stage.addListener(listener);
@@ -175,7 +178,7 @@ public class TiledView implements Screen {
         text = new Label("Score: " + Game.getInstance().getScore(), textStyle);
         text.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 30);
         text.setFontScale(4f);
-        stage.addActor(text);
+        //stage2.addActor(text);
 
         playerName = new Label(Player.getInstance().getName(), textStyle);
         playerHealth = new Label(Player.getInstance().getHp()
@@ -187,9 +190,9 @@ public class TiledView implements Screen {
         playerHealth.setFontScale(4f);
         difficulty.setPosition(colWidth, Gdx.graphics.getHeight() - 80);
         difficulty.setFontScale(4f);
-        stage.addActor(playerName);
-        stage.addActor(playerHealth);
-        stage.addActor(difficulty);
+        //stage2.addActor(playerName);
+        //stage2.addActor(playerHealth);
+        //stage2.addActor(difficulty);
 
         int spriteId = Player.getInstance().getSpriteId();
         String imageResource;
@@ -206,7 +209,7 @@ public class TiledView implements Screen {
         }
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
-
+        font = new BitmapFont();
 
 
     }
@@ -241,12 +244,17 @@ public class TiledView implements Screen {
         stage.draw();
         stage.act();
 
+
         renderer.setView(camera);
         renderer.render();
         Player.getInstance().updateMovement();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        font.draw(batch, "" + Player.getInstance().getName(), 0, 16 * 32);
+        font.draw(batch, "" + Game.getInstance().getDifficulty(), 0, 16 * 31);
+        font.draw(batch, "Score: " + Game.getInstance().getScore(), 6 * 32, 16 * 32);
+        font.draw(batch, "HP: " + Player.getInstance().getHp(), 6 * 32, 16 * 31);
         batch.draw(playerImage, Player.getInstance().getX(),
                 Player.getInstance().getY(), 32, 32);
         batch.end();
