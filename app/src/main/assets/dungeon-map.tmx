@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
  <tileset firstgid="1" source="dungeon.tsx"/>
  <tileset firstgid="2521" source="fire.tsx"/>
- <layer id="2" name="background" width="9" height="16">
+ <layer id="2" name="fire" width="9" height="16">
   <data encoding="csv">
 6556,6557,6558,6559,6560,6561,6562,6563,6564,
 6636,6637,6638,6639,6640,6641,6642,6643,6644,
@@ -40,6 +40,26 @@
 1883,1884,1490,1491,1492,1493,1494,0,1714,
 1530,0,1532,1533,1534,1535,1536,1755,1756,
 1461,1567,1568,0,1570,0,1572,1573,1574
+</data>
+ </layer>
+ <layer id="4" name="door" width="9" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,1070,1071,1072,1073,1074,0,0,
+0,0,1112,1113,1114,1115,1116,0,0,
+0,0,1154,1155,1156,1157,1158,0,0,
+0,0,1196,1197,1198,1199,1200,0,0,
+0,0,1238,1239,1240,1241,1242,0,0,
+0,0,1280,1281,1282,1283,1284,0,0,
+0,0,1322,1323,1324,1325,1326,0,0,
+0,0,1364,1365,1366,1367,1368,0,0,
+0,0,1406,1407,1408,1409,1410,0,0,
+0,0,1448,1449,1450,1451,1452,0,0,
+0,0,1490,1491,1492,1493,1494,0,0,
+0,0,1532,1533,1534,1535,1536,0,0,
+0,0,0,0,0,0,0,0,0
 </data>
  </layer>
 </map>

@@ -57,6 +57,7 @@ public class Game {
 
     private TiledMap currentMap;
     private TiledMapTileLayer walkableLayer;
+    private TiledMapTileLayer doorLayer;
 
     /**
      * Get the difficulty of the game
@@ -129,9 +130,14 @@ public class Game {
     public void setCurrentMap(TiledMap currentMap) {
         this.currentMap = currentMap;
         this.walkableLayer = (TiledMapTileLayer) currentMap.getLayers().get("walkable");
+        this.doorLayer = (TiledMapTileLayer) currentMap.getLayers().get("door");
     }
 
     public TiledMapTileLayer getWalkableLayer() {
         return walkableLayer;
+    }
+
+    public TiledMapTileLayer getDoorLayer() {
+        return doorLayer;
     }
 }

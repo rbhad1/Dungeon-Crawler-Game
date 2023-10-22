@@ -115,20 +115,15 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             game.setScoreTime(currentTime);
         }
 
-        if (Game.getInstance().getCurrentMap().equals(forest)) {
-            if (player.getX(true) == 7 && player.getY(true) == 0) {
+        TiledMapTileLayer.Cell possibleDoorCell = game.getDoorLayer()
+                .getCell(player.getX(true), player.getY(true));
+        // Check if we've reached door
+        if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
+            if (game.getCurrentMap().equals(forest)) {
                 Game.getInstance().setCurrentMap(water);
-            }
-        }
-        if (Game.getInstance().getCurrentMap().equals(water)) {
-            if (player.getX(true) == 0 && player.getY(false) == 15 * 32) {
+            } else if (game.getCurrentMap().equals(water)) {
                 Game.getInstance().setCurrentMap(dungeon);
-            }
-        }
-        
-        if (Game.getInstance().getCurrentMap().equals(dungeon)) {
-            if (1 < player.getX(true) && player.getX(true) < 7
-                    && 0 < player.getY(true) && player.getY(true) < 12) {
+            } else if (game.getCurrentMap().equals(dungeon)) {
                 this.endGame();
             }
         }

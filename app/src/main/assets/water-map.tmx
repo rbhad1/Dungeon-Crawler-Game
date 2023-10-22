@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
  <tileset firstgid="1" source="rock.tsx"/>
  <tileset firstgid="5829" source="water.tsx"/>
  <tileset firstgid="15509" source="fire.tsx"/>
- <layer id="2" name="background" width="9" height="16">
+ <tileset firstgid="25109" source="dungeon.tsx"/>
+ <layer id="2" name="rocks" width="9" height="16">
   <data encoding="csv">
 5507,5508,5509,5507,5506,5507,5508,5509,5445,
 5569,5570,5571,5569,5568,5569,5570,5571,5507,
@@ -41,6 +42,26 @@
 0,6365,0,0,0,6539,6540,0,0,
 6540,6453,0,6365,0,6714,6715,6540,6717,
 6540,6714,6715,6453,6539,6540,6539,6540,6539
+</data>
+ </layer>
+ <layer id="4" name="door" width="9" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,26305,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0
 </data>
  </layer>
 </map>
