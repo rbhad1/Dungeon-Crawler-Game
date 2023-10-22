@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="rock.tsx"/>
  <tileset firstgid="5829" source="water.tsx"/>
  <tileset firstgid="15509" source="fire.tsx"/>
- <layer id="2" name="rocks" width="9" height="16">
+ <layer id="2" name="background" width="9" height="16">
   <data encoding="csv">
 5507,5508,5509,5507,5506,5507,5508,5509,5445,
 5569,5570,5571,5569,5568,5569,5570,5571,5507,
@@ -23,7 +23,7 @@
 5562,5563,5564,5565,5566,5242,5243,5244,5245
 </data>
  </layer>
- <layer id="3" name="water" width="9" height="16">
+ <layer id="3" name="walkable" width="9" height="16">
   <data encoding="csv">
 6625,0,6713,6713,6625,0,6537,0,0,
 6625,6537,6537,6537,6537,6537,6537,6537,6537,

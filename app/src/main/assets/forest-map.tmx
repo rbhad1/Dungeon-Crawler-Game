@@ -2,7 +2,7 @@
 <map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" source="trees.tsx"/>
  <tileset firstgid="8751" source="rock.tsx"/>
- <layer id="1" name="forest" width="9" height="16">
+ <layer id="1" name="background" width="9" height="16">
   <data encoding="csv">
 493,984,985,986,987,988,7773,7774,7702,
 563,1054,1055,1056,1057,1058,7843,7844,7772,
@@ -22,7 +22,7 @@
 633,634,5882,5883,5884,1124,1125,1126,1127
 </data>
  </layer>
- <layer id="2" name="path" width="9" height="16">
+ <layer id="2" name="walkable" width="9" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,
 0,11299,11299,10427,10427,10427,10427,10427,11299,
