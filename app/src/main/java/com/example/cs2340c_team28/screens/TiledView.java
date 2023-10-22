@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,7 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
 import com.example.cs2340c_team28.models.Player;
-import com.example.cs2340c_team28.models.TileBasedMovement;
+import com.example.cs2340c_team28.models.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class TiledView implements Screen {
@@ -31,10 +30,7 @@ public class TiledView implements Screen {
      * Tile map for background
      */
     private TiledMap map;
-    /**
-     * Name of tile map
-     */
-    private String currentMapName;
+
     /**
      * Renderer for the tilemap
      */
@@ -93,9 +89,6 @@ public class TiledView implements Screen {
     private FitViewport fitted;
     private ExtendViewport extended;
 
-    private TiledMap forest = new TmxMapLoader().load("forest-map.tmx");
-    private TiledMap water = new TmxMapLoader().load("water-map.tmx");
-    private TiledMap dungeon = new TmxMapLoader().load("dungeon-map.tmx");
 
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
@@ -113,7 +106,7 @@ public class TiledView implements Screen {
 
         stage = new Stage(fitted);
         MovementListener listener = new MovementListener();
-        listener.setMovementStrategy(new TileBasedMovement());
+        listener.setMovementStrategy(new TileMovementStrategy());
         stage.addListener(listener);
         int rowHeight = Gdx.graphics.getHeight() / 12;
         int colWidth = Gdx.graphics.getWidth() / 12;
@@ -143,7 +136,6 @@ public class TiledView implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 map = new TmxMapLoader().load("dungeon-map.tmx");
-                currentMapName = map.getProperties().get("dungeon-map",String.class);
                 renderer = new OrthogonalTiledMapRenderer(map);
                 camera = new OrthographicCamera();
                 stage.addActor(button2);
@@ -155,7 +147,6 @@ public class TiledView implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 map = new TmxMapLoader().load("water-map.tmx");
-                currentMapName = map.getProperties().get("water-map",String.class);
                 renderer = new OrthogonalTiledMapRenderer(map);
                 camera = new OrthographicCamera();
                 stage.addActor(button3);
@@ -169,7 +160,6 @@ public class TiledView implements Screen {
                 gameViewModel.endGame();
             }
         });
-
 
 
         Gdx.input.setInputProcessor(stage);
@@ -186,7 +176,7 @@ public class TiledView implements Screen {
 
         playerName = new Label(Player.getInstance().getName(), textStyle);
         playerHealth = new Label(Player.getInstance().getHp()
-                + "/" +  Player.getInstance().getOriginalHp() + " HP", textStyle);
+                + "/" + Player.getInstance().getOriginalHp() + " HP", textStyle);
         difficulty = new Label(Game.getInstance().getDifficulty().toString(), textStyle);
         playerName.setPosition(colWidth, Gdx.graphics.getHeight() - 30);
         playerName.setFontScale(4f);
@@ -215,35 +205,18 @@ public class TiledView implements Screen {
         batch = new SpriteBatch();
 
 
-
     }
+
     @Override
     public void render(float delta) {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        renderer.setMap(Game.getInstance().getCurrentMap());
+
         //updating time score
         text.setText(Game.getInstance().getScore());
-        if (Game.getInstance().getMap().equals(forest)) {
-            if (Player.getInstance().getX() == 7 * 32 && Player.getInstance().getY() == 0) {
-                Game.getInstance().setMap(water);
-                renderer.setMap(water);
-            }
-        }
-        if (Game.getInstance().getMap().equals(water)) {
-            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 15 * 32) {
-                Game.getInstance().setMap(dungeon);
-                renderer.setMap(dungeon);
-            }
-        }
-        if (Game.getInstance().getMap().equals(dungeon)) {
-            if (32 < Player.getInstance().getX() && Player.getInstance().getX() < 7 * 32
-                    && 0 < Player.getInstance().getY() && Player.getInstance().getY() < 12 * 32) {
-                gameViewModel.endGame();
-            }
-        }
-
 
         stage.draw();
         stage.act();
@@ -264,13 +237,10 @@ public class TiledView implements Screen {
         fitted.setScreenSize(width, height);
         camera.update();
     }
+
     @Override
     public void show() {
         create();
-        map = new TmxMapLoader().load("forest-map.tmx");
-        currentMapName = map.getProperties().get("forest-map",String.class);
-        map = forest;
-        Game.getInstance().setMap(forest);
         renderer = new OrthogonalTiledMapRenderer(map);
     }
 
@@ -292,20 +262,8 @@ public class TiledView implements Screen {
         renderer.dispose();
     }
 
-    public String getCurrentMapName() {
-        return currentMapName;
-    }
     public TiledMap getMap() {
         return map;
     }
 
-    public TiledMap getForest() {
-        return forest;
-    }
-    public TiledMap getWater() {
-        return water;
-    }
-    public TiledMap getDungeon() {
-        return dungeon;
-    }
 }

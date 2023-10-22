@@ -14,23 +14,23 @@ public class MovementListener extends InputListener {
     @Override
     public boolean keyDown(InputEvent event, int keycode) {
         switch (keycode) {
-            case Input.Keys.LEFT:
-                movementStrategy.moveLeft();
-                Log.d(TAG, "keyDown: " + keycode);
-                break;
-            case Input.Keys.RIGHT:
-                movementStrategy.moveRight();
-                Log.d(TAG, "keyDown: " + keycode);
-                break;
-            case Input.Keys.UP:
-                movementStrategy.moveUp();
-                Log.d(TAG, "keyDown: " + keycode);
-                break;
-            case Input.Keys.DOWN:
-                movementStrategy.moveDown();
-                Log.d(TAG, "keyDown: " + keycode);
-                break;
-            default:
+        case Input.Keys.LEFT:
+            movementStrategy.moveLeft();
+            Log.d(TAG, "keyDown: " + keycode);
+            break;
+        case Input.Keys.RIGHT:
+            movementStrategy.moveRight();
+            Log.d(TAG, "keyDown: " + keycode);
+            break;
+        case Input.Keys.UP:
+            movementStrategy.moveUp();
+            Log.d(TAG, "keyDown: " + keycode);
+            break;
+        case Input.Keys.DOWN:
+            movementStrategy.moveDown();
+            Log.d(TAG, "keyDown: " + keycode);
+            break;
+        default:
 
         }
         return true;
@@ -38,18 +38,7 @@ public class MovementListener extends InputListener {
 
     @Override
     public boolean keyUp(InputEvent event, int keycode) {
-        switch (keycode) {
-            case Input.Keys.LEFT:
-                //Player.getInstance().setLeftMove(false);
-                Log.d(TAG, "keyUp: " + keycode);
-                break;
-            case Input.Keys.RIGHT:
-                //Player.getInstance().setRightMove(false);
-                Log.d(TAG, "keyUp: " + keycode);
-                break;
-            default:
-                Log.d(TAG, "keyUp: " + keycode);
-        }
+        Log.d(TAG, "keyUp: " + keycode);
         return true;
     }
 

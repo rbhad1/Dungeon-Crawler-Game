@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Steven Baker
  */
-public class Player {
+public class Player extends Movable {
 
     private static final Player INSTANCE = new Player();
 
@@ -121,9 +121,19 @@ public class Player {
     public int getX() {
         return this.x;
     }
+
+    public int getXByTile() {
+        return this.x / 32;
+    }
+
     public int getY() {
         return this.y;
     }
+
+    public int getYByTile() {
+        return this.y / 32;
+    }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -131,23 +141,6 @@ public class Player {
         this.y = y;
     }
 
-    TiledMapTileLayer collisionLayer;
-    TiledView tiledView;
-
-    public void setCollisionLayer() {
-
-//        map = tiledView.getMap();
-        switch (tiledView.getCurrentMapName()) {
-            case ("water-map"):
-                collisionLayer = (TiledMapTileLayer) tiledView.getMap().getLayers().get("water");
-                break;
-            case ("dungeon-map"):
-                collisionLayer = (TiledMapTileLayer) tiledView.getMap().getLayers().get("portal");
-                break;
-            case ("forest-map"):
-                collisionLayer = (TiledMapTileLayer) tiledView.getMap().getLayers().get("path");
-        }
-    }
     int oldX = x;
     int oldY = y;
     boolean collisionX = false;
