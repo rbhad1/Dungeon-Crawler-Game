@@ -3,21 +3,13 @@ package com.example.cs2340c_team28.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
@@ -36,43 +28,12 @@ public class TiledView implements Screen {
      */
     private OrthographicCamera camera;
     /**
-     * Button to open dungeon map
-     */
-    private TextButton button1;
-    /**
-     * Button to open water map
-     */
-    private TextButton button2;
-    /**
-     * Button to return to forest
-     */
-    private TextButton button3;
-    /**
      * Stage for the text and buttons
      */
     private Stage stage;
-
     /**
-     * Text to display health, difficulty, name, score
+     * The gameview model
      */
-    private Label text;
-    /**
-     * The player's name
-     */
-    private Label playerName;
-    /**
-     * The player's health
-     */
-    private Label playerHealth;
-    /**
-     * The difficulty level
-     */
-    private Label difficulty;
-    /**
-     * The text styling for the Text and buttons
-     */
-    private Label.LabelStyle textStyle;
-
     private GameViewModel gameViewModel;
     /**
      * Texture for the player sprite
@@ -83,11 +44,19 @@ public class TiledView implements Screen {
      * Batch of sprites to be rendered
      */
     private SpriteBatch batch;
+    /**
+     * The fitted viewport for the stage
+     */
     private FitViewport fitted;
-    private ExtendViewport extended;
-
+    /**
+     * The font for the text
+     */
     private BitmapFont font;
 
+    /**
+     * TiledView Constructor
+     * @param gameViewModel the view model the the tile model takes in
+     */
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
     }
@@ -138,7 +107,6 @@ public class TiledView implements Screen {
 
         stage.draw();
         stage.act();
-
 
         renderer.setView(camera);
         renderer.render();
