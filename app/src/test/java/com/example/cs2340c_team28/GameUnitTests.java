@@ -111,7 +111,7 @@ public class GameUnitTests {
     }
 
     @Test
-    public void playerNoCollisionInWaterMap() {
+    public void playerDoesNotCollideInWaterMap() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
 
         gameViewModel.doPreinitialization();
