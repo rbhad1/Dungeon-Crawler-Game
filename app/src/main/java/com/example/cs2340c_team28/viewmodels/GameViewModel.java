@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.models.Movable;
@@ -104,19 +103,19 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         }
 
         if (Game.getInstance().getCurrentMap().equals(forest)) {
-            if (player.getX() == 7 * 32 && player.getY() == 0) {
+            if (player.getX(true) == 7 && player.getY(true) == 0) {
                 Game.getInstance().setCurrentMap(water);
             }
         }
         if (Game.getInstance().getCurrentMap().equals(water)) {
-            if (player.getX() == 0 && player.getY() == 15 * 32) {
+            if (player.getX(true) == 0 && player.getY(false) == 15 * 32) {
                 Game.getInstance().setCurrentMap(dungeon);
             }
         }
         
         if (Game.getInstance().getCurrentMap().equals(dungeon)) {
-            if (32 < player.getX() && player.getX() < 7 * 32
-                    && 0 < player.getY() && player.getY() < 12 * 32) {
+            if (1 < player.getX(true) && player.getX(true) < 7
+                    && 0 < player.getY(true) && player.getY(true) < 12) {
                 this.endGame();
             }
         }
@@ -125,9 +124,13 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     }
 
     private void handleMovement(Movable movable, Movement movement) {
-        if (movable == null || movement == null) return;
+        if (movable == null || movement == null) {
+            return;
+        }
 
-        if (movement.isComplete()) return;
+        if (movement.isComplete()) {
+            return;
+        }
 
         int newTileId = game.getWalkableLayer()
                 .getCell(movement.getEndTileX(), movement.getEndTileY())
@@ -135,7 +138,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
         // Collision detection here
         if (newTileId != 0) {
-
+            movable.setX(movement.getEndTileX(), true);
+            movable.setX(movement.getEndTileY(), true);
         }
 
         movement.setComplete(true);

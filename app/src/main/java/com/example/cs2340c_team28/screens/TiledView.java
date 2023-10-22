@@ -103,8 +103,8 @@ public class TiledView implements Screen {
         camera = new OrthographicCamera();
         fitted = new FitViewport(9 * 32, 16 * 32, camera);
 
-        Player.getInstance().setX(4 * 32);
-        Player.getInstance().setY(9 * 32);
+        Player.getInstance().setX(4, true);
+        Player.getInstance().setY(9, true);
 
         stage = new Stage(fitted);
 
@@ -235,8 +235,8 @@ public class TiledView implements Screen {
         font.draw(batch, "" + Game.getInstance().getDifficulty(), 0, 16 * 31);
         font.draw(batch, "Score: " + Game.getInstance().getScore(), 6 * 32, 16 * 32);
         font.draw(batch, "HP: " + Player.getInstance().getHp(), 6 * 32, 16 * 31);
-        batch.draw(playerImage, Player.getInstance().getX(),
-                Player.getInstance().getY(), 32, 32);
+        batch.draw(playerImage, Player.getInstance().getX(false),
+                Player.getInstance().getY(false), 32, 32);
         batch.end();
     }
 
