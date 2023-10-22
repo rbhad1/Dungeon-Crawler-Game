@@ -130,7 +130,7 @@ public class Game {
     public void setCurrentMap(TiledMap currentMap) {
         this.currentMap = currentMap;
         this.walkableLayer = (TiledMapTileLayer) currentMap.getLayers().get("walkable");
-        this.walkableLayer = (TiledMapTileLayer) currentMap.getLayers().get("door");
+        this.doorLayer = (TiledMapTileLayer) currentMap.getLayers().get("door");
     }
 
     public TiledMapTileLayer getWalkableLayer() {
