@@ -88,6 +88,10 @@ public class TiledView implements Screen {
     private FitViewport fitted;
     private ExtendViewport extended;
 
+    private TiledMap forest = new TmxMapLoader().load("forest-map.tmx");
+    private TiledMap water = new TmxMapLoader().load("water-map.tmx");
+    private TiledMap dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+
     public TiledView(GameViewModel gameViewModel) {
         this.gameViewModel = gameViewModel;
     }
@@ -214,20 +218,21 @@ public class TiledView implements Screen {
 
         //updating time score
         text.setText(Game.getInstance().getScore());
-        if (Game.getInstance().getMap() == new TmxMapLoader().load("forest-map.tmx")) {
-            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 0) {
-                Game.getInstance().setMap(new TmxMapLoader().load("water-map.tmx"));
-                renderer = new OrthogonalTiledMapRenderer(Game.getInstance().getMap());
+        if (Game.getInstance().getMap().equals(forest)) {
+            if (Player.getInstance().getX() == 224 && Player.getInstance().getY() == 0) {
+                Game.getInstance().setMap(water);
+                renderer.setMap(water);
             }
         }
-        if (Game.getInstance().getMap() == new TmxMapLoader().load("water-map.tmx")) {
-            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == Gdx.graphics.getHeight() / 16) {
-                Game.getInstance().setMap(new TmxMapLoader().load("dungeon-map.tmx"));
-                renderer = new OrthogonalTiledMapRenderer(Game.getInstance().getMap());
+        if (Game.getInstance().getMap().equals(water)) {
+            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 480) {
+                Game.getInstance().setMap(dungeon);
+                renderer.setMap(dungeon);
             }
         }
-        if (Game.getInstance().getMap() == new TmxMapLoader().load("dungeon-map.tmx")) {
-            if (Player.getInstance().getX() == 0 && Player.getInstance().getY() == 2 * Gdx.graphics.getHeight() / 16) {
+        if (Game.getInstance().getMap().equals(dungeon)) {
+            if (32 < Player.getInstance().getX() && Player.getInstance().getX() < 224
+                    && 0 < Player.getInstance().getY() && Player.getInstance().getY() < 384) {
                 gameViewModel.endGame();
             }
         }
@@ -255,7 +260,8 @@ public class TiledView implements Screen {
     @Override
     public void show() {
         create();
-        map = new TmxMapLoader().load("forest-map.tmx");
+        map = forest;
+        Game.getInstance().setMap(forest);
         renderer = new OrthogonalTiledMapRenderer(map);
     }
 
@@ -275,5 +281,14 @@ public class TiledView implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+    }
+    public TiledMap getForest() {
+        return forest;
+    }
+    public TiledMap getWater() {
+        return water;
+    }
+    public TiledMap getDungeon() {
+        return dungeon;
     }
 }
