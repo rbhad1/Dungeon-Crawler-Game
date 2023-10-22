@@ -7,7 +7,14 @@ package com.example.cs2340c_team28.models;
  */
 public class Game {
     //create instance of Game
-    private static volatile Game uniqueGameInstance;
+    private static final Game INSTANCE = new Game();
+
+    /**
+     * Private constructor to adhere to singleton pattern
+     */
+    private Game() {
+
+    }
 
     /**
      * The maximum score the player can have
@@ -33,8 +40,8 @@ public class Game {
      * static method Game method that uses double-checked locking to create a unique Game instance
      * @return the unique game instance that is instantiated
      */
-    public static Game getUniqueGameInstance() {
-        return uniqueGameInstance;
+    public static Game getInstance() {
+        return INSTANCE;
     }
 
     /**

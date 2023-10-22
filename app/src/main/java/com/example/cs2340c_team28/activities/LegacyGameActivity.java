@@ -24,12 +24,12 @@ public class LegacyGameActivity extends AppCompatActivity {
         TextView difficulty = findViewById(R.id.difficultyField);
         TextView spriteName = findViewById(R.id.spriteName);
         ImageView imageView = findViewById(R.id.imageView2);
-        playerName.setText(Player.getUniquePlayerInstance().getName());
-        playerHealth.setText(Player.getUniquePlayerInstance().getHp()
-                + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP");
-        difficulty.setText(Game.getUniqueGameInstance().getDifficulty().toString());
+        playerName.setText(Player.getInstance().getName());
+        playerHealth.setText(Player.getInstance().getHp()
+                + "/" +  Player.getInstance().getOriginalHp() + " HP");
+        difficulty.setText(Game.getInstance().getDifficulty().toString());
 
-        int spriteId = Player.getUniquePlayerInstance().getSpriteId();
+        int spriteId = Player.getInstance().getSpriteId();
         spriteName.setText("Sprite " + spriteId);
 
         int imageResource;

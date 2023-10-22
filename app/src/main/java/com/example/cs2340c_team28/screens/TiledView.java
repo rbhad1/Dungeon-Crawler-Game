@@ -13,15 +13,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.example.cs2340c_team28.models.ConcreteMovement;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
 import com.example.cs2340c_team28.models.Player;
@@ -102,8 +99,8 @@ public class TiledView implements Screen {
         camera = new OrthographicCamera();
         fitted = new FitViewport(9 * 32, 16 * 32, camera);
 
-        Player.getUniquePlayerInstance().setX(4 * 32);
-        Player.getUniquePlayerInstance().setY(4 * 32);
+        Player.getInstance().setX(4 * 32);
+        Player.getInstance().setY(4 * 32);
 
         stage = new Stage(fitted);
         MovementListener listener = new MovementListener();
@@ -171,15 +168,15 @@ public class TiledView implements Screen {
         textStyle.font = new BitmapFont();
         textStyle.fontColor = Color.WHITE;
 
-        text = new Label("Score: " + Game.getUniqueGameInstance().getScore(), textStyle);
+        text = new Label("Score: " + Game.getInstance().getScore(), textStyle);
         text.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 30);
         text.setFontScale(4f);
         stage.addActor(text);
 
-        playerName = new Label(Player.getUniquePlayerInstance().getName(), textStyle);
-        playerHealth = new Label(Player.getUniquePlayerInstance().getHp()
-                + "/" +  Player.getUniquePlayerInstance().getOriginalHp() + " HP", textStyle);
-        difficulty = new Label(Game.getUniqueGameInstance().getDifficulty().toString(), textStyle);
+        playerName = new Label(Player.getInstance().getName(), textStyle);
+        playerHealth = new Label(Player.getInstance().getHp()
+                + "/" +  Player.getInstance().getOriginalHp() + " HP", textStyle);
+        difficulty = new Label(Game.getInstance().getDifficulty().toString(), textStyle);
         playerName.setPosition(colWidth, Gdx.graphics.getHeight() - 30);
         playerName.setFontScale(4f);
         playerHealth.setPosition(colWidth * 7, Gdx.graphics.getHeight() - 80);
@@ -190,7 +187,7 @@ public class TiledView implements Screen {
         stage.addActor(playerHealth);
         stage.addActor(difficulty);
 
-        int spriteId = Player.getUniquePlayerInstance().getSpriteId();
+        int spriteId = Player.getInstance().getSpriteId();
         String imageResource;
         switch (spriteId) {
             case 1:
@@ -216,19 +213,19 @@ public class TiledView implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //updating time score
-        text.setText(Game.getUniqueGameInstance().getScore());
+        text.setText(Game.getInstance().getScore());
 
         stage.draw();
         stage.act();
 
         renderer.setView(camera);
         renderer.render();
-        Player.getUniquePlayerInstance().updateMovement();
+        Player.getInstance().updateMovement();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(playerImage, Player.getUniquePlayerInstance().getX(),
-                Player.getUniquePlayerInstance().getY(), 32, 32);
+        batch.draw(playerImage, Player.getInstance().getX(),
+                Player.getInstance().getY(), 32, 32);
         batch.end();
     }
 

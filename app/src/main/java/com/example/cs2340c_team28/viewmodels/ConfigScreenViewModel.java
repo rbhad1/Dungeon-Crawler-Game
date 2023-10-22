@@ -13,7 +13,6 @@ import androidx.databinding.library.baseAdapters.BR;
 import com.example.cs2340c_team28.activities.ConfigScreenActivity;
 import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.MovementStrategy;
 import com.example.cs2340c_team28.models.Player;
 
 /**
@@ -193,17 +192,17 @@ public class ConfigScreenViewModel extends BaseObservable {
      * Set properties for the game and player
      */
     public void assignGameProperties() {
-        Game.getUniqueGameInstance().setDifficulty(difficulty);
-        Player.getUniquePlayerInstance().setName(playerName);
-        Player.getUniquePlayerInstance().setSpriteId(spriteIndex);
-        Player.getUniquePlayerInstance().setOriginalHp(
-                Player.initialHp(Game.getUniqueGameInstance().getDifficulty())
+        Game.getInstance().setDifficulty(difficulty);
+        Player.getInstance().setName(playerName);
+        Player.getInstance().setSpriteId(spriteIndex);
+        Player.getInstance().setOriginalHp(
+                Player.initialHp(Game.getInstance().getDifficulty())
         );
-        Player.getUniquePlayerInstance().setHp(
-                Player.getUniquePlayerInstance().getOriginalHp()
+        Player.getInstance().setHp(
+                Player.getInstance().getOriginalHp()
         );
-        Player.getUniquePlayerInstance().setX(440);
-        Player.getUniquePlayerInstance().setY(600);
+        Player.getInstance().setX(440);
+        Player.getInstance().setY(600);
     }
 
 }
