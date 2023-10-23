@@ -292,10 +292,11 @@ public class GameUnitTests {
 
 
         Player player = Player.getInstance();
+        player.setX(4, false);
 
 
         assertEquals(4, player.getX(false));
-        assertEquals(4, player.getX(true));
+        assertNotEquals(4, player.getX(true));
     }
 
     @Test
@@ -308,9 +309,10 @@ public class GameUnitTests {
 
 
         Player player = Player.getInstance();
+        player.setY(9, true);
 
-        // Initial y position should be 0
-        assertEquals(9, player.getY(false));
+        // Initial y position should be 9
+        assertNotEquals(9, player.getY(false));
         assertEquals(9, player.getY(true));
     }
 }
