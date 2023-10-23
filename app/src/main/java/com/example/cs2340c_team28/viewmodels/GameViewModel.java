@@ -115,7 +115,9 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         long timeSinceLastDecrement = currentTime - game.getScoreTime();
 
         if (timeSinceLastDecrement >= 1000) {
-            game.setScore(game.getScore() - 1);
+            if (game.getScore() > 0) {
+                game.setScore(game.getScore() - 1);
+            }
             game.setScoreTime(currentTime);
         }
 

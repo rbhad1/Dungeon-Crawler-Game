@@ -245,4 +245,40 @@ public class GameUnitTests {
         assertFalse(player.getCurrentMovement().isCollided());
     }
 
+    @Test
+    public void scoreAndTimeUpdateCorrectlyAfterOneMinute() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+
+        int initialScore = Game.MAX_SCORE;
+        game.setScore(1000);
+
+        while (gameViewModel.getTime() <= 60000) {
+            gameViewModel.updateGameLogic();
+            gameViewModel.incrementTime(1);
+        }
+
+        int finalScore = game.getScore();
+
+        assertEquals(initialScore - 60, finalScore);
+    }
+
+    @Test
+    public void scoreAndTimeUpdateCorrectlyAfterOneHour() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+
+        game.setScore(1000);
+
+        while (gameViewModel.getTime() <= 3600000) {
+            gameViewModel.updateGameLogic();
+            gameViewModel.incrementTime(1);
+        }
+
+        int finalScore = game.getScore();
+
+        assertEquals(0, finalScore);
+    }
 }
