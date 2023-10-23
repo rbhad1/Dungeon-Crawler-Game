@@ -281,4 +281,36 @@ public class GameUnitTests {
 
         assertEquals(0, finalScore);
     }
+
+    @Test
+    public void testGetX() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+        game.setCurrentMap(gameViewModel.getForest());
+
+
+        Player player = Player.getInstance();
+
+
+        assertEquals(4, player.getX(false));
+        assertEquals(4, player.getX(true));
+    }
+
+    @Test
+    public void testGetY() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+        game.setCurrentMap(gameViewModel.getForest());
+
+
+        Player player = Player.getInstance();
+
+        // Initial y position should be 0
+        assertEquals(9, player.getY(false));
+        assertEquals(9, player.getY(true));
+    }
 }
