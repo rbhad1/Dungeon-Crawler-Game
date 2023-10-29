@@ -19,7 +19,6 @@ abstract class EnemyHandler {
         } else if (currentMap.getProperties().containsKey("portal")) {
             enemy = new GroundEnemy();
             enemy = new FireEnemy();
-
         }
     }
     void main() {
