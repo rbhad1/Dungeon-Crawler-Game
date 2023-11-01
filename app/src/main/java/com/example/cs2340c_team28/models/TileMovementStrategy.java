@@ -2,46 +2,73 @@ package com.example.cs2340c_team28.models;
 
 public class TileMovementStrategy implements MovementStrategy {
 
+    private static final long MOVE_DURATION = 150;
+
     @Override
     public void moveUp() {
+        if (cannotStartMovement()) {
+            return;
+        }
+
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
 
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x, y + 1),
-                true));
+                true, MOVE_DURATION));
     }
     @Override
     public void moveDown() {
+        if (cannotStartMovement()) {
+            return;
+        }
+
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
 
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x, y - 1),
-                true));
+                true, MOVE_DURATION));
     }
     @Override
     public void moveLeft() {
+        if (cannotStartMovement()) {
+            return;
+        }
+
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
 
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x - 1, y),
-                true));
+                true, MOVE_DURATION));
     }
     @Override
     public void moveRight() {
+        if (cannotStartMovement()) {
+            return;
+        }
+
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
 
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x + 1, y),
-                true));
+                true, MOVE_DURATION));
     }
 
+    private boolean cannotStartMovement() {
+        return Player
+                .getInstance()
+                .getCurrentMovement() != null
+                && Player
+                .getInstance()
+                .getCurrentMovement()
+                .getStatus() == Movement.Status.IN_PROGRESS;
+    }
 
 }

@@ -221,8 +221,7 @@ public class GameUnitTests {
         assertEquals(player.getX(true), 0);
         assertEquals(player.getY(true), 3);
 
-        assertTrue(player.getCurrentMovement().isCollided());
-
+        assertEquals(player.getCurrentMovement().getStatus(), Movement.Status.COLLIDED);
 
     }
 
@@ -245,7 +244,7 @@ public class GameUnitTests {
 
         assertEquals(player.getX(true), 0);
         assertEquals(player.getY(true), 1);
-        assertFalse(player.getCurrentMovement().isCollided());
+        assertNotEquals(player.getCurrentMovement().getStatus(), Movement.Status.COLLIDED);
     }
 
     @Test

@@ -22,7 +22,15 @@ public class Position {
     }
 
     public Position subtract(Position other) {
-        return new Position(this.x + other.y, this.y + other.y);
+        return new Position(this.x - other.x, this.y - other.y);
+    }
+
+    public Position scale(double scaleFactor) {
+        return new Position((int) (this.x * scaleFactor), (int) (this.y * scaleFactor));
+    }
+
+    public Position negate() {
+        return new Position(-this.x, -this.y);
     }
 
     public Position tileToGraphical() {
