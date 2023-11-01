@@ -79,7 +79,7 @@ public class GameUnitTests {
         new TileMovementStrategy().moveUp();
 
         // Call updateGameLogic() which should transition room
-        gameViewModel.updateGameLogic();
+        gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
 
         // Check that we've moved successfully
         assertEquals(player.getX(true), 4);
@@ -97,36 +97,29 @@ public class GameUnitTests {
         player.setX(4, true);
         player.setY(9,true);
 
-        new TileMovementStrategy().moveLeft();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveLeft();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveRight();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveRight();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveDown();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveLeft();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveLeft();
-        gameViewModel.updateGameLogic();
-        new TileMovementStrategy().moveLeft();
-        gameViewModel.updateGameLogic();
+        TileMovementStrategy strategy = new TileMovementStrategy();
+        Runnable[] movements = new Runnable[] {
+                strategy::moveLeft,
+                strategy::moveLeft,
+                strategy::moveDown,
+                strategy::moveDown,
+                strategy::moveDown,
+                strategy::moveRight,
+                strategy::moveDown,
+                strategy::moveDown,
+                strategy::moveDown,
+                strategy::moveRight,
+                strategy::moveDown,
+                strategy::moveDown,
+                strategy::moveLeft,
+                strategy::moveLeft,
+                strategy::moveLeft
+        };
+
+        for (Runnable r: movements) {
+            r.run();
+            gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
+        }
 
         assertEquals(player.getX(true), 1);
         assertEquals(player.getY(true), 1);
@@ -157,18 +150,25 @@ public class GameUnitTests {
         new TileMovementStrategy().moveLeft();
         assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX - 1);
         assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY);
+        Player.getInstance().setCurrentMovement(null);
 
         new TileMovementStrategy().moveRight();
+        Player.getInstance().getCurrentMovement().setStatus(Movement.Status.COMPLETE);
         assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX + 1);
         assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY);
+        Player.getInstance().setCurrentMovement(null);
 
         new TileMovementStrategy().moveUp();
+        Player.getInstance().getCurrentMovement().setStatus(Movement.Status.COMPLETE);
         assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX);
-        assertEquals(player.getCurrentMovement().getEnd(false).getY(), startY + 1);
+        assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY + 1);
+        Player.getInstance().setCurrentMovement(null);
 
         new TileMovementStrategy().moveDown();
+        Player.getInstance().getCurrentMovement().setStatus(Movement.Status.COMPLETE);
         assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX);
         assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY - 1);
+        Player.getInstance().setCurrentMovement(null);
     }
 
     @Test
@@ -184,7 +184,7 @@ public class GameUnitTests {
         player.setY(1, true);
 
         new TileMovementStrategy().moveLeft();
-        gameViewModel.updateGameLogic();
+        gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
 
         assertEquals(player.getX(true), 0);
         assertNotEquals(player.getX(true), -1);
@@ -193,6 +193,8 @@ public class GameUnitTests {
         player.setY(1, true);
 
         new TileMovementStrategy().moveRight();
+        gameViewModel.updateGameLogic();
+        gameViewModel.incrementTime(TileMovementStrategy.MOVE_DURATION * 2);
         gameViewModel.updateGameLogic();
 
         assertEquals(player.getX(true), 15);
@@ -215,13 +217,13 @@ public class GameUnitTests {
         player.setY(3, true);
 
         new TileMovementStrategy().moveRight();
-        gameViewModel.updateGameLogic();
+        Movement originalMovement = player.getCurrentMovement();
+        gameViewModel.cycledUpdate(6, TileMovementStrategy.MOVE_DURATION * 2);
 
+        assertEquals(0, player.getX(true));
+        assertEquals(3, player.getY(true));
 
-        assertEquals(player.getX(true), 0);
-        assertEquals(player.getY(true), 3);
-
-        assertEquals(player.getCurrentMovement().getStatus(), Movement.Status.COLLIDED);
+        assertEquals(Movement.Status.COLLIDED, originalMovement.getStatus());
 
     }
 
@@ -240,11 +242,12 @@ public class GameUnitTests {
         player.setY(0, true);
 
         new TileMovementStrategy().moveUp();
-        gameViewModel.updateGameLogic();
+        Movement originalMovement = player.getCurrentMovement();
+        gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
 
-        assertEquals(player.getX(true), 0);
-        assertEquals(player.getY(true), 1);
-        assertNotEquals(player.getCurrentMovement().getStatus(), Movement.Status.COLLIDED);
+        assertEquals(0, player.getX(true));
+        assertEquals(1, player.getY(true));
+        assertNotEquals(Movement.Status.COLLIDED, originalMovement.getStatus());
     }
 
     @Test

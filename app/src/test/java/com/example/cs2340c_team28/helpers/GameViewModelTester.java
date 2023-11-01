@@ -27,6 +27,18 @@ public class GameViewModelTester extends GameViewModel {
         this.testTime += deltaTime;
     }
 
+    /**
+     * Update the game view model multiple times
+     * @param repeats
+     * @param deltaTime
+     */
+    public void cycledUpdate(int repeats, long deltaTime) {
+        for (int i = 0; i < repeats; i++) {
+            super.updateGameLogic();
+            this.incrementTime(deltaTime);
+        }
+    }
+
     protected void loadAssets() {
         super.forest = new TmxMapLoader().load("src/main/assets/forest-map.tmx");
         super.water = new TmxMapLoader().load("src/main/assets/water-map.tmx");

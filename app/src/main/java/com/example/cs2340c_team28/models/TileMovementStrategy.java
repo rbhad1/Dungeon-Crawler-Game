@@ -2,7 +2,7 @@ package com.example.cs2340c_team28.models;
 
 public class TileMovementStrategy implements MovementStrategy {
 
-    private static final long MOVE_DURATION = 150;
+    public static final long MOVE_DURATION = 150;
 
     @Override
     public void moveUp() {

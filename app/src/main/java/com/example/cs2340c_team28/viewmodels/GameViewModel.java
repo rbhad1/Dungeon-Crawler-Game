@@ -139,6 +139,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     }
 
     private void handleMovement(Movable movable) {
+
         // Null-check the Movable
         if (movable == null) {
             return;
@@ -226,7 +227,6 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             // End tile is valid
             movable.setX(currentGraphical.getX(), false);
             movable.setY(currentGraphical.getY(), false);
-
             if (percentComplete >= 1.0) {
                 movement.setStatus(Movement.Status.COMPLETE);
             }
@@ -280,6 +280,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void setupGame() {
         Game.getInstance().setStartTime(getTime());
         Game.getInstance().setScoreTime(getTime());
+        Player.getInstance().setCurrentMovement(null);
     }
 
 }
