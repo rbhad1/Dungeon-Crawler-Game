@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.Movement;
+import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
-import com.example.cs2340c_team28.models.Position;
-import com.example.cs2340c_team28.models.TileMovementStrategy;
+import com.example.cs2340c_team28.models.movement.Position;
+import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 
 import org.junit.Test;
 

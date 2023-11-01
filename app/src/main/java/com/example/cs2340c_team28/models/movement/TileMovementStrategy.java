@@ -1,4 +1,6 @@
-package com.example.cs2340c_team28.models;
+package com.example.cs2340c_team28.models.movement;
+
+import com.example.cs2340c_team28.models.Player;
 
 public class TileMovementStrategy implements MovementStrategy {
 
