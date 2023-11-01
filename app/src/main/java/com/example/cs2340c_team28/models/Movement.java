@@ -1,29 +1,29 @@
 package com.example.cs2340c_team28.models;
 
 public class Movement {
-    private final int startTileX;
-    private final int startTileY;
+    private final Position startGraphical;
+    private final Position endGraphical;
 
-    private final int endTileX;
-    private final int endTileY;
+    private Position currentGraphical;
+    private long duration;
 
     private boolean complete;
     private boolean collided;
 
-    public int getStartTileX() {
-        return startTileX;
+    public Position getStart(boolean tileBased) {
+        return tileBased ? startGraphical.graphicalToTile() : startGraphical;
     }
 
-    public int getStartTileY() {
-        return startTileY;
+    public Position getEnd(boolean tileBased) {
+        return tileBased ? endGraphical.graphicalToTile() : endGraphical;
     }
 
-    public int getEndTileX() {
-        return endTileX;
+    public Position getCurrent(boolean tileBased) {
+        return tileBased ? currentGraphical.graphicalToTile() : currentGraphical;
     }
 
-    public int getEndTileY() {
-        return endTileY;
+    public long getDuration() {
+        return duration;
     }
 
     public boolean isComplete() {
@@ -42,10 +42,17 @@ public class Movement {
         this.complete = complete;
     }
 
-    public Movement(int startTileX, int startTileY, int endTileX, int endTileY) {
-        this.startTileX = startTileX;
-        this.startTileY = startTileY;
-        this.endTileX = endTileX;
-        this.endTileY = endTileY;
+    public Movement(Position start, Position end, boolean tileBased, long duration) {
+        if (tileBased) {
+            this.startGraphical = start.tileToGraphical();
+            this.endGraphical = end.tileToGraphical();
+        } else {
+            this.startGraphical = start;
+            this.endGraphical = end;
+        }
+    }
+
+    public Movement(Position start, Position end, boolean tileBased) {
+        this(start, end, tileBased, 0);
     }
 }

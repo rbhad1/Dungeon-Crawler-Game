@@ -8,6 +8,7 @@ import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Movement;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
+import com.example.cs2340c_team28.models.Position;
 import com.example.cs2340c_team28.models.TileMovementStrategy;
 
 import org.junit.Test;
@@ -134,9 +135,11 @@ public class GameUnitTests {
     public void directMovement() {
         int startX = 4;
         int startY = 9;
-        Movement movement = new Movement(startX, startY, 16, 0);
-        assertEquals(movement.getEndTileX(), 16);
-        assertEquals(movement.getEndTileY(), 0);
+        Movement movement = new Movement(
+                new Position(startX, startY), new Position(16, 0), true
+        );
+        assertEquals(movement.getEnd(true).getX(), 16);
+        assertEquals(movement.getEnd(true).getY(), 0);
     }
 
     @Test
@@ -152,20 +155,20 @@ public class GameUnitTests {
 
         // Generate a left movement
         new TileMovementStrategy().moveLeft();
-        assertEquals(player.getCurrentMovement().getEndTileX(), startX - 1);
-        assertEquals(player.getCurrentMovement().getEndTileY(), startY);
+        assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX - 1);
+        assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY);
 
         new TileMovementStrategy().moveRight();
-        assertEquals(player.getCurrentMovement().getEndTileX(), startX + 1);
-        assertEquals(player.getCurrentMovement().getEndTileY(), startY);
+        assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX + 1);
+        assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY);
 
         new TileMovementStrategy().moveUp();
-        assertEquals(player.getCurrentMovement().getEndTileX(), startX);
-        assertEquals(player.getCurrentMovement().getEndTileY(), startY + 1);
+        assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX);
+        assertEquals(player.getCurrentMovement().getEnd(false).getY(), startY + 1);
 
         new TileMovementStrategy().moveDown();
-        assertEquals(player.getCurrentMovement().getEndTileX(), startX);
-        assertEquals(player.getCurrentMovement().getEndTileY(), startY - 1);
+        assertEquals(player.getCurrentMovement().getEnd(true).getX(), startX);
+        assertEquals(player.getCurrentMovement().getEnd(true).getY(), startY - 1);
     }
 
     @Test
