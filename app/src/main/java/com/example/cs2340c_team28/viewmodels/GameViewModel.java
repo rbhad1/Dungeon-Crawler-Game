@@ -173,6 +173,9 @@ public class GameViewModel extends com.badlogic.gdx.Game {
                 movement.setStatus(Movement.Status.COLLIDED);
                 movable.setX(startGraphical.getX(), false);
                 movable.setX(startGraphical.getY(), false);
+
+                // End this movement update early
+                return;
             }
         }
 
