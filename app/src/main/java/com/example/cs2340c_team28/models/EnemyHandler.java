@@ -17,16 +17,18 @@ public  class EnemyHandler {
         Game game = Game.getInstance();
         TiledMap currentMap = game.getCurrentMap();
 
+        // TODO update constructors when sprites are made
+
         if (currentMap.getProperties().containsKey("forest")) {
-            enemy1 = new GroundEnemy();
-            enemy2 = new AirEnemy();
+            enemy1 = new GroundEnemy(0, null);
+            enemy2 = new AirEnemy(0, null);
         } else if (currentMap.getProperties().containsKey("water")) {
-            enemy1 = new WaterEnemy();
-            enemy1 = new AirEnemy();
+            enemy1 = new WaterEnemy(0, null);
+            enemy1 = new AirEnemy(0, null);
         // (currentMap.getProperties().containsKey("portal"))
         } else {
-            enemy1 = new GroundEnemy();
-            enemy2 = new FireEnemy(0);
+            enemy1 = new GroundEnemy(0, null);
+            enemy2 = new FireEnemy(0, null);
         }
 
         enemyList = new ArrayList<>();
@@ -36,8 +38,6 @@ public  class EnemyHandler {
         return enemyList;
         // put the enemy on a valid location
     }
-
-
 
     void main() {
         this.initialize();

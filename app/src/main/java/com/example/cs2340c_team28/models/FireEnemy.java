@@ -7,22 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class FireEnemy extends Enemy {
 
 
-    public FireEnemy(int spriteId) {
-        super(spriteId);
+    public FireEnemy(int spriteId, String imgRes) {
+        super(spriteId, imgRes);
+        enemyImage = new Texture(imgRes);
+        super.assignTexture();
+
     }
-
-
-
-
-    // TODO: update name of file when sprites are ready
-//    public void render() {
-//        imageResource = null;
-//        enemyImage = new Texture(imageResource);
-//        batch = new SpriteBatch();
-//        batch.begin();
-//        batch.draw(enemyImage,32, 32);
-//        batch.end();
-//
-//    }
 
 }

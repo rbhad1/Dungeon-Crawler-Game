@@ -110,13 +110,7 @@ public class TiledView implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
 
-        for (Enemy enemy:getEnemyList()) {
-            int spriteIdEnemy  = enemy.getSpriteId();
-            switch (spriteIdEnemy) {
-            // cases
-            }
-            imgResList.add(imageResource);
-        }
+
 
     }
 
@@ -143,9 +137,18 @@ public class TiledView implements Screen {
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), 32, 32);
 
-        for (String imgRes : imgResList) {
-            Texture enemyImage = new Texture(imgRes);
-            batch.draw(enemyImage,32, 32);
+
+        // only run this method once - make an onstage change  method
+//        for (Enemy enemy:getEnemyList()) {
+//            int spriteIdEnemy  = enemy.getSpriteId();
+//            switch (spriteIdEnemy) {
+//                // cases
+//            }
+//            imgResList.add(imageResource);
+//        }
+
+        for (Enemy enemy : getEnemyList()) {
+            batch.draw(enemy.getTexture(), enemy.getX(true), enemy.getY(true));
         }
 
         batch.end();

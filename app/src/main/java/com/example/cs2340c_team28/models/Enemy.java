@@ -6,22 +6,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public abstract class Enemy extends Movable {
 
     protected int spriteId;
-    protected String imageResource;
     protected Texture enemyImage;
+    protected String imgRes;
 
-    protected Enemy(int spriteId) {
+    protected Enemy(int spriteId,String  imgRes) {
         this.spriteId = spriteId;
-//        this.imageResource = imageResource;
-//        this.enemyImage = enemyImage;
+        this.imgRes = imgRes;
+
     }
 
+    public void assignTexture() {
+        enemyImage = new Texture(imgRes);
+    }
+    public Texture getTexture() {
+        return enemyImage;
+    }
     public int getSpriteId() {
         return spriteId;
     }
-//
-//    public String getImageResource() {
-//        return imageResource;
-//    }
-//
 
 }
