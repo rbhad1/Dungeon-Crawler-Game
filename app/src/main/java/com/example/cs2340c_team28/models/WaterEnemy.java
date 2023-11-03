@@ -32,4 +32,9 @@ public class WaterEnemy extends Movable implements Enemy {
     public int getSpriteId() {
         return spriteId;
     }
+    public String getImageResource() {
+        return imageResource;
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.cs2340c_team28.viewmodels;
 
 
+import android.health.connect.datatypes.units.Energy;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +10,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
+import com.example.cs2340c_team28.models.Enemy;
+import com.example.cs2340c_team28.models.EnemyHandler;
+import com.example.cs2340c_team28.models.GroundEnemy;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.Movement;
 import com.example.cs2340c_team28.screens.TiledView;
@@ -15,6 +20,7 @@ import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 
 import java.util.Date;
+import java.util.List;
 
 public class GameViewModel extends com.badlogic.gdx.Game {
     /**
@@ -50,6 +56,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public TiledMap getDungeon() {
         return dungeon;
     }
+
+
 
     public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
@@ -96,6 +104,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
+
+        // TODO enemies
     }
 
     /**

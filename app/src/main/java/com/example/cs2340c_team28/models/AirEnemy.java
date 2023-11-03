@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class AirEnemy extends Movable implements Enemy {
+public class AirEnemy extends Enemy {
     private int spriteId;
     private Texture enemyImage;
 
@@ -30,5 +30,9 @@ public class AirEnemy extends Movable implements Enemy {
     }
     public int getSpriteId() {
         return spriteId;
+    }
+
+    public String getImageResource() {
+        return imageResource;
     }
 }

@@ -4,33 +4,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class FireEnemy extends Movable implements Enemy {
+public class FireEnemy extends Enemy {
 
-    private int spriteId;
-    private Texture enemyImage;
 
-    private Sprite sprite;
-
-    private SpriteBatch batch;
-    String imageResource;
-    public FireEnemy() {
-
+    public FireEnemy(int spriteId) {
+        super(spriteId);
     }
+
 
 
 
     // TODO: update name of file when sprites are ready
-    @Override
-    public void render() {
-        imageResource = null;
-        enemyImage = new Texture(imageResource);
-        batch = new SpriteBatch();
-        batch.begin();
-        batch.draw(enemyImage,32, 32);
-        batch.end();
+//    public void render() {
+//        imageResource = null;
+//        enemyImage = new Texture(imageResource);
+//        batch = new SpriteBatch();
+//        batch.begin();
+//        batch.draw(enemyImage,32, 32);
+//        batch.end();
+//
+//    }
 
-    }
-    public int getSpriteId() {
-        return spriteId;
-    }
 }

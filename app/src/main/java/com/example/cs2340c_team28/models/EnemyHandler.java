@@ -3,27 +3,51 @@ package com.example.cs2340c_team28.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-abstract class EnemyHandler {
-    Enemy enemy;
+import java.util.ArrayList;
+import java.util.List;
 
-    void initialize() {
+// make this a Singleton?? does not need to be abstract
+
+public  class EnemyHandler {
+    private Enemy enemy1;
+    private Enemy enemy2;
+    protected ArrayList<Enemy> enemyList;
+
+    public  List<Enemy> initialize() {
         Game game = Game.getInstance();
         TiledMap currentMap = game.getCurrentMap();
 
         if (currentMap.getProperties().containsKey("forest")) {
-            enemy = new GroundEnemy();
-            enemy = new AirEnemy();
+            enemy1 = new GroundEnemy();
+            enemy2 = new AirEnemy();
         } else if (currentMap.getProperties().containsKey("water")) {
-            enemy = new WaterEnemy();
-            enemy = new AirEnemy();
-        } else if (currentMap.getProperties().containsKey("portal")) {
-            enemy = new GroundEnemy();
-            enemy = new FireEnemy();
+            enemy1 = new WaterEnemy();
+            enemy1 = new AirEnemy();
+        // (currentMap.getProperties().containsKey("portal"))
+        } else {
+            enemy1 = new GroundEnemy();
+            enemy2 = new FireEnemy(0);
         }
+
+        enemyList = new ArrayList<>();
+        enemyList.add(enemy1);
+        enemyList.add(enemy2);
+
+        return enemyList;
+        // put the enemy on a valid location
     }
+
+
+
     void main() {
         this.initialize();
     }
+
+    // put this in Game, should not have access to Game
+
+
+
+
 
 
 }

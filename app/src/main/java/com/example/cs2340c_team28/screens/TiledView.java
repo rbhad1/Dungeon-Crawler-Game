@@ -1,6 +1,8 @@
 package com.example.cs2340c_team28.screens;
 
 
+import android.health.connect.datatypes.units.Energy;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,11 +13,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.example.cs2340c_team28.models.Enemy;
+import com.example.cs2340c_team28.models.EnemyHandler;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TiledView implements Screen {
 
@@ -61,6 +68,13 @@ public class TiledView implements Screen {
         this.gameViewModel = gameViewModel;
     }
 
+    EnemyHandler enemyHandler = new EnemyHandler();
+
+    public List<Enemy> getEnemyList() {
+        return enemyHandler.initialize();
+    }
+
+    public List<String> imgResList = new ArrayList<>();
     /**
      * Creates the stage with the buttons and text fields
      */
@@ -96,6 +110,14 @@ public class TiledView implements Screen {
         batch = new SpriteBatch();
         font = new BitmapFont();
 
+        for (Enemy enemy:getEnemyList()) {
+            int spriteIdEnemy  = enemy.getSpriteId();
+            switch (spriteIdEnemy) {
+            // cases
+            }
+            imgResList.add(imageResource);
+        }
+
     }
 
     @Override
@@ -120,6 +142,12 @@ public class TiledView implements Screen {
         font.draw(batch, "HP: " + Player.getInstance().getHp(), 6 * 32, 16 * 31);
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), 32, 32);
+
+        for (String imgRes : imgResList) {
+            Texture enemyImage = new Texture(imgRes);
+            batch.draw(enemyImage,32, 32);
+        }
+
         batch.end();
     }
 
