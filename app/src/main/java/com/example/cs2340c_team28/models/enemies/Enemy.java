@@ -6,13 +6,11 @@ import com.example.cs2340c_team28.models.Movable;
 
 public abstract class Enemy extends Movable {
 
-    protected int spriteId;
+//    protected int spriteId;
     protected Texture enemyImage;
     protected String imgRes;
 
-    protected Enemy(int spriteId,String  imgRes) {
-        this.spriteId = spriteId;
-        this.imgRes = imgRes;
+    protected Enemy() {
 
     }
 
@@ -22,8 +20,8 @@ public abstract class Enemy extends Movable {
     public Texture getTexture() {
         return enemyImage;
     }
-    public int getSpriteId() {
-        return spriteId;
-    }
+//    public int getSpriteId() {
+//        return spriteId;
+//    }
 
 }

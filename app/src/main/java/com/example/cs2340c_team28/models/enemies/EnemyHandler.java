@@ -20,15 +20,15 @@ public  class EnemyHandler {
         // TODO update constructors when sprites are made
 
         if (currentMap.getProperties().containsKey("forest")) {
-            enemy1 = new GroundEnemy(0, null);
-            enemy2 = new AirEnemy(0, null);
+            enemy1 = new GroundEnemy();
+            enemy2 = new AirEnemy();
         } else if (currentMap.getProperties().containsKey("water")) {
-            enemy1 = new WaterEnemy(0, null);
-            enemy1 = new AirEnemy(0, null);
+            enemy1 = new WaterEnemy();
+            enemy1 = new AirEnemy();
         // (currentMap.getProperties().containsKey("portal"))
         } else {
-            enemy1 = new GroundEnemy(0, null);
-            enemy2 = new FireEnemy(0, null);
+            enemy1 = new GroundEnemy();
+            enemy2 = new FireEnemy();
         }
 
         enemyList = new ArrayList<>();

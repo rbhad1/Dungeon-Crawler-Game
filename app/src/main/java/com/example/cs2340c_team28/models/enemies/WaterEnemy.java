@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class WaterEnemy  extends Enemy {
 
-    public WaterEnemy(int spriteId, String imgRes) {
-        super(spriteId, imgRes);
+    public WaterEnemy() {
+        super.imgRes = "water_sprite.jpg";
         enemyImage = new Texture(imgRes);
         super.assignTexture();
     }
