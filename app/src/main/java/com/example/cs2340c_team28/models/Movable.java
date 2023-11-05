@@ -1,5 +1,7 @@
 package com.example.cs2340c_team28.models;
 
+import com.example.cs2340c_team28.models.movement.Movement;
+
 public abstract class Movable {
     private Movement currentMovement;
 

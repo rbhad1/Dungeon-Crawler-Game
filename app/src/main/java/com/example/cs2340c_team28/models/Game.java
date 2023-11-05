@@ -125,4 +125,5 @@ public class Game {
     public TiledMapTileLayer getDoorLayer() {
         return doorLayer;
     }
+
 }

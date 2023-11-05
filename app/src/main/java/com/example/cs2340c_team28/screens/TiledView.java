@@ -12,9 +12,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.MovementListener;
+import com.example.cs2340c_team28.models.movement.MovementListener;
 import com.example.cs2340c_team28.models.Player;
-import com.example.cs2340c_team28.models.TileMovementStrategy;
+import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class TiledView implements Screen {

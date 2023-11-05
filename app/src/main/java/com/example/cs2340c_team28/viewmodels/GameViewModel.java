@@ -9,7 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.models.Movable;
-import com.example.cs2340c_team28.models.Movement;
+import com.example.cs2340c_team28.models.movement.Movement;
+import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -134,32 +135,118 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             }
         }
 
-        handleMovement(player, player.getCurrentMovement());
+        handleMovement(player);
     }
 
-    private void handleMovement(Movable movable, Movement movement) {
-        if (movable == null || movement == null) {
+    private void handleMovement(Movable movable) {
+
+        // Null-check the Movable
+        if (movable == null) {
             return;
         }
 
-        if (movement.isComplete()) {
+        // Eet and null-check the Movement
+        Movement movement = movable.getCurrentMovement();
+        if (movement == null) {
             return;
         }
 
+        // Ensure movement still in progress
+        if (movement.getStatus() != Movement.Status.IN_PROGRESS) {
+            return;
+        }
+
+        // Get start position and end position, make a delta tile also
+        Position startGraphical = movement.getStart(false);
+        Position endGraphical = movement.getEnd(false);
+        Position deltaGraphical = endGraphical.subtract(startGraphical);
+
+        // If movement collision style is precheck,
+        //  go ahead and make sure end position won't collide
+        if (movement.getCollisionStyle() == Movement.CollisionStyle.PRECHECK) {
+            // Figure out what cell we're going to
+            TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
+                    .getCell(endGraphical.graphicalToTile().getX(),
+                            endGraphical.graphicalToTile().getY());
+
+            if (newCell != null && newCell.getTile().getId() != 0) {
+                movement.setStatus(Movement.Status.COLLIDED);
+                movable.setX(startGraphical.getX(), false);
+                movable.setX(startGraphical.getY(), false);
+
+                // End this movement update early
+                return;
+            }
+        }
+
+        // Get the current time and start time (from the movement)
+        long currentTime = getTime();
+        long initialTime = movement.getStartTime();
+
+        // Check that the start time has been set for the movement.
+        // If not, set its start time to now
+        if (initialTime == -1) {
+            movement.setStartTime(currentTime);
+            initialTime = currentTime;
+        }
+
+        // Calculate elapsed time (deltaTime) and percent complete for the movement
+        long deltaTime = currentTime - initialTime;
+        long duration = movement.getDuration();
+
+        Position currentGraphical;
+        Position eventualGraphical;
+        double percentComplete;
+
+        if (duration > 0) {
+            percentComplete = Math.min((double) deltaTime / movement.getDuration(), 1.0);
+
+            // Calculate what should be current position, based on movement time
+            currentGraphical = startGraphical.add(deltaGraphical.scale(percentComplete));
+
+            // Calculate what will be an eventual position
+            eventualGraphical = startGraphical
+                    .add(deltaGraphical.scale(Math.min(percentComplete + 0.2, 1.0)))
+                    .add(new Position(16, 16));
+        } else {
+            percentComplete = 1.0;
+            currentGraphical = endGraphical;
+            eventualGraphical = endGraphical;
+        }
+
+        // Figure out what cell we're mostly on
         TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
-                .getCell(movement.getEndTileX(), movement.getEndTileY());
+                .getCell(eventualGraphical.graphicalToTile().getX(),
+                        eventualGraphical.graphicalToTile().getY());
 
         // Collision detection here
-        if (newCell != null && newCell.getTile().getId() != 0) {
-            movable.setX(movement.getEndTileX(), true);
-            movable.setY(movement.getEndTileY(), true);
+        // Either look at the new cell or just ignore collision detection
+        // Ignoring collision detection is useful if we have a mob that can traverse non-paths
+        //  or if we need to go back from a space on which we "collided"
+        if (movement.getCollisionStyle() == Movement.CollisionStyle.IGNORE_COLLISIONS
+                || (eventualGraphical.getX() > 0
+                && eventualGraphical.getY() > 0
+                && newCell != null && newCell.getTile().getId() != 0)) {
+            // End tile is valid
+            movable.setX(currentGraphical.getX(), false);
+            movable.setY(currentGraphical.getY(), false);
+            if (percentComplete >= 1.0) {
+                movement.setStatus(Movement.Status.COMPLETE);
+            }
         } else {
-            // implicit collision here
-            movement.setCollided(true);
+            // implicit collision here, set status to collided and return to start position
+            movement.setStatus(Movement.Status.COLLIDED);
+            movable.setCurrentMovement(
+                    new Movement(
+                            currentGraphical,
+                            startGraphical,
+                            false,
+                            50
+                    )
+            );
+            movable.getCurrentMovement().setCollisionStyle(
+                    Movement.CollisionStyle.IGNORE_COLLISIONS);
         }
-
-        movement.setComplete(true);
-
     }
 
     /**
@@ -196,6 +283,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void setupGame() {
         Game.getInstance().setStartTime(getTime());
         Game.getInstance().setScoreTime(getTime());
+        Player.getInstance().setCurrentMovement(null);
     }
 
 }
