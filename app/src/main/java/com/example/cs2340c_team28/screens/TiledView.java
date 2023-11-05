@@ -1,8 +1,6 @@
 package com.example.cs2340c_team28.screens;
 
 
-import android.health.connect.datatypes.units.Energy;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.example.cs2340c_team28.models.Enemy;
-import com.example.cs2340c_team28.models.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.MovementListener;
 import com.example.cs2340c_team28.models.Player;
@@ -74,7 +72,7 @@ public class TiledView implements Screen {
         return enemyHandler.initialize();
     }
 
-    public List<String> imgResList = new ArrayList<>();
+//    private final List<String> imgResList = new ArrayList<>();
     /**
      * Creates the stage with the buttons and text fields
      */

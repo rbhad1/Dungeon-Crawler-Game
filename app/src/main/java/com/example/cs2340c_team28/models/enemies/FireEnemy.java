@@ -1,8 +1,6 @@
-package com.example.cs2340c_team28.models;
+package com.example.cs2340c_team28.models.enemies;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class FireEnemy extends Enemy {
 

@@ -1,7 +1,8 @@
-package com.example.cs2340c_team28.models;
+package com.example.cs2340c_team28.models.enemies;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.example.cs2340c_team28.models.Movable;
 
 public abstract class Enemy extends Movable {
 
