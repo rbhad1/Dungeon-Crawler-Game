@@ -145,9 +145,14 @@ public class TiledView implements Screen {
 //            imgResList.add(imageResource);
 //        }
 
+
+        int UNIT = 32;
+
         for (Enemy enemy : getEnemyList()) {
             // TODO probably want to randomize start position
-            batch.draw(enemy.getTexture(), enemy.getX(true), enemy.getY(true), 32, 32);
+            batch.draw(enemy.getTexture(), enemy.getX(true)+UNIT,
+                    enemy.getY(true)+UNIT, 32, 32);
+            UNIT*=2;
         }
 
         batch.end();
