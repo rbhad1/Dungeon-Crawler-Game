@@ -25,22 +25,40 @@ public  class EnemyHandler {
         TiledMap currentMap = game.getCurrentMap();
 
         // TODO update constructors when sprites are made
-
+        enemyList = new ArrayList<>();
         if (currentMap.getLayers().get("forest") != null) {
             enemy1 = new GroundEnemy();
+            enemy1.setX(2, true);
+            enemy1.setY(6, true);
             enemy2 = new AirEnemy();
+            enemy2.setX(8, true);
+            enemy2.setY(4, true);
+            enemyList.add(enemy1);
+            enemyList.add(enemy2);
         } else if (currentMap.getLayers().get("rocks") != null) {
             enemy1 = new WaterEnemy();
+            enemy1.setX(6, true);
+            enemy1.setY(10, true);
             enemy2 = new AirEnemy();
+            enemy2.setX(5, true);
+            enemy2.setY(3, true);
+            enemyList.add(enemy1);
+            enemyList.add(enemy2);
         // (currentMap.getProperties().containsKey("portal"))
         } else {
             enemy1 = new GroundEnemy();
+            enemy1.setX(7, true);
+            enemy1.setY(13, true);
             enemy2 = new FireEnemy();
+            enemy2.setX(6, true);
+            enemy2.setY(13, true);
+            Enemy enemy3 = new FireEnemy();
+            enemy3.setX(7, true);
+            enemy3.setY(12, true);
+            enemyList.add(enemy1);
+            enemyList.add(enemy2);
+            enemyList.add(enemy3);
         }
-
-        enemyList = new ArrayList<>();
-        enemyList.add(enemy1);
-        enemyList.add(enemy2);
 
         return enemyList;
         // put the enemy on a valid location
