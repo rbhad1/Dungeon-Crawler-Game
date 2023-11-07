@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28.models.enemies;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.models.Game;
 
 import java.util.ArrayList;
@@ -13,18 +14,24 @@ public  class EnemyHandler {
     private Enemy enemy2;
     protected ArrayList<Enemy> enemyList;
 
+    protected TiledMap forest = new TmxMapLoader().load("forest-map.tmx");
+    protected TiledMap water = new TmxMapLoader().load("water-map.tmx");
+    protected TiledMap dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+
+
+
     public  List<Enemy> initialize() {
         Game game = Game.getInstance();
         TiledMap currentMap = game.getCurrentMap();
 
         // TODO update constructors when sprites are made
 
-        if (currentMap.getProperties().containsKey("forest")) {
+        if (currentMap.getLayers().get("forest") != null) {
             enemy1 = new GroundEnemy();
             enemy2 = new AirEnemy();
-        } else if (currentMap.getProperties().containsKey("water")) {
+        } else if (currentMap.getLayers().get("rocks") != null) {
             enemy1 = new WaterEnemy();
-            enemy1 = new AirEnemy();
+            enemy2 = new AirEnemy();
         // (currentMap.getProperties().containsKey("portal"))
         } else {
             enemy1 = new GroundEnemy();
