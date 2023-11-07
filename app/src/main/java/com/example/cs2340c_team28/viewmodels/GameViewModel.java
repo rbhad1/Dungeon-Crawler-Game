@@ -52,6 +52,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         return dungeon;
     }
 
+
+
     public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
     }
@@ -97,6 +99,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
+
+        // TODO enemies
     }
 
     /**
