@@ -21,8 +21,5 @@ public abstract class Enemy extends Movable {
         return enemyImage;
     }
 
-//    public int getSpriteId() {
-//        return spriteId;
-//    }
 
 }
