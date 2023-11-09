@@ -33,31 +33,59 @@ public  class EnemyHandler {
             enemy2 = new AirEnemy();
             enemy2.setX(8, true);
             enemy2.setY(4, true);
+            Enemy enemy3 = new AirEnemy();
+            enemy3.setX(3, true);
+            enemy3.setY(0, true);
+            Enemy enemy4 = new GroundEnemy();
+            enemy4.setX(0, true);
+            enemy4.setY(1, true);
             enemyList.add(enemy1);
             enemyList.add(enemy2);
+            enemyList.add(enemy3);
+            enemyList.add(enemy4);
         } else if (currentMap.getLayers().get("rocks") != null) {
             enemy1 = new WaterEnemy();
-            enemy1.setX(6, true);
+            enemy1.setX(5, true);
             enemy1.setY(10, true);
             enemy2 = new AirEnemy();
             enemy2.setX(5, true);
             enemy2.setY(3, true);
+            Enemy enemy3 = new WaterEnemy();
+            enemy3.setX(4, true);
+            enemy3.setY(5, true);
             enemyList.add(enemy1);
             enemyList.add(enemy2);
+            enemyList.add(enemy3);
         // (currentMap.getProperties().containsKey("portal"))
         } else {
             enemy1 = new GroundEnemy();
-            enemy1.setX(7, true);
-            enemy1.setY(13, true);
+            enemy1.setX(4, true);
+            enemy1.setY(7, true);
             enemy2 = new FireEnemy();
             enemy2.setX(6, true);
             enemy2.setY(13, true);
             Enemy enemy3 = new FireEnemy();
-            enemy3.setX(7, true);
-            enemy3.setY(12, true);
+            enemy3.setX(4, true);
+            enemy3.setY(7, true);
+            Enemy enemy4 = new FireEnemy();
+            enemy4.setX(4, true);
+            enemy4.setY(7, true);
+            Enemy enemy5 = new FireEnemy();
+            enemy5.setX(4, true);
+            enemy5.setY(7, true);
+            Enemy enemy6 = new FireEnemy();
+            enemy6.setX(4, true);
+            enemy6.setY(7, true);
+            Enemy enemy7 = new FireEnemy();
+            enemy7.setX(4, true);
+            enemy7.setY(7, true);
             enemyList.add(enemy1);
             enemyList.add(enemy2);
             enemyList.add(enemy3);
+            enemyList.add(enemy4);
+            enemyList.add(enemy5);
+            enemyList.add(enemy6);
+            enemyList.add(enemy7);
         }
 
         return enemyList;
@@ -70,7 +98,15 @@ public  class EnemyHandler {
 
     // put this in Game, should not have access to Game
 
+    public void move(List<Enemy> enemyList) {
 
+        for (int i = 0; i < enemyList.size(); i++) {
+            enemyList.get(i).setY(enemyList.get(i).getY(true) + 32, true);
+        }
+    }
+    public ArrayList<Enemy> getEnemyList() {
+        return enemyList;
+    }
 
 
 

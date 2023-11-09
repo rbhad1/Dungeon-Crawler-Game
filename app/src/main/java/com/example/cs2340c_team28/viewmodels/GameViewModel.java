@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.models.Movable;
+import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.screens.TiledView;
@@ -51,7 +52,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public TiledMap getDungeon() {
         return dungeon;
     }
-
+    private TiledView tiledview;
 
 
     public GameViewModel(LibGdxActivity activity) {
@@ -62,19 +63,13 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         this.activity = new LibGdxActivity();
     }
 
-    protected void loadAssets() {
-        this.forest = new TmxMapLoader().load("forest-map.tmx");
-        this.water = new TmxMapLoader().load("water-map.tmx");
-        this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
-        game.setCurrentMap(forest);
-    }
-
     /**
      * Loads images and handles how often the game renders
      */
     @Override
     public void create() {
-        setScreen(new TiledView(this));
+        tiledview = new TiledView(this);
+        setScreen(tiledview);
 
         this.loadAssets();
 
@@ -99,8 +94,15 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
-
         // TODO enemies
+    }
+
+    protected void loadAssets() {
+        this.forest = new TmxMapLoader().load("forest-map.tmx");
+        this.water = new TmxMapLoader().load("water-map.tmx");
+        this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
+        game.setCurrentMap(forest);
+        tiledview.getEnemyHandler().initialize();
     }
 
     /**
@@ -132,14 +134,20 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
             if (game.getCurrentMap().equals(forest)) {
                 Game.getInstance().setCurrentMap(water);
+                tiledview.getEnemyHandler().initialize();
             } else if (game.getCurrentMap().equals(water)) {
                 Game.getInstance().setCurrentMap(dungeon);
+                tiledview.getEnemyHandler().initialize();
             } else if (game.getCurrentMap().equals(dungeon)) {
                 this.endGame();
             }
         }
 
         handleMovement(player);
+        for (Enemy enemy : tiledview.getEnemyList()) {
+            enemy.move();
+            handleMovement(enemy);
+        }
     }
 
     private void handleMovement(Movable movable) {
