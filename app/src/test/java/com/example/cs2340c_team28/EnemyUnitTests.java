@@ -70,4 +70,5 @@ public class EnemyUnitTests {
         assertEquals(2, counter);
     }
 
+
 }
