@@ -11,6 +11,7 @@ import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.GroundEnemy;
+import com.example.cs2340c_team28.models.enemies.WaterEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
@@ -45,8 +46,28 @@ public class EnemyUnitTests {
             }
         }
         assertEquals(2, counter);
-
     }
 
+
+    @Test
+    public void correctEnemiesInWaterMap() {
+
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Game game = Game.getInstance();
+
+        game.setCurrentMap(gameViewModel.getWater());
+        TiledView tiledView = new TiledView(gameViewModel);
+
+
+        int counter = 0;
+        for (Enemy enemy : tiledView.getEnemyList()) {
+            if (enemy instanceof WaterEnemy || enemy instanceof AirEnemy) {
+                counter++;
+            }
+        }
+        assertEquals(2, counter);
+    }
 
 }
