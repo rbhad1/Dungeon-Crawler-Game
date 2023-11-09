@@ -14,12 +14,6 @@ public  class EnemyHandler {
     private Enemy enemy2;
     protected ArrayList<Enemy> enemyList;
 
-    protected TiledMap forest = new TmxMapLoader().load("forest-map.tmx");
-    protected TiledMap water = new TmxMapLoader().load("water-map.tmx");
-    protected TiledMap dungeon = new TmxMapLoader().load("dungeon-map.tmx");
-
-
-
     public  List<Enemy> initialize() {
         Game game = Game.getInstance();
         TiledMap currentMap = game.getCurrentMap();
@@ -96,7 +90,6 @@ public  class EnemyHandler {
         this.initialize();
     }
 
-    // put this in Game, should not have access to Game
 
     public void move(List<Enemy> enemyList) {
 
