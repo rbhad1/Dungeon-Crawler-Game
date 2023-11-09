@@ -7,6 +7,8 @@ public class Movement {
     private long startTime;
     private final long duration;
 
+    private long endDelay;
+
     private Status status = Status.IN_PROGRESS;
 
     private CollisionStyle collisionStyle = CollisionStyle.ANIMATED;
@@ -25,6 +27,14 @@ public class Movement {
 
     public void setStartTime(long startTime) {
         this.startTime = startTime;
+    }
+
+    public long getEndDelay() {
+        return endDelay;
+    }
+
+    public void setEndDelay(long endDelay) {
+        this.endDelay = endDelay;
     }
 
     public CollisionStyle getCollisionStyle() {
@@ -73,7 +83,7 @@ public class Movement {
     }
 
     public enum Status {
-        IN_PROGRESS, COMPLETE, COLLIDED
+        IN_PROGRESS, DELAYING, COMPLETE, COLLIDED
     }
 
     public enum CollisionStyle {
