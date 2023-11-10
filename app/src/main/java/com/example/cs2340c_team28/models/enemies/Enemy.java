@@ -16,7 +16,7 @@ public abstract class Enemy extends Movable {
 
 
     public void assignTexture() {
-        enemyImage = TextureFactory.getInstance().createTextureFactory(imgRes);
+        enemyImage = TextureFactory.getInstance().createTexture(imgRes);
     }
     public Texture getTexture() {
         return enemyImage;

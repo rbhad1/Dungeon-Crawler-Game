@@ -20,7 +20,7 @@ public class TextureFactory {
 
     private boolean forUnitTests = false;
 
-    public Texture createTextureFactory(String filename) {
+    public Texture createTexture(String filename) {
         return new Texture(forUnitTests ? "src/main/assets/" + filename : filename);
     }
 
