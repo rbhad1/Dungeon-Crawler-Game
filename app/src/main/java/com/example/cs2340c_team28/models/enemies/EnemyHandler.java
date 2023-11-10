@@ -58,14 +58,21 @@ public  class EnemyHandler {
         // put the enemy on a valid location
     }
 
-    void main() {
-        this.initialize();
+    public List<Enemy> main() {
+        return this.initialize();
     }
 
+    public Enemy getEnemy1() {
+        return enemy1;
+    }
 
-
-
-
-
-
+    public Enemy getEnemy2() {
+        return enemy2;
+    }
 }
+
+
+
+
+
+

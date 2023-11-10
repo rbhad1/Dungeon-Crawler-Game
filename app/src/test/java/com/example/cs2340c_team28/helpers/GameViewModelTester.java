@@ -2,7 +2,9 @@ package com.example.cs2340c_team28.helpers;
 
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.enemies.TextureFactory;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
+
 
 public class GameViewModelTester extends GameViewModel {
     private long testTime;
@@ -44,11 +46,15 @@ public class GameViewModelTester extends GameViewModel {
         super.water = new TmxMapLoader().load("src/main/assets/water-map.tmx");
         super.dungeon = new TmxMapLoader().load("src/main/assets/dungeon-map.tmx");
         Game.getInstance().setCurrentMap(forest);
+
+
     }
+
 
     public void doPreinitialization() {
         loadAssets();
         setTime(0);
         setupGame();
+        TextureFactory.getInstance().setForUnitTests(true);
     }
 }
