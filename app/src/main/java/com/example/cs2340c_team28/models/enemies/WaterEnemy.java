@@ -8,8 +8,8 @@ public class WaterEnemy  extends Enemy {
     private int direction = 0;
     public WaterEnemy() {
         super.imgRes = "water_sprite.jpg";
-        enemyImage = new Texture(imgRes);
         super.assignTexture();
+
     }
 
     public void move() {

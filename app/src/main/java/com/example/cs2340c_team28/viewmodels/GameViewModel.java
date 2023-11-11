@@ -163,9 +163,37 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             return;
         }
 
+
+        // Get the current time and start time (from the movement)
+        long currentTime = getTime();
+        long initialTime = movement.getStartTime();
+
+        // Check that the start time has been set for the movement.
+        // If not, set its start time to now
+        if (initialTime == -1) {
+            movement.setStartTime(currentTime);
+            initialTime = currentTime;
+        }
+
+        // Calculate elapsed time (deltaTime) and percent complete for the movement
+        long deltaTime = currentTime - initialTime;
+        long duration = movement.getDuration();
+        long endDelay = movement.getEndDelay();
+
         // Ensure movement still in progress
-        if (movement.getStatus() != Movement.Status.IN_PROGRESS) {
+        switch (movement.getStatus()) {
+        case DELAYING:
+            if (deltaTime > duration + endDelay) {
+                // We are done with the movement
+                movement.setStatus(Movement.Status.COMPLETE);
+            }
             return;
+        case COMPLETE:
+        case COLLIDED:
+            return;
+        case IN_PROGRESS:
+        default:
+            break;
         }
 
         // Get start position and end position, make a delta tile also
@@ -190,21 +218,6 @@ public class GameViewModel extends com.badlogic.gdx.Game {
                 return;
             }
         }
-
-        // Get the current time and start time (from the movement)
-        long currentTime = getTime();
-        long initialTime = movement.getStartTime();
-
-        // Check that the start time has been set for the movement.
-        // If not, set its start time to now
-        if (initialTime == -1) {
-            movement.setStartTime(currentTime);
-            initialTime = currentTime;
-        }
-
-        // Calculate elapsed time (deltaTime) and percent complete for the movement
-        long deltaTime = currentTime - initialTime;
-        long duration = movement.getDuration();
 
         Position currentGraphical;
         Position eventualGraphical;
@@ -243,7 +256,9 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             movable.setX(currentGraphical.getX(), false);
             movable.setY(currentGraphical.getY(), false);
             if (percentComplete >= 1.0) {
-                movement.setStatus(Movement.Status.COMPLETE);
+                movement.setStatus(deltaTime > duration + endDelay
+                        ? Movement.Status.COMPLETE
+                        : Movement.Status.DELAYING);
             }
         } else {
             // implicit collision here, set status to collided and return to start position

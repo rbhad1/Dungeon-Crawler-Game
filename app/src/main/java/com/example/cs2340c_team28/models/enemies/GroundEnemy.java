@@ -9,7 +9,6 @@ public class GroundEnemy extends Enemy {
 
     public GroundEnemy() {
         super.imgRes = "ground_sprite.jpg";
-        enemyImage = new Texture(imgRes);
         super.assignTexture();
     }
     public void move() {

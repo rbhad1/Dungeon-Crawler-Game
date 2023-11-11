@@ -13,7 +13,6 @@ public class FireEnemy extends Enemy {
 
     public FireEnemy() {
         super.imgRes = "fire_sprite.jpg";
-        enemyImage = new Texture(imgRes);
         super.assignTexture();
 
     }

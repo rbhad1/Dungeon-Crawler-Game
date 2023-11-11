@@ -9,7 +9,6 @@ public class AirEnemy extends Enemy {
 
     public AirEnemy() {
         super.imgRes = "air_sprite.jpg";
-        enemyImage = new Texture(imgRes);
         super.assignTexture();
     }
 
