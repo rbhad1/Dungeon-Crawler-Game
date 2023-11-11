@@ -2,6 +2,11 @@ package com.example.cs2340c_team28.models;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class representing a game being played
@@ -55,6 +60,8 @@ public class Game {
     private TiledMap currentMap;
     private TiledMapTileLayer walkableLayer;
     private TiledMapTileLayer doorLayer;
+
+    private List<Enemy> enemyList;
 
     /**
      * Get the difficulty of the game
@@ -124,6 +131,14 @@ public class Game {
 
     public TiledMapTileLayer getDoorLayer() {
         return doorLayer;
+    }
+
+    public void setEnemiesList(List<Enemy> enemies) {
+        enemyList = enemies;
+    }
+
+    public List<Enemy> getEnemyList() {
+        return enemyList;
     }
 
 }

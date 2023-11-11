@@ -14,7 +14,7 @@ public  class EnemyHandler {
     private Enemy enemy2;
     protected ArrayList<Enemy> enemyList;
 
-    public  List<Enemy> initialize() {
+    public List<Enemy> initialize() {
         Game game = Game.getInstance();
         TiledMap currentMap = game.getCurrentMap();
 
@@ -50,7 +50,7 @@ public  class EnemyHandler {
             enemyList.add(enemy1);
             enemyList.add(enemy2);
             enemyList.add(enemy3);
-        // (currentMap.getProperties().containsKey("portal"))
+            // (currentMap.getProperties().containsKey("portal"))
         } else {
             enemy1 = new GroundEnemy();
             enemy1.setX(4, true);
@@ -97,18 +97,9 @@ public  class EnemyHandler {
     public Enemy getEnemy2() {
         return enemy2;
     }
+
+
+
 }
-
-    public void move(List<Enemy> enemyList) {
-
-        for (int i = 0; i < enemyList.size(); i++) {
-            enemyList.get(i).setY(enemyList.get(i).getY(true) + 32, true);
-        }
-    }
-    public ArrayList<Enemy> getEnemyList() {
-        return enemyList;
-    }
-
-
 
 

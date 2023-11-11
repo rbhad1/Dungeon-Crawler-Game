@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.screens.TiledView;
@@ -102,7 +103,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         this.water = new TmxMapLoader().load("water-map.tmx");
         this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
         game.setCurrentMap(forest);
-        tiledview.getEnemyHandler().initialize();
+        Game.getInstance().setEnemiesList(new EnemyHandler().initialize());
     }
 
     /**
@@ -134,17 +135,17 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
             if (game.getCurrentMap().equals(forest)) {
                 Game.getInstance().setCurrentMap(water);
-                tiledview.getEnemyHandler().initialize();
+                Game.getInstance().setEnemiesList(new EnemyHandler().initialize());
             } else if (game.getCurrentMap().equals(water)) {
                 Game.getInstance().setCurrentMap(dungeon);
-                tiledview.getEnemyHandler().initialize();
+                Game.getInstance().setEnemiesList(new EnemyHandler().initialize());
             } else if (game.getCurrentMap().equals(dungeon)) {
                 this.endGame();
             }
         }
 
         handleMovement(player);
-        for (Enemy enemy : tiledview.getEnemyList()) {
+        for (Enemy enemy : Game.getInstance().getEnemyList()) {
             enemy.move();
             handleMovement(enemy);
         }
