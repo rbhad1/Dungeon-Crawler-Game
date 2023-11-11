@@ -6,7 +6,7 @@ import com.example.cs2340c_team28.models.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class EnemyHandler {
+public class EnemyHandler {
     private Enemy enemy1;
     private Enemy enemy2;
     protected ArrayList<Enemy> enemyList;

@@ -65,7 +65,7 @@ public class TiledView implements Screen {
         this.gameViewModel = gameViewModel;
     }
 
-    private EnemyHandler enemyHandler;
+    private EnemyHandler enemyHandler = new EnemyHandler();
 
     public List<Enemy> getEnemyList() {
         return enemyHandler.main();
