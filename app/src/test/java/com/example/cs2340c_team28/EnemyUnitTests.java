@@ -32,17 +32,19 @@ public class EnemyUnitTests {
 
     @Test
     public void correctEnemiesInForestMap() {
+        Game.getInstance().setEnemiesList(null);
 
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
 
         Game game = Game.getInstance();
-        //game.setCurrentMap(gameViewModel.getForest());
+
         gameViewModel.cycledUpdate(4, 1);
 
-        TiledView tiledView = new TiledView(gameViewModel);
         int counter = 0;
+
         for (Enemy enemy : game.getEnemyList()) {
+
             if (enemy instanceof GroundEnemy || enemy instanceof AirEnemy) {
                 counter++;
             }
@@ -60,7 +62,7 @@ public class EnemyUnitTests {
         Game game = Game.getInstance();
 
         game.setCurrentMap(gameViewModel.getWater());
-        TiledView tiledView = new TiledView(gameViewModel);
+
         gameViewModel.cycledUpdate(1, 1);
 
         int counter = 0;
