@@ -95,6 +95,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
+        game.setEnemiesList(new EnemyHandler().initialize());
         // TODO enemies
     }
 
@@ -132,6 +133,9 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         TiledMapTileLayer.Cell possibleDoorCell = game.getDoorLayer()
                 .getCell(player.getX(true), player.getY(true));
         // Check if we've reached door
+        if (game.getEnemyList() == null) {
+            game.setEnemiesList(new EnemyHandler().initialize());
+        }
         if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
             if (game.getCurrentMap().equals(forest)) {
                 Game.getInstance().setCurrentMap(water);

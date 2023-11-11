@@ -37,15 +37,17 @@ public class EnemyUnitTests {
         gameViewModel.doPreinitialization();
 
         Game game = Game.getInstance();
+        //game.setCurrentMap(gameViewModel.getForest());
+        gameViewModel.cycledUpdate(4, 1);
 
         TiledView tiledView = new TiledView(gameViewModel);
         int counter = 0;
-        for (Enemy enemy : tiledView.getEnemyList()) {
+        for (Enemy enemy : game.getEnemyList()) {
             if (enemy instanceof GroundEnemy || enemy instanceof AirEnemy) {
                 counter++;
             }
         }
-        assertEquals(2, counter);
+        assertEquals(4, counter);
     }
 
 
@@ -59,15 +61,15 @@ public class EnemyUnitTests {
 
         game.setCurrentMap(gameViewModel.getWater());
         TiledView tiledView = new TiledView(gameViewModel);
-
+        gameViewModel.cycledUpdate(1, 1);
 
         int counter = 0;
-        for (Enemy enemy : tiledView.getEnemyList()) {
+        for (Enemy enemy : game.getEnemyList()) {
             if (enemy instanceof WaterEnemy || enemy instanceof AirEnemy) {
                 counter++;
             }
         }
-        assertEquals(2, counter);
+        assertEquals(3, counter);
     }
 
 
