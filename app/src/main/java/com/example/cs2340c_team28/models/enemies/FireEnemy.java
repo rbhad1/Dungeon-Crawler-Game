@@ -11,7 +11,7 @@ public class FireEnemy extends Enemy {
 
 
     public FireEnemy() {
-        super.imgRes = "fire_sprite.jpg";
+        super.imgRes = "sprites_enemy/fire_sprite.png";
         super.assignTexture();
 
     }

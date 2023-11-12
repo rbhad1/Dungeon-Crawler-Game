@@ -7,7 +7,7 @@ public class GroundEnemy extends Enemy {
     private boolean right = true;
 
     public GroundEnemy() {
-        super.imgRes = "ground_sprite.jpg";
+        super.imgRes = "sprites_enemy/ground_sprite.png";
         super.assignTexture();
     }
     public void move() {

@@ -7,7 +7,7 @@ public class AirEnemy extends Enemy {
     private boolean up = true;
 
     public AirEnemy() {
-        super.imgRes = "air_sprite.jpg";
+        super.imgRes = "sprites_enemy/air_sprite.png";
         super.assignTexture();
     }
 

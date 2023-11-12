@@ -1,13 +1,12 @@
 package com.example.cs2340c_team28.models.enemies;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 
 public class WaterEnemy  extends Enemy {
     private int direction = 0;
     public WaterEnemy() {
-        super.imgRes = "water_sprite.jpg";
+        super.imgRes = "sprites_enemy/water_sprite.png";
         super.assignTexture();
 
     }
