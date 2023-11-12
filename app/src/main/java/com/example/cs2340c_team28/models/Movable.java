@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28.models;
 
 import com.example.cs2340c_team28.models.movement.Movement;
+import com.example.cs2340c_team28.models.movement.Position;
 
 public abstract class Movable {
     private Movement currentMovement;
@@ -50,5 +51,9 @@ public abstract class Movable {
 
     public void setCurrentMovement(Movement currentMovement) {
         this.currentMovement = currentMovement;
+    }
+
+    public Position getPosition() {
+        return new Position(this.getX(true), this.getY(true));
     }
 }
