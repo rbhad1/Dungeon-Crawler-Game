@@ -118,11 +118,6 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void render() {
         super.render();
         updateGameLogic();
-        collisionManager.setEnemies(game.getEnemyList());
-        collisionManager.checkCollisions();
-        if (player.getHp() <= 0) {
-            endGame();
-        }
     }
 
     /**
@@ -161,6 +156,12 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             enemy.move();
             handleMovement(enemy);
+        }
+
+        collisionManager.setEnemies(game.getEnemyList());
+        collisionManager.checkCollisions();
+        if (player.getHp() <= 0) {
+            endGame();
         }
     }
 
