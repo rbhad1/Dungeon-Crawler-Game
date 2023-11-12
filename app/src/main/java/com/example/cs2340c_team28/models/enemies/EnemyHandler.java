@@ -7,21 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyHandler {
-    private Enemy enemy1;
-    private Enemy enemy2;
-    protected ArrayList<Enemy> enemyList;
 
-    public List<Enemy> initialize() {
+    public List<Enemy> createEnemyList() {
         Game game = Game.getInstance();
         TiledMap currentMap = game.getCurrentMap();
 
-        // TODO update constructors when sprites are made
-        enemyList = new ArrayList<>();
+        ArrayList<Enemy> enemyList = new ArrayList<>();
         if (currentMap.getLayers().get("forest") != null) {
-            enemy1 = new GroundEnemy();
+            Enemy enemy1 = new GroundEnemy();
             enemy1.setX(2, true);
             enemy1.setY(6, true);
-            enemy2 = new AirEnemy();
+            Enemy enemy2 = new AirEnemy();
             enemy2.setX(8, true);
             enemy2.setY(4, true);
             Enemy enemy3 = new AirEnemy();
@@ -35,10 +31,10 @@ public class EnemyHandler {
             enemyList.add(enemy3);
             enemyList.add(enemy4);
         } else if (currentMap.getLayers().get("rocks") != null) {
-            enemy1 = new WaterEnemy();
+            Enemy enemy1 = new WaterEnemy();
             enemy1.setX(5, true);
             enemy1.setY(10, true);
-            enemy2 = new AirEnemy();
+            Enemy enemy2 = new AirEnemy();
             enemy2.setX(5, true);
             enemy2.setY(3, true);
             Enemy enemy3 = new WaterEnemy();
@@ -49,10 +45,10 @@ public class EnemyHandler {
             enemyList.add(enemy3);
             // (currentMap.getProperties().containsKey("portal"))
         } else {
-            enemy1 = new GroundEnemy();
+            Enemy enemy1 = new GroundEnemy();
             enemy1.setX(4, true);
             enemy1.setY(7, true);
-            enemy2 = new FireEnemy();
+            Enemy enemy2 = new FireEnemy();
             enemy2.setX(6, true);
             enemy2.setY(13, true);
             Enemy enemy3 = new FireEnemy();
@@ -82,11 +78,6 @@ public class EnemyHandler {
         return enemyList;
         // put the enemy on a valid location
     }
-
-    public List<Enemy> main() {
-        return this.initialize();
-    }
-
 }
 
 

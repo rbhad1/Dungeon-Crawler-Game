@@ -95,7 +95,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
-        game.setEnemiesList(new EnemyHandler().initialize());
+        game.setEnemiesList(new EnemyHandler().createEnemyList());
         // TODO enemies
     }
 
@@ -104,7 +104,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         this.water = new TmxMapLoader().load("water-map.tmx");
         this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
         game.setCurrentMap(forest);
-        Game.getInstance().setEnemiesList(new EnemyHandler().initialize());
+        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
     }
 
     /**
@@ -134,15 +134,15 @@ public class GameViewModel extends com.badlogic.gdx.Game {
                 .getCell(player.getX(true), player.getY(true));
         // Check if we've reached door
         if (game.getEnemyList() == null) {
-            game.setEnemiesList(new EnemyHandler().initialize());
+            game.setEnemiesList(new EnemyHandler().createEnemyList());
         }
         if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
             if (game.getCurrentMap().equals(forest)) {
                 Game.getInstance().setCurrentMap(water);
-                Game.getInstance().setEnemiesList(new EnemyHandler().initialize());
+                Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
             } else if (game.getCurrentMap().equals(water)) {
                 Game.getInstance().setCurrentMap(dungeon);
-                Game.getInstance().setEnemiesList(new EnemyHandler().initialize());
+                Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
             } else if (game.getCurrentMap().equals(dungeon)) {
                 this.endGame();
             }
