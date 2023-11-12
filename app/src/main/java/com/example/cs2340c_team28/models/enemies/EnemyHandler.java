@@ -1,15 +1,12 @@
 package com.example.cs2340c_team28.models.enemies;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.models.Game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// make this a Singleton?? does not need to be abstract
-
-public  class EnemyHandler {
+public class EnemyHandler {
     private Enemy enemy1;
     private Enemy enemy2;
     protected ArrayList<Enemy> enemyList;
@@ -62,13 +59,7 @@ public  class EnemyHandler {
         return this.initialize();
     }
 
-    public Enemy getEnemy1() {
-        return enemy1;
-    }
 
-    public Enemy getEnemy2() {
-        return enemy2;
-    }
 }
 
 
