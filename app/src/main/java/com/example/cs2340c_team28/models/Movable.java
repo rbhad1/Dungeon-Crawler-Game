@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28.models;
 
 import com.example.cs2340c_team28.models.movement.Movement;
+import com.example.cs2340c_team28.models.movement.Position;
 
 public abstract class Movable {
     private Movement currentMovement;
@@ -42,6 +43,26 @@ public abstract class Movable {
      */
     public void setY(int y, boolean tileRelative) {
         this.y = y * (tileRelative ? 32 : 1);
+    }
+
+    /**
+     * Get the current position as a Position object
+     * @param tileRelative If true, give position as number of tiles
+     * @return Current position
+     */
+    public Position getPosition(boolean tileRelative) {
+        Position position = new Position(this.x, this.y);
+        return tileRelative ? position.graphicalToTile() : position;
+    }
+
+    /**
+     * Get the current position as a Position object
+     * @param position The position to set
+     * @param tileRelative If true, give position as number of tiles
+     */
+    public void setPosition(Position position, boolean tileRelative) {
+        this.setX(position.getX(), tileRelative);
+        this.setY(position.getY(), tileRelative);
     }
 
     public Movement getCurrentMovement() {

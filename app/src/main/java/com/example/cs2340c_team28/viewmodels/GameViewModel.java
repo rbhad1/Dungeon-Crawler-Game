@@ -261,7 +261,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             movable.setX(currentGraphical.getX(), false);
             movable.setY(currentGraphical.getY(), false);
             if (percentComplete >= 1.0) {
-                movement.setStatus(deltaTime > duration + endDelay
+                movement.setStatus(deltaTime >= duration + endDelay
                         ? Movement.Status.COMPLETE
                         : Movement.Status.DELAYING);
             }
