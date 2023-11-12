@@ -162,7 +162,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         }
         collisionManager.setEnemies(game.getEnemyList());
         collisionManager.checkCollisions();
-        if (player.getHp() <= 0) {
+        if (player == null || player.getHp() <= 0) {
             endGame();
         }
     }

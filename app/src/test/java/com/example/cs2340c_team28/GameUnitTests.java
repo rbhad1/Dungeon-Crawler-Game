@@ -255,6 +255,7 @@ public class GameUnitTests {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
         Game game = Game.getInstance();
+        Player player = Player.getInstance();
 
         int initialScore = Game.MAX_SCORE;
         game.setScore(1000);
@@ -274,6 +275,7 @@ public class GameUnitTests {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
         Game game = Game.getInstance();
+        Player player = Player.getInstance();
 
         game.setScore(1000);
 
