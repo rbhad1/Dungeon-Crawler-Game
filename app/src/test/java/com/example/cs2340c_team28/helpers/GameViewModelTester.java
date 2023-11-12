@@ -8,6 +8,7 @@ import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 public class GameViewModelTester extends GameViewModel {
     private long testTime;
+    private boolean gameOver;
     @Override
     public long getTime() {
         return testTime;
@@ -60,6 +61,10 @@ public class GameViewModelTester extends GameViewModel {
 
     @Override
     public void endGame() {
-        System.out.println("Game over");
+        gameOver = true;
+    }
+
+    public boolean getGameOver() {
+        return gameOver;
     }
 }
