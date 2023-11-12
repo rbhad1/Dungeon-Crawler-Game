@@ -19,7 +19,6 @@ import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TiledView implements Screen {
@@ -66,13 +65,12 @@ public class TiledView implements Screen {
         this.gameViewModel = gameViewModel;
     }
 
-    EnemyHandler enemyHandler = new EnemyHandler();
+    private EnemyHandler enemyHandler = new EnemyHandler();
 
     public List<Enemy> getEnemyList() {
         return Game.getInstance().getEnemyList();
     }
 
-//    private final List<String> imgResList = new ArrayList<>();
     /**
      * Creates the stage with the buttons and text fields
      */
@@ -136,14 +134,7 @@ public class TiledView implements Screen {
                 Player.getInstance().getY(false), 32, 32);
 
 
-        // only run this method once - make an onstage change  method
-//        for (Enemy enemy:getEnemyList()) {
-//            int spriteIdEnemy  = enemy.getSpriteId();
-//            switch (spriteIdEnemy) {
-//                // cases
-//            }
-//            imgResList.add(imageResource);
-//        }
+
 
 
         //int UNIT = 32;

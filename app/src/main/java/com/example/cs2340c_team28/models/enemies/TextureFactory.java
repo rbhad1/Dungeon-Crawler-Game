@@ -10,10 +10,6 @@ public class TextureFactory {
 
     }
 
-    public boolean isForUnitTests() {
-        return forUnitTests;
-    }
-
     public void setForUnitTests(boolean forUnitTests) {
         this.forUnitTests = forUnitTests;
     }

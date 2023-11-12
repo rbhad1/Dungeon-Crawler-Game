@@ -1,6 +1,5 @@
 package com.example.cs2340c_team28.models.enemies;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 
