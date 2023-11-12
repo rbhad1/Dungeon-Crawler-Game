@@ -10,6 +10,7 @@ import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.enemies.GroundEnemy;
 import com.example.cs2340c_team28.models.enemies.WaterEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
@@ -18,6 +19,9 @@ import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.screens.TiledView;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -73,6 +77,52 @@ public class EnemyUnitTests {
         }
         assertEquals(3, counter);
     }
+    @Test
+    public void waterEnemyMovesInCircle() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
 
+        Game game = Game.getInstance();
+
+        game.setCurrentMap(gameViewModel.getWater());
+        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+
+        gameViewModel.cycledUpdate(1, 1);
+        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        int startX = game.getEnemyList().get(0).getX(true);
+        int startY = game.getEnemyList().get(0).getY(true);
+        // start is 5,10
+
+        gameViewModel.cycledUpdate(2, 200);
+
+        assertEquals(startX+1, game.getEnemyList().get(0).getX(true));
+        assertEquals(startY, game.getEnemyList().get(0).getY(true));
+        gameViewModel.cycledUpdate(2, 200);
+        assertEquals(startX+1, game.getEnemyList().get(0).getX(true));
+        assertEquals(startY+1, game.getEnemyList().get(0).getY(true));
+        gameViewModel.cycledUpdate(2, 200);
+        assertEquals(startX, game.getEnemyList().get(0).getX(true));
+        assertEquals(startY+1, game.getEnemyList().get(0).getY(true));
+        gameViewModel.cycledUpdate(2, 200);
+        assertEquals(startX, game.getEnemyList().get(0).getX(true));
+        assertEquals(startY, game.getEnemyList().get(0).getY(true));
+    }
+    @Test
+    public void enemyMovesInBounds() {
+        Game.getInstance().setEnemiesList(null);
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+        gameViewModel.cycledUpdate(4, 1);
+        List<Enemy> enemylist = game.getEnemyList();
+
+        gameViewModel.cycledUpdate(2, 200);
+        // it starts at index 2
+        assertNotEquals(2, enemylist.get(0).getX(true));
+        gameViewModel.cycledUpdate(10, 200);
+        assertEquals(8, enemylist.get(0).getX(true));
+        gameViewModel.cycledUpdate(2, 200);
+        assertNotEquals(9, enemylist.get(0).getX(true));
+    }
 
 }
