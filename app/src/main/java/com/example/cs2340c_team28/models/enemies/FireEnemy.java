@@ -35,7 +35,7 @@ public class FireEnemy extends Enemy {
             up = false;
         }
 
-        if (getCurrentMovement() != null && getCurrentMovement().getStatus() == Movement.Status.IN_PROGRESS) {
+        if (!super.shouldMove()) {
             return;
         }
         if (getX(true) == 8) {

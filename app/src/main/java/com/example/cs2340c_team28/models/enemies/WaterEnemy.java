@@ -12,7 +12,7 @@ public class WaterEnemy  extends Enemy {
     }
 
     public void move() {
-        if (getCurrentMovement() != null && getCurrentMovement().getStatus() == Movement.Status.IN_PROGRESS) {
+        if (!super.shouldMove()) {
             return;
         }
         if (getX(true) == 8) {

@@ -12,9 +12,10 @@ public class AirEnemy extends Enemy {
     }
 
     public void move() {
-        if (getCurrentMovement() != null && getCurrentMovement().getStatus() == Movement.Status.IN_PROGRESS) {
+        if (!super.shouldMove()) {
             return;
         }
+
         if (getY(true) == 15) {
             up = false;
         }
