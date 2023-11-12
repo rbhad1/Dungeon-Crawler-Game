@@ -57,4 +57,9 @@ public class GameViewModelTester extends GameViewModel {
         setupGame();
         TextureFactory.getInstance().setForUnitTests(true);
     }
+
+    @Override
+    public void endGame() {
+        System.out.println("Game over");
+    }
 }
