@@ -1,5 +1,7 @@
 package com.example.cs2340c_team28.models.movement;
 
+import java.util.Objects;
+
 public class Position {
     private final int x;
     private final int y;
@@ -42,4 +44,20 @@ public class Position {
     }
 
     public static final Position ZERO = new Position(0, 0);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o instanceof Position) {
+            return x == ((Position) o).x && y == ((Position) o).y;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }
