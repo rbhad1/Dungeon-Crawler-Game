@@ -19,6 +19,12 @@ public abstract class Enemy extends Movable {
     public Texture getTexture() {
         return enemyImage;
     }
+    
+//    public int getSpriteId() {
+//        return spriteId;
+//    }
+    public void move() {
 
+    }
 
 }

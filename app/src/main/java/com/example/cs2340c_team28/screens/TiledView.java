@@ -68,7 +68,7 @@ public class TiledView implements Screen {
     private EnemyHandler enemyHandler = new EnemyHandler();
 
     public List<Enemy> getEnemyList() {
-        return enemyHandler.main();
+        return Game.getInstance().getEnemyList();
     }
 
     /**
@@ -139,7 +139,7 @@ public class TiledView implements Screen {
 
         //int UNIT = 32;
 
-        for (Enemy enemy : getEnemyList()) {
+        for (Enemy enemy : Game.getInstance().getEnemyList()) {
             // TODO probably want to randomize start position
             batch.draw(enemy.getTexture(), enemy.getX(false),
                     enemy.getY(false), 32, 32);
@@ -176,5 +176,8 @@ public class TiledView implements Screen {
 
     public void dispose() {
         renderer.dispose();
+    }
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
     }
 }
