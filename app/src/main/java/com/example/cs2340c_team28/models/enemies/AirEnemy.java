@@ -7,14 +7,15 @@ public class AirEnemy extends Enemy {
     private boolean up = true;
 
     public AirEnemy() {
-        super.imgRes = "air_sprite.jpg";
+        super.imgRes = "sprites_enemy/air_sprite.png";
         super.assignTexture();
     }
 
     public void move() {
-        if (getCurrentMovement() != null && getCurrentMovement().getStatus() == Movement.Status.IN_PROGRESS) {
+        if (super.shouldNotMove()) {
             return;
         }
+
         if (getY(true) == 15) {
             up = false;
         }

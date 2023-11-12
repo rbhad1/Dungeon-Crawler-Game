@@ -11,7 +11,7 @@ public class FireEnemy extends Enemy {
 
 
     public FireEnemy() {
-        super.imgRes = "fire_sprite.jpg";
+        super.imgRes = "sprites_enemy/fire_sprite.png";
         super.assignTexture();
 
     }
@@ -35,7 +35,7 @@ public class FireEnemy extends Enemy {
             up = false;
         }
 
-        if (getCurrentMovement() != null && getCurrentMovement().getStatus() == Movement.Status.IN_PROGRESS) {
+        if (super.shouldNotMove()) {
             return;
         }
         if (getX(true) == 8) {

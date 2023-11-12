@@ -93,13 +93,13 @@ public class TiledView implements Screen {
         String imageResource;
         switch (spriteId) {
         case 1:
-            imageResource = "person1.png";
+            imageResource = "sprites_player/person1.png";
             break;
         case 2:
-            imageResource = "person2.png";
+            imageResource = "sprites_player/person2.png";
             break;
         default:
-            imageResource = "person3.png";
+            imageResource = "sprites_player/person3.png";
             break;
         }
         playerImage = new Texture(imageResource);

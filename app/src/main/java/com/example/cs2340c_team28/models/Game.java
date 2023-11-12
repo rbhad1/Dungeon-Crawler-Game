@@ -3,9 +3,6 @@ package com.example.cs2340c_team28.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
