@@ -99,7 +99,6 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
         game.setEnemiesList(new EnemyHandler().createEnemyList());
-        collisionManager = new CollisionManager(game.getEnemyList());
         // TODO enemies
     }
 
@@ -158,6 +157,9 @@ public class GameViewModel extends com.badlogic.gdx.Game {
             handleMovement(enemy);
         }
 
+        if (collisionManager == null) {
+            collisionManager = new CollisionManager(game.getEnemyList());
+        }
         collisionManager.setEnemies(game.getEnemyList());
         collisionManager.checkCollisions();
         if (player.getHp() <= 0) {
