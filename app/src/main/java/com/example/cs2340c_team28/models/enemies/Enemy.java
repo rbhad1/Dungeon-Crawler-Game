@@ -23,9 +23,11 @@ public abstract class Enemy extends Movable {
 
     public abstract void move();
 
-    protected boolean shouldMove() {
-        return getCurrentMovement() != null
-                && getCurrentMovement().getStatus() == Movement.Status.IN_PROGRESS;
+    protected boolean shouldNotMove() {
+        Movement movement = getCurrentMovement();
+        return movement != null
+                && (movement.getStatus() == Movement.Status.IN_PROGRESS
+                    || movement.getStatus() == Movement.Status.DELAYING);
     }
 
 }

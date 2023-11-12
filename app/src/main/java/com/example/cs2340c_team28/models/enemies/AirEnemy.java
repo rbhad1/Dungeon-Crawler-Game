@@ -12,7 +12,7 @@ public class AirEnemy extends Enemy {
     }
 
     public void move() {
-        if (!super.shouldMove()) {
+        if (super.shouldNotMove()) {
             return;
         }
 

@@ -12,7 +12,7 @@ public class WaterEnemy  extends Enemy {
     }
 
     public void move() {
-        if (!super.shouldMove()) {
+        if (super.shouldNotMove()) {
             return;
         }
         if (getX(true) == 8) {

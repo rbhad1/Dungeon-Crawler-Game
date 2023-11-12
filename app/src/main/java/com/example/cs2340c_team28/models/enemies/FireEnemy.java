@@ -35,7 +35,7 @@ public class FireEnemy extends Enemy {
             up = false;
         }
 
-        if (!super.shouldMove()) {
+        if (super.shouldNotMove()) {
             return;
         }
         if (getX(true) == 8) {

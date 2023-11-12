@@ -11,7 +11,7 @@ public class GroundEnemy extends Enemy {
         super.assignTexture();
     }
     public void move() {
-        if (!super.shouldMove()) {
+        if (super.shouldNotMove()) {
             return;
         }
         if (getX(true) == 8) {
