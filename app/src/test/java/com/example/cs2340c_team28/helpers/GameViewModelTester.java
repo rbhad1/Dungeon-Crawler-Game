@@ -2,6 +2,7 @@ package com.example.cs2340c_team28.helpers;
 
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.TextureFactory;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
@@ -9,6 +10,7 @@ import com.example.cs2340c_team28.viewmodels.GameViewModel;
 public class GameViewModelTester extends GameViewModel {
     private long testTime;
     private boolean gameOver;
+    private final Player player = Player.getInstance();
     @Override
     public long getTime() {
         return testTime;
@@ -61,7 +63,11 @@ public class GameViewModelTester extends GameViewModel {
 
     @Override
     public void endGame() {
-        gameOver = true;
+        if (player.getHp() <= 0) {
+            gameOver = true;
+        } else {
+            gameOver = false;
+        }
     }
 
     public boolean getGameOver() {
