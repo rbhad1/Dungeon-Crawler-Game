@@ -8,19 +8,21 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
+import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.observers.CollisionManager;
+import com.example.cs2340c_team28.models.observers.EnemyCollisionObserver;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 
 import java.util.Date;
 
-public class GameViewModel extends com.badlogic.gdx.Game {
+public class GameViewModel extends com.badlogic.gdx.Game implements EnemyCollisionObserver {
     /**
      * Current game instance
      */
@@ -162,11 +164,30 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void handlePlayerEnemyCollisions() {
         if (collisionManager == null) {
             collisionManager = new CollisionManager(game.getEnemyList());
+            collisionManager.addObserver(this);
         }
         collisionManager.setEnemies(game.getEnemyList());
         collisionManager.checkCollisions();
         if (player.getHp() <= 0) {
             endGame();
+        }
+    }
+
+    @Override
+    public void collisionOccurred() {
+        int damage = getDamageBasedOnDifficulty();
+
+        // Set hp such that it doesn't go below zero
+        player.setHp(Math.max(player.getHp() - damage, 0));
+    }
+
+    private int getDamageBasedOnDifficulty() {
+        Difficulty difficulty = game.getDifficulty();
+        switch (difficulty) {
+        case EASY: return 5;
+        case MEDIUM: return 10;
+        case HARD: return 15;
+        default: return 0;
         }
     }
 
