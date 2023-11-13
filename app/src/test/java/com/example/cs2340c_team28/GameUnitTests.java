@@ -3,6 +3,7 @@ package com.example.cs2340c_team28;
 import static org.junit.Assert.*;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
@@ -322,7 +323,7 @@ public class GameUnitTests {
         assertEquals(9, player.getY(true));
     }
 
-    @Test
+    @Test @Sprint(4)
     public void testPlayerHealthOnCollisionEasyDifficulty() {
         Game game = Game.getInstance();
         GameViewModelTester gmv = new GameViewModelTester();
@@ -338,7 +339,7 @@ public class GameUnitTests {
         assertEquals(initialHealth - 5, player.getHp());
     }
 
-    @Test
+    @Test @Sprint(4)
     public void testPlayerHealthOnCollisionMediumDifficulty() {
         Game game = Game.getInstance();
         GameViewModelTester gmv = new GameViewModelTester();
@@ -354,7 +355,7 @@ public class GameUnitTests {
         assertEquals(initialHealth - 10, player.getHp());
     }
 
-    @Test
+    @Test @Sprint(4)
     public void testPlayerHealthOnCollisionHardDifficulty() {
         Game game = Game.getInstance();
         GameViewModelTester gmv = new GameViewModelTester();
@@ -370,7 +371,7 @@ public class GameUnitTests {
         assertEquals(initialHealth - 15, player.getHp());
     }
 
-    @Test
+    @Test @Sprint(4)
     public void gameOverAtZeroHP() {
         Game game = Game.getInstance();
         GameViewModelTester gmv = new GameViewModelTester();

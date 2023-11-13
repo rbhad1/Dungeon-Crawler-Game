@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Game;
@@ -34,7 +35,7 @@ public class EnemyUnitTests {
         LibGdxTester.initializeForTests();
     }
 
-    @Test
+    @Test @Sprint(4)
     public void correctEnemiesInForestMap() {
         Game.getInstance().setEnemiesList(null);
 
@@ -57,7 +58,7 @@ public class EnemyUnitTests {
     }
 
 
-    @Test
+    @Test @Sprint(4)
     public void correctEnemiesInWaterMap() {
 
         GameViewModelTester gameViewModel = new GameViewModelTester();
@@ -77,7 +78,7 @@ public class EnemyUnitTests {
         }
         assertEquals(3, counter);
     }
-    @Test
+    @Test @Sprint(4)
     public void waterEnemyMovesInCircle() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
@@ -107,7 +108,7 @@ public class EnemyUnitTests {
         assertEquals(startX, game.getEnemyList().get(0).getX(true));
         assertEquals(startY, game.getEnemyList().get(0).getY(true));
     }
-    @Test
+    @Test @Sprint(4)
     public void enemyMovesInBounds() {
         Game.getInstance().setEnemiesList(null);
         GameViewModelTester gameViewModel = new GameViewModelTester();
@@ -125,7 +126,7 @@ public class EnemyUnitTests {
         assertNotEquals(9, enemylist.get(0).getX(true));
     }
 
-    @Test
+    @Test @Sprint(4)
     public void checkGroundEnemyInLine() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
@@ -155,6 +156,7 @@ public class EnemyUnitTests {
         assertNotEquals(initialX, game.getEnemyList().get(0).getX(true));
     }
 
+    @Test @Sprint(4)
     public void checkAirEnemyInLine() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
@@ -178,9 +180,9 @@ public class EnemyUnitTests {
         }
 
         // Check if the ground enemy stays on the same line
-        assertEquals(initialY, game.getEnemyList().get(1).getY(true));
+        assertNotEquals(initialY, game.getEnemyList().get(1).getY(true));
 
         // Check if the ground enemy's X coordinate has changed
-        assertNotEquals(initialX, game.getEnemyList().get(1).getX(true));
+        assertEquals(initialX, game.getEnemyList().get(1).getX(true));
     }
 }
