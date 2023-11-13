@@ -8,7 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.cs2340c_team28.R;
+import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Leaderboard;
+import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.viewmodels.LeaderboardViewModel;
 
 import java.text.SimpleDateFormat;
@@ -38,10 +40,14 @@ public class LeaderboardActivity extends Activity {
         TextView entryFour = findViewById(R.id.entry4);
         TextView entryFive = findViewById(R.id.entry5);
 
-        boolean didComeFromWin = getIntent().getBooleanExtra("win", false);
-        if (didComeFromWin) {
-            title.setText("You Win!");
+        boolean didComeFromGame = getIntent().getBooleanExtra("win", false);
+        if (didComeFromGame) {
+            Player player = Player.getInstance();
+            Game game = Game.getInstance();
+            boolean playerLost = player.getHp() <= 0 || game.getScore() <= 0;
+            title.setText(playerLost ? "You Lose :(" : "You Win!");
         }
+
 
         if (leaderboardEntries.size() >= 1) {
             Leaderboard.LeaderboardEntry entry1 = leaderboardEntries.get(0);
@@ -104,5 +110,6 @@ public class LeaderboardActivity extends Activity {
         });
 
     }
+
 
 }
