@@ -125,4 +125,62 @@ public class EnemyUnitTests {
         assertNotEquals(9, enemylist.get(0).getX(true));
     }
 
+    @Test
+    public void checkGroundEnemyInLine() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Game game = Game.getInstance();
+
+        // Set the current map to the desired map (e.g., forest)
+        game.setCurrentMap(gameViewModel.getForest());
+        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+
+        // Update the game for a certain number of cycles
+        gameViewModel.cycledUpdate(1, 1);
+
+        // Get the initial position of the ground enemy
+        int initialX = game.getEnemyList().get(0).getX(true);
+        int initialY = game.getEnemyList().get(0).getY(true);
+
+        // Update the game for several cycles
+        for (int i = 0; i < 5; i++) {
+            gameViewModel.cycledUpdate(2, 200);
+        }
+
+        // Check if the ground enemy stays on the same line
+        assertEquals(initialY, game.getEnemyList().get(0).getY(true));
+
+        // Check if the ground enemy's X coordinate has changed
+        assertNotEquals(initialX, game.getEnemyList().get(0).getX(true));
+    }
+
+    public void checkAirEnemyInLine() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Game game = Game.getInstance();
+
+        // Set the current map to the desired map
+        game.setCurrentMap(gameViewModel.getForest());
+        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+
+        // Update the game for a certain number of cycles
+        gameViewModel.cycledUpdate(1, 1);
+
+        // Get the initial position of the air enemy
+        int initialX = game.getEnemyList().get(1).getX(true);
+        int initialY = game.getEnemyList().get(1).getY(true);
+
+        // Update the game for several cycles
+        for (int i = 0; i < 5; i++) {
+            gameViewModel.cycledUpdate(2, 200);
+        }
+
+        // Check if the ground enemy stays on the same line
+        assertEquals(initialY, game.getEnemyList().get(1).getY(true));
+
+        // Check if the ground enemy's X coordinate has changed
+        assertNotEquals(initialX, game.getEnemyList().get(1).getX(true));
+    }
 }
