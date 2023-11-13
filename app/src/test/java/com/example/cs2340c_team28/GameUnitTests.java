@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
+import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.Player;
@@ -319,5 +320,76 @@ public class GameUnitTests {
         // Initial y position should be 9
         assertNotEquals(9, player.getY(false));
         assertEquals(9, player.getY(true));
+    }
+
+    @Test
+    public void testPlayerHealthOnCollisionEasyDifficulty() {
+        Game game = Game.getInstance();
+        GameViewModelTester gmv = new GameViewModelTester();
+        gmv.doPreinitialization();
+        game.setDifficulty(Difficulty.EASY);
+        game.setCurrentMap(gmv.getForest());
+        Player player = Player.getInstance();
+        player.setHp(Player.initialHp(game.getDifficulty()));
+        int initialHealth = player.getHp();
+
+        gmv.collisionOccurred();
+
+        assertEquals(initialHealth - 5, player.getHp());
+    }
+
+    @Test
+    public void testPlayerHealthOnCollisionMediumDifficulty() {
+        Game game = Game.getInstance();
+        GameViewModelTester gmv = new GameViewModelTester();
+        gmv.doPreinitialization();
+        game.setDifficulty(Difficulty.MEDIUM);
+        game.setCurrentMap(gmv.getForest());
+        Player player = Player.getInstance();
+        player.setHp(Player.initialHp(game.getDifficulty()));
+        int initialHealth = player.getHp();
+
+        gmv.collisionOccurred();
+
+        assertEquals(initialHealth - 10, player.getHp());
+    }
+
+    @Test
+    public void testPlayerHealthOnCollisionHardDifficulty() {
+        Game game = Game.getInstance();
+        GameViewModelTester gmv = new GameViewModelTester();
+        gmv.doPreinitialization();
+        game.setDifficulty(Difficulty.HARD);
+        game.setCurrentMap(gmv.getForest());
+        Player player = Player.getInstance();
+        player.setHp(Player.initialHp(game.getDifficulty()));
+        int initialHealth = player.getHp();
+
+        gmv.collisionOccurred();
+
+        assertEquals(initialHealth - 15, player.getHp());
+    }
+
+    @Test
+    public void gameOverAtZeroHP() {
+        Game game = Game.getInstance();
+        GameViewModelTester gmv = new GameViewModelTester();
+
+        gmv.doPreinitialization();
+        game.setDifficulty(Difficulty.HARD);
+        game.setCurrentMap(gmv.getForest());
+
+        Player player = Player.getInstance();
+        player.setHp(Player.initialHp(game.getDifficulty()));
+        int initialHealth = player.getHp();
+
+        gmv.collisionOccurred();
+        gmv.collisionOccurred();
+        gmv.collisionOccurred();
+        gmv.collisionOccurred();
+        gmv.endGame();
+
+        assertEquals(initialHealth - 50, player.getHp());
+        assertTrue(gmv.getGameOver());
     }
 }
