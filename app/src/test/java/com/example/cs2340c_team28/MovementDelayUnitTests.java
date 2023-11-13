@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
+import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Movable;
@@ -28,7 +29,7 @@ public class MovementDelayUnitTests {
         LibGdxTester.initializeForTests();
     }
 
-    @Test
+    @Test @Sprint(4)
     public void movementDoesDelay() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
@@ -115,7 +116,7 @@ public class MovementDelayUnitTests {
 
     }
 
-    @Test
+    @Test @Sprint(4)
     public void movementDoesNeverDelay() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
