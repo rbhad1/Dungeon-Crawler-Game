@@ -2,7 +2,6 @@ package com.example.cs2340c_team28.models.observers;
 
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.movement.Position;
 
