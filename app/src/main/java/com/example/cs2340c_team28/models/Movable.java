@@ -72,4 +72,8 @@ public abstract class Movable {
     public void setCurrentMovement(Movement currentMovement) {
         this.currentMovement = currentMovement;
     }
+
+    public Position getPosition() {
+        return new Position(this.getX(true), this.getY(true));
+    }
 }

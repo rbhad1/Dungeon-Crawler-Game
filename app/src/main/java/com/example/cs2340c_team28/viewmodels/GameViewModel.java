@@ -13,6 +13,7 @@ import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
+import com.example.cs2340c_team28.models.observers.CollisionManager;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -54,6 +55,8 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         return dungeon;
     }
     private TiledView tiledview;
+
+    private CollisionManager collisionManager;
 
 
     public GameViewModel(LibGdxActivity activity) {
@@ -114,6 +117,7 @@ public class GameViewModel extends com.badlogic.gdx.Game {
     public void render() {
         super.render();
         updateGameLogic();
+        handlePlayerEnemyCollisions();
     }
 
     /**
@@ -152,6 +156,17 @@ public class GameViewModel extends com.badlogic.gdx.Game {
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             enemy.move();
             handleMovement(enemy);
+        }
+    }
+
+    public void handlePlayerEnemyCollisions() {
+        if (collisionManager == null) {
+            collisionManager = new CollisionManager(game.getEnemyList());
+        }
+        collisionManager.setEnemies(game.getEnemyList());
+        collisionManager.checkCollisions();
+        if (player.getHp() <= 0) {
+            endGame();
         }
     }
 
