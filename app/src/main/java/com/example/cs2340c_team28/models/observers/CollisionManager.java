@@ -6,9 +6,10 @@ import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.movement.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CollisionManager implements EnemyCollisionObserver {
+public class CollisionManager {
     private final Player player;
     private final Game game;
     private List<Enemy> enemies;
@@ -16,6 +17,8 @@ public class CollisionManager implements EnemyCollisionObserver {
     private static final long INVINCIBILITY_DURATION = 1000;
 
     private static final double COLLISION_DISTANCE = 1.0;
+
+    private final ArrayList<EnemyCollisionObserver> observers = new ArrayList<>();
 
     public CollisionManager(List<Enemy> enemies) {
         this.player = Player.getInstance();
@@ -27,7 +30,14 @@ public class CollisionManager implements EnemyCollisionObserver {
     public void checkCollisions() {
         for (Enemy enemy : enemies) {
             if (checkCollision(enemy)) {
-                collisionOccurred();
+                // Collision has occurred
+                if (!isPlayerInvincible()) {
+                    for (EnemyCollisionObserver observer : observers) {
+                        observer.collisionOccurred();
+                    }
+                    setPlayerInvincible();
+                    setInvincibilityStartTime(System.currentTimeMillis());
+                }
             }
         }
     }
@@ -52,21 +62,6 @@ public class CollisionManager implements EnemyCollisionObserver {
         return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     }
 
-    @Override
-    public void collisionOccurred() {
-        if (!isPlayerInvincible()) {
-            int damage = getDamageBasedOnDifficulty();
-            if (player.getHp() - damage <= 0) {
-                player.setHp(0);
-                return;
-            }
-            player.setHp(player.getHp() - damage);
-
-            setPlayerInvincible();
-            setInvincibilityStartTime(System.currentTimeMillis());
-        }
-    }
-
     public boolean isPlayerInvincible() {
         long currentTime = System.currentTimeMillis();
         long elapsedTime = currentTime - getInvincibilityStartTime();
@@ -86,17 +81,15 @@ public class CollisionManager implements EnemyCollisionObserver {
         this.playerInvincibilityStartTime = startTime;
     }
 
-    private int getDamageBasedOnDifficulty() {
-        Difficulty difficulty = game.getDifficulty();
-        switch (difficulty) {
-        case EASY: return 5;
-        case MEDIUM: return 10;
-        case HARD: return 15;
-        default: return 0;
-        }
-    }
-
     public void setEnemies(List<Enemy> enemies) {
         this.enemies = enemies;
+    }
+
+    public void addObserver(EnemyCollisionObserver o) {
+        observers.add(o);
+    }
+
+    public void removeObserver(EnemyCollisionObserver o) {
+        observers.remove(o);
     }
 }
