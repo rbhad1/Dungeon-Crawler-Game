@@ -11,11 +11,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.example.cs2340c_team28.models.enemies.BFSEnemy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.movement.MovementListener;
 import com.example.cs2340c_team28.models.Player;
+import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
@@ -143,6 +145,21 @@ public class TiledView implements Screen {
             // TODO probably want to randomize start position
             batch.draw(enemy.getTexture(), enemy.getX(false),
                     enemy.getY(false), 32, 32);
+
+            if (enemy instanceof BFSEnemy) {
+                BFSEnemy bfsEnemy = (BFSEnemy) enemy;
+                if (bfsEnemy.getChaseStatus() == BFSEnemy.ChaseStatus.CHASING) {
+                    Position target = bfsEnemy.getTargetTile();
+                    if (target != null) {
+                        target = target.tileToGraphical();
+                        batch.draw(bfsEnemy.getTargetTexture(),
+                                target.getX(), target.getY(),
+                                32, 32);
+                    }
+
+                }
+
+            }
 
         }
 

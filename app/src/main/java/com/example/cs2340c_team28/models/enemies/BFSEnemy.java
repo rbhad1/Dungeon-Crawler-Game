@@ -135,7 +135,7 @@ public class BFSEnemy extends Enemy {
         }
     }
 
-    private enum ChaseStatus {
+    public enum ChaseStatus {
         CHASING, AT_PLAYER, WAITING
     }
 
