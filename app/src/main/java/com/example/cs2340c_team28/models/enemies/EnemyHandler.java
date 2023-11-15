@@ -2,6 +2,7 @@ package com.example.cs2340c_team28.models.enemies;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.movement.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,11 @@ public class EnemyHandler {
             enemyList.add(enemy2);
             enemyList.add(enemy3);
             enemyList.add(enemy4);
+
+            Enemy enemy5 = new BFSEnemy();
+            enemy5.setPosition(new Position(1, 1), true);
+            enemyList.add(enemy5);
+
         } else if (currentMap.getLayers().get("rocks") != null) {
             Enemy enemy1 = new WaterEnemy();
             enemy1.setX(5, true);
