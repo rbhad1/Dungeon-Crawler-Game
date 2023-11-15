@@ -1,10 +1,15 @@
 package com.example.cs2340c_team28.models.enemies;
 
+import androidx.annotation.NonNull;
+
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
+
+import java.util.HashSet;
+import java.util.LinkedList;
 
 public class BFSEnemy extends Enemy {
 
@@ -17,60 +22,56 @@ public class BFSEnemy extends Enemy {
 
     private void determineFastestPath() {
 
-        startingPathComponent = determineFastestPath(0, this.getPosition())
-                .pathComponent;
-    }
-
-    private FastestPathReturnValue determineFastestPath(int existingLength,
-                                                        Position current) {
-
-        if (current.equals(Player.getInstance().getPosition())) {
-            return new FastestPathReturnValue(
-                    existingLength,
-                    new PathComponent(current, null));
-        }
-
         Game game = Game.getInstance();
-        TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
-                .getCell(current.getX(),
-                        current.getY());
+        LinkedList<PathComponent> positionsQueue = new LinkedList<>();
+        HashSet<Position> visitedPositions = new HashSet<>();
+        positionsQueue.add(new PathComponent(this.getPosition()));
 
-        if (newCell != null && newCell.getTile().getId() != 0) {
-            return new FastestPathReturnValue(
-                    Integer.MAX_VALUE,
-                    new PathComponent(current, null));
+        PathComponent finalComponent = null;
+        while (!positionsQueue.isEmpty()) {
+            PathComponent topOfQueue = positionsQueue.pop();
+            if (visitedPositions.contains(topOfQueue.position)) {
+                // Don't check this position again
+                continue;
+            } else {
+                visitedPositions.add(topOfQueue.position);
+            }
+            // First see if this is a valid position. If it isn't, continue.
+            TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
+                    .getCell(topOfQueue.position.getX(), topOfQueue.position.getY());
+
+            if (newCell != null && newCell.getTile().getId() != 0) {
+                continue;
+            }
+
+            // Then see if it's the correct position. If it is, break.
+            if (topOfQueue.position.equals(Player.getInstance().getPosition().graphicalToTile())) {
+                finalComponent = topOfQueue;
+                break;
+            }
+
+            // Add new position options to the queue
+            positionsQueue.add(new PathComponent(
+                    topOfQueue.position.add(new Position(1, 0)), topOfQueue));
+            positionsQueue.add(new PathComponent(
+                    topOfQueue.position.add(new Position(-1, 0)), topOfQueue));
+            positionsQueue.add(new PathComponent(
+                    topOfQueue.position.add(new Position(0, 1)), topOfQueue));
+            positionsQueue.add(new PathComponent(
+                    topOfQueue.position.add(new Position(0, -1)), topOfQueue));
         }
 
-        // Try paths up, down, left, right
-        FastestPathReturnValue up = determineFastestPath(
-                existingLength + 1,
-                current.add(new Position(0, 1))
-        );
-        FastestPathReturnValue down = determineFastestPath(
-                existingLength + 1,
-                current.add(new Position(0, -1))
-        );
-        FastestPathReturnValue left = determineFastestPath(
-                existingLength + 1,
-                current.add(new Position(-1, 0))
-        );
-        FastestPathReturnValue right = determineFastestPath(
-                existingLength + 1,
-                current.add(new Position(1, 0))
-        );
-        FastestPathReturnValue[] values = new FastestPathReturnValue[] {up, down, left, right};
-        FastestPathReturnValue shortestValue = up;
-        int smallestLength = Integer.MAX_VALUE;
-        for (FastestPathReturnValue value : values) {
-            if (value.length < smallestLength) {
-                shortestValue = value;
+        // Set up the link going the other way
+        for (PathComponent current = finalComponent; current != null; current = current.previous) {
+            PathComponent previous = current.previous;
+            if (previous != null) {
+                // There's still a prior element that we can access
+                previous.next = current;
+            } else {
+                // No prior element, aka we're at the first element
+                this.startingPathComponent = current;
             }
         }
-
-        return new FastestPathReturnValue(
-                existingLength,
-                new PathComponent(current, shortestValue.pathComponent)
-        );
     }
 
     @Override
@@ -94,6 +95,7 @@ public class BFSEnemy extends Enemy {
 
             // Update the starting path component
             this.startingPathComponent = this.startingPathComponent.next;
+            this.startingPathComponent.previous = null;
 
         } else {
             determineFastestPath();
@@ -102,21 +104,22 @@ public class BFSEnemy extends Enemy {
 
     private static class PathComponent {
         private final Position position;
-        private final PathComponent next;
+        private PathComponent previous;
+        private PathComponent next;
 
-        public PathComponent(Position position, PathComponent next) {
-            this.position = position;
-            this.next = next;
+        public PathComponent(Position position) {
+            this(position, null);
         }
-    }
 
-    private static class FastestPathReturnValue {
-        private final int length;
-        private final PathComponent pathComponent;
+        public PathComponent(Position position, PathComponent previous) {
+            this.position = position;
+            this.previous = previous;
+        }
 
-        public FastestPathReturnValue(int length, PathComponent pathComponent) {
-            this.length = length;
-            this.pathComponent = pathComponent;
+        @NonNull
+        @Override
+        public String toString() {
+            return "PathComponent{" + "position=" + position + '}';
         }
     }
 }
