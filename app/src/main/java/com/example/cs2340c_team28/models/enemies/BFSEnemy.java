@@ -2,8 +2,10 @@ package com.example.cs2340c_team28.models.enemies;
 
 import androidx.annotation.NonNull;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.GlobalTime;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
@@ -14,6 +16,13 @@ import java.util.LinkedList;
 public class BFSEnemy extends Enemy {
 
     private PathComponent startingPathComponent = null;
+
+    private long lastPathFinish = Long.MIN_VALUE;
+    private static final long DESIRED_PATH_BREAK_TIME = 3000;
+
+    private Position targetTile = null;
+    private final Texture targetTexture =
+            TextureFactory.getInstance().createTexture("sprites_enemy/target");
 
     public BFSEnemy() {
         super.imgRes = "sprites_enemy/enemy5.png";
@@ -72,6 +81,7 @@ public class BFSEnemy extends Enemy {
                 this.startingPathComponent = current;
             }
         }
+        targetTile = finalComponent.position;
     }
 
     @Override
@@ -90,17 +100,43 @@ public class BFSEnemy extends Enemy {
                     250
             );
             newMovement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);
-//            newMovement.setEndDelay(200);
+            // newMovement.setEndDelay(200);
             this.setCurrentMovement(newMovement);
 
             // Update the starting path component
             this.startingPathComponent = this.startingPathComponent.next;
             if (this.startingPathComponent != null) {
                 this.startingPathComponent.previous = null;
+            } else {
+                // We just exhausted all of our path components
+                lastPathFinish = GlobalTime.getInstance().getTime();
             }
-        } else {
+        } else if (lastPathFinish + DESIRED_PATH_BREAK_TIME < GlobalTime.getInstance().getTime()) {
             determineFastestPath();
         }
+    }
+
+    public Position getTargetTile() {
+        return targetTile;
+    }
+
+    public Texture getTargetTexture() {
+        return targetTexture;
+    }
+
+    public ChaseStatus getChaseStatus() {
+        if (this.getPosition(true)
+                .equals(Player.getInstance().getPosition(true))) {
+            return ChaseStatus.AT_PLAYER;
+        } else if (this.startingPathComponent == null) {
+            return ChaseStatus.WAITING;
+        } else {
+            return ChaseStatus.CHASING;
+        }
+    }
+
+    private enum ChaseStatus {
+        CHASING, AT_PLAYER, WAITING
     }
 
     private static class PathComponent {
