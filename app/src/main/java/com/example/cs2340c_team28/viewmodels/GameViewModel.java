@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.example.cs2340c_team28.activities.LibGdxActivity;
 import com.example.cs2340c_team28.models.Difficulty;
+import com.example.cs2340c_team28.models.GlobalTime;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
@@ -22,7 +23,8 @@ import com.example.cs2340c_team28.models.Player;
 
 import java.util.Date;
 
-public class GameViewModel extends com.badlogic.gdx.Game implements EnemyCollisionObserver {
+public class GameViewModel  extends com.badlogic.gdx.Game
+                            implements EnemyCollisionObserver, GlobalTime.TimeAccessor {
     /**
      * Current game instance
      */
@@ -63,10 +65,11 @@ public class GameViewModel extends com.badlogic.gdx.Game implements EnemyCollisi
 
     public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
+        GlobalTime.getInstance().setTimeAccessor(this);
     }
 
     public GameViewModel() {
-        this.activity = new LibGdxActivity();
+        this(new LibGdxActivity());
     }
 
     /**
