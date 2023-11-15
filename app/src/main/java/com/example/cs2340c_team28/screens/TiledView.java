@@ -133,12 +133,6 @@ public class TiledView implements Screen {
         font.draw(batch, "" + Game.getInstance().getDifficulty(), 0, 16 * 31);
         font.draw(batch, "Score: " + Game.getInstance().getScore(), 6 * 32, 16 * 32);
         font.draw(batch, "HP: " + Player.getInstance().getHp(), 6 * 32, 16 * 31);
-        batch.draw(playerImage, Player.getInstance().getX(false),
-                Player.getInstance().getY(false), 32, 32);
-
-
-
-
 
         //int UNIT = 32;
 
@@ -175,6 +169,9 @@ public class TiledView implements Screen {
                 }
             }
         }
+
+        batch.draw(playerImage, Player.getInstance().getX(false),
+                Player.getInstance().getY(false), 32, 32);
         batch.end();
     }
 

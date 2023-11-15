@@ -16,11 +16,14 @@ import java.util.Set;
 
 public class BFSEnemy extends Enemy {
 
+    private static final long MOVEMENT_DURATION = 150;
+    private static final long MOVEMENT_END_DELAY = 0;
+    private static final long DESIRED_PATH_BREAK_TIME = 3000;
+
     private PathComponent startingPathComponent = null;
     private Set<Position> waypointTileSet = null;
 
     private long lastPathFinish = GlobalTime.getInstance().getTime();
-    private static final long DESIRED_PATH_BREAK_TIME = 3000;
 
     private Position targetTile = null;
     private final Texture targetTexture =
@@ -106,10 +109,10 @@ public class BFSEnemy extends Enemy {
                     this.getPosition(true),
                     this.startingPathComponent.position,
                     true,
-                    250
+                    MOVEMENT_DURATION
             );
             newMovement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);
-            // newMovement.setEndDelay(200);
+            newMovement.setEndDelay(MOVEMENT_END_DELAY);
             this.setCurrentMovement(newMovement);
             this.waypointTileSet.remove(this.startingPathComponent.position);
 

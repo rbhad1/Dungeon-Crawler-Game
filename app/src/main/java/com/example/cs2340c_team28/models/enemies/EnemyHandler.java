@@ -34,7 +34,6 @@ public class EnemyHandler {
 
             BFSEnemy enemy5 = new BFSEnemy();
             enemy5.setPosition(new Position(7, 0), true);
-
             enemyList.add(enemy5);
 
         } else if (currentMap.getLayers().get("rocks") != null) {
@@ -50,6 +49,10 @@ public class EnemyHandler {
             enemyList.add(enemy1);
             enemyList.add(enemy2);
             enemyList.add(enemy3);
+
+            BFSEnemy enemy5 = new BFSEnemy();
+            enemy5.setPosition(new Position(1, 9), true);
+            enemyList.add(enemy5);
             // (currentMap.getProperties().containsKey("portal"))
         } else {
             Enemy enemy1 = new GroundEnemy();
