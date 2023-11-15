@@ -12,20 +12,24 @@ import com.example.cs2340c_team28.models.movement.Position;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class BFSEnemy extends Enemy {
 
     private PathComponent startingPathComponent = null;
+    private Set<Position> waypointTileSet = null;
 
-    private long lastPathFinish = Long.MIN_VALUE;
+    private long lastPathFinish = GlobalTime.getInstance().getTime();
     private static final long DESIRED_PATH_BREAK_TIME = 3000;
 
     private Position targetTile = null;
     private final Texture targetTexture =
-            TextureFactory.getInstance().createTexture("sprites_enemy/target");
+            TextureFactory.getInstance().createTexture("sprites_enemy/BFS-target.png");
+    private final Texture waypointTexture =
+            TextureFactory.getInstance().createTexture("sprites_enemy/BFS-waypoint.png");
 
     public BFSEnemy() {
-        super.imgRes = "sprites_enemy/enemy5.png";
+        super.imgRes = "sprites_enemy/BFS-sprite.png";
         super.assignTexture();
     }
 
@@ -70,8 +74,10 @@ public class BFSEnemy extends Enemy {
                     topOfQueue.position.add(new Position(0, -1)), topOfQueue));
         }
 
-        // Set up the link going the other way
+        // Set up the link going the other way and get positions along the way
+        waypointTileSet = new HashSet<>();
         for (PathComponent current = finalComponent; current != null; current = current.previous) {
+            waypointTileSet.add(current.position);
             PathComponent previous = current.previous;
             if (previous != null) {
                 // There's still a prior element that we can access
@@ -81,7 +87,10 @@ public class BFSEnemy extends Enemy {
                 this.startingPathComponent = current;
             }
         }
-        targetTile = finalComponent.position;
+        if (finalComponent != null) {
+            targetTile = finalComponent.position;
+        }
+
     }
 
     @Override
@@ -102,6 +111,7 @@ public class BFSEnemy extends Enemy {
             newMovement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);
             // newMovement.setEndDelay(200);
             this.setCurrentMovement(newMovement);
+            this.waypointTileSet.remove(this.startingPathComponent.position);
 
             // Update the starting path component
             this.startingPathComponent = this.startingPathComponent.next;
@@ -122,6 +132,14 @@ public class BFSEnemy extends Enemy {
 
     public Texture getTargetTexture() {
         return targetTexture;
+    }
+
+    public Texture getWaypointTexture() {
+        return waypointTexture;
+    }
+
+    public Set<Position> getWaypointTileSet() {
+        return waypointTileSet;
     }
 
     public ChaseStatus getChaseStatus() {

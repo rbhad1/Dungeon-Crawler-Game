@@ -22,6 +22,7 @@ import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
+import java.util.Set;
 
 public class TiledView implements Screen {
 
@@ -146,23 +147,34 @@ public class TiledView implements Screen {
             batch.draw(enemy.getTexture(), enemy.getX(false),
                     enemy.getY(false), 32, 32);
 
+            // Special case for BFS enemy
             if (enemy instanceof BFSEnemy) {
                 BFSEnemy bfsEnemy = (BFSEnemy) enemy;
+
+                // If chase status is chasing, do additional renders
                 if (bfsEnemy.getChaseStatus() == BFSEnemy.ChaseStatus.CHASING) {
+
+                    // Get target tile and waypoint tile set from the BFS enemy, null-check each
                     Position target = bfsEnemy.getTargetTile();
-                    if (target != null) {
+                    Set<Position> waypointTileSet = bfsEnemy.getWaypointTileSet();
+
+                    if (target != null && waypointTileSet != null) {
+                        // Get the target tile as a graphical position, then draw texture
                         target = target.tileToGraphical();
                         batch.draw(bfsEnemy.getTargetTexture(),
                                 target.getX(), target.getY(),
                                 32, 32);
+                        // Draw each of the waypoints
+                        for (Position waypoint : waypointTileSet) {
+                            waypoint = waypoint.tileToGraphical();
+                            batch.draw(bfsEnemy.getWaypointTexture(),
+                                    waypoint.getX(), waypoint.getY(),
+                                    32, 32);
+                        }
                     }
-
                 }
-
             }
-
         }
-
         batch.end();
     }
 
