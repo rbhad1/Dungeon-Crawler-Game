@@ -33,7 +33,7 @@ public class EnemyHandler {
             enemyList.add(enemy4);
 
             Enemy enemy5 = new BFSEnemy();
-            enemy5.setPosition(new Position(1, 1), true);
+            enemy5.setPosition(new Position(1, 9), true);
             enemyList.add(enemy5);
 
         } else if (currentMap.getLayers().get("rocks") != null) {

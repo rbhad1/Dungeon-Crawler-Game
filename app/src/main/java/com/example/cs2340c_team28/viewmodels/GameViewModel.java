@@ -250,7 +250,8 @@ public class GameViewModel extends com.badlogic.gdx.Game implements EnemyCollisi
                     .getCell(endGraphical.graphicalToTile().getX(),
                             endGraphical.graphicalToTile().getY());
 
-            if (newCell != null && newCell.getTile().getId() != 0) {
+            if (newCell == null || newCell.getTile().getId() == 0) {
+                // End tile is NOT valid
                 movement.setStatus(Movement.Status.COLLIDED);
                 movable.setX(startGraphical.getX(), false);
                 movable.setX(startGraphical.getY(), false);

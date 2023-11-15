@@ -25,7 +25,7 @@ public class BFSEnemy extends Enemy {
         Game game = Game.getInstance();
         LinkedList<PathComponent> positionsQueue = new LinkedList<>();
         HashSet<Position> visitedPositions = new HashSet<>();
-        positionsQueue.add(new PathComponent(this.getPosition()));
+        positionsQueue.add(new PathComponent(this.getPosition(true)));
 
         PathComponent finalComponent = null;
         while (!positionsQueue.isEmpty()) {
@@ -40,12 +40,12 @@ public class BFSEnemy extends Enemy {
             TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
                     .getCell(topOfQueue.position.getX(), topOfQueue.position.getY());
 
-            if (newCell != null && newCell.getTile().getId() != 0) {
+            if (newCell == null || newCell.getTile().getId() == 0) {
                 continue;
             }
 
             // Then see if it's the correct position. If it is, break.
-            if (topOfQueue.position.equals(Player.getInstance().getPosition().graphicalToTile())) {
+            if (topOfQueue.position.equals(Player.getInstance().getPosition(true))) {
                 finalComponent = topOfQueue;
                 break;
             }
@@ -84,19 +84,20 @@ public class BFSEnemy extends Enemy {
 
         if (startingPathComponent != null) {
             Movement newMovement = new Movement(
-                    this.getPosition(),
-                    this.startingPathComponent.position.tileToGraphical(),
-                    false,
-                    300
+                    this.getPosition(true),
+                    this.startingPathComponent.position,
+                    true,
+                    250
             );
             newMovement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);
-            newMovement.setEndDelay(200);
+//            newMovement.setEndDelay(200);
             this.setCurrentMovement(newMovement);
 
             // Update the starting path component
             this.startingPathComponent = this.startingPathComponent.next;
-            this.startingPathComponent.previous = null;
-
+            if (this.startingPathComponent != null) {
+                this.startingPathComponent.previous = null;
+            }
         } else {
             determineFastestPath();
         }
