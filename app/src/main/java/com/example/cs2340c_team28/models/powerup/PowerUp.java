@@ -1,9 +1,12 @@
 package com.example.cs2340c_team28.models.powerup;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.example.cs2340c_team28.models.Positionable;
 
-public abstract class PowerUp extends Positionable {
+/**
+ * Class for in-game power-ups. This class is primarily focused on the functionality of the powerup.
+ * Follows the decorator pattern
+ */
+public abstract class PowerUp {
 
     /**
      * A wrapped powerup to comply with the decorator pattern
