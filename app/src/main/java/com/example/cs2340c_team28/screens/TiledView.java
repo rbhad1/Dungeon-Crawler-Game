@@ -198,7 +198,4 @@ public class TiledView implements Screen {
     public void dispose() {
         renderer.dispose();
     }
-    public EnemyHandler getEnemyHandler() {
-        return enemyHandler;
-    }
 }
