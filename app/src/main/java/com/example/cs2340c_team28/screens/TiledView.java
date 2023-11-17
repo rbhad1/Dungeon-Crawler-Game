@@ -24,6 +24,21 @@ import java.util.List;
 public class TiledView implements Screen {
 
     /**
+     * Height of each tile
+     */
+    private static final int TILE_SIZE = 32;
+
+    /**
+     * Number of tiles in the horizontal direction
+     */
+    private static final int NUM_TILES_HORIZONTAL = 9;
+
+    /**
+     * Number of tiles in the vertical direction
+     */
+    private static final int NUM_TILES_VERTICAL = 17;
+
+    /**
      * Renderer for the tilemap
      */
     private OrthogonalTiledMapRenderer renderer;
@@ -76,7 +91,9 @@ public class TiledView implements Screen {
      */
     public void create() {
         camera = new OrthographicCamera();
-        fitted = new FitViewport(9 * 32, 16 * 32, camera);
+        fitted = new FitViewport(NUM_TILES_HORIZONTAL * TILE_SIZE,
+                NUM_TILES_VERTICAL * TILE_SIZE,
+                camera);
 
         Player.getInstance().setX(4, true);
         Player.getInstance().setY(9, true);
@@ -126,12 +143,16 @@ public class TiledView implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        font.draw(batch, "" + Player.getInstance().getName(), 0, 16 * 32);
-        font.draw(batch, "" + Game.getInstance().getDifficulty(), 0, 16 * 31);
-        font.draw(batch, "Score: " + Game.getInstance().getScore(), 6 * 32, 16 * 32);
-        font.draw(batch, "HP: " + Player.getInstance().getHp(), 6 * 32, 16 * 31);
+        font.draw(batch, "" + Player.getInstance().getName(),
+                0, NUM_TILES_VERTICAL * TILE_SIZE);
+        font.draw(batch, "" + Game.getInstance().getDifficulty(),
+                0, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
+        font.draw(batch, "Score: " + Game.getInstance().getScore(),
+                6 * TILE_SIZE, NUM_TILES_VERTICAL * TILE_SIZE);
+        font.draw(batch, "HP: " + Player.getInstance().getHp(),
+                6 * TILE_SIZE, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
         batch.draw(playerImage, Player.getInstance().getX(false),
-                Player.getInstance().getY(false), 32, 32);
+                Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
 
 
 
@@ -142,7 +163,7 @@ public class TiledView implements Screen {
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             // TODO probably want to randomize start position
             batch.draw(enemy.getTexture(), enemy.getX(false),
-                    enemy.getY(false), 32, 32);
+                    enemy.getY(false), TILE_SIZE, TILE_SIZE);
 
         }
 
