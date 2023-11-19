@@ -11,10 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.example.cs2340c_team28.models.enemies.BFSEnemy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.MovementListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
@@ -142,26 +142,28 @@ public class TiledView implements Screen {
                     enemy.getY(false), 32, 32);
 
             // Special case for BFS enemy
-            if (enemy instanceof BFSEnemy) {
-                BFSEnemy bfsEnemy = (BFSEnemy) enemy;
+            if (enemy instanceof TrackerEnemy) {
+                TrackerEnemy trackerEnemy = (TrackerEnemy) enemy;
 
                 // If chase status is chasing, do additional renders
-                if (bfsEnemy.getChaseStatus() == BFSEnemy.ChaseStatus.CHASING) {
+                if (trackerEnemy.getChaseStatus() == TrackerEnemy.ChaseStatus.CHASING) {
 
                     // Get target tile and waypoint tile set from the BFS enemy, null-check each
-                    Position target = bfsEnemy.getTargetTile();
-                    Set<Position> waypointTileSet = bfsEnemy.getWaypointTileSet();
+                    Position target = trackerEnemy.getGeneratedPath().getEndingTile();
+                    Set<Position> waypointTileSet = trackerEnemy
+                            .getGeneratedPath()
+                            .getWaypointTileSet();
 
                     if (target != null && waypointTileSet != null) {
                         // Get the target tile as a graphical position, then draw texture
                         target = target.tileToGraphical();
-                        batch.draw(bfsEnemy.getTargetTexture(),
+                        batch.draw(trackerEnemy.getTargetTexture(),
                                 target.getX(), target.getY(),
                                 32, 32);
                         // Draw each of the waypoints
                         for (Position waypoint : waypointTileSet) {
                             waypoint = waypoint.tileToGraphical();
-                            batch.draw(bfsEnemy.getWaypointTexture(),
+                            batch.draw(trackerEnemy.getWaypointTexture(),
                                     waypoint.getX(), waypoint.getY(),
                                     32, 32);
                         }
