@@ -2,6 +2,8 @@ package com.example.cs2340c_team28.models.enemies;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerStrategyBFS;
 import com.example.cs2340c_team28.models.movement.Position;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class EnemyHandler {
             enemyList.add(enemy3);
             enemyList.add(enemy4);
 
-            BFSEnemy enemy5 = new BFSEnemy();
+            TrackerEnemy enemy5 = new TrackerEnemy(new TrackerStrategyBFS());
             enemy5.setPosition(new Position(7, 0), true);
             enemyList.add(enemy5);
 
@@ -50,7 +52,7 @@ public class EnemyHandler {
             enemyList.add(enemy2);
             enemyList.add(enemy3);
 
-            BFSEnemy enemy5 = new BFSEnemy();
+            TrackerEnemy enemy5 = new TrackerEnemy(new TrackerStrategyBFS());
             enemy5.setPosition(new Position(1, 9), true);
             enemyList.add(enemy5);
             // (currentMap.getProperties().containsKey("portal"))
