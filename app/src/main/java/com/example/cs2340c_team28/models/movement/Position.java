@@ -1,5 +1,7 @@
 package com.example.cs2340c_team28.models.movement;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class Position {
@@ -59,5 +61,11 @@ public class Position {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Position{" + "x=" + x + ", y=" + y + '}';
     }
 }

@@ -42,8 +42,8 @@ public class CollisionManager {
     }
 
     private boolean checkCollision(Enemy enemy) {
-        Position playerPosition = player.getPosition();
-        Position enemyPosition = enemy.getPosition();
+        Position playerPosition = player.getPosition(true);
+        Position enemyPosition = enemy.getPosition(true);
 
         if (playerPosition == null || enemyPosition == null) {
             return false;

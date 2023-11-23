@@ -14,12 +14,15 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.MovementListener;
 import com.example.cs2340c_team28.models.Player;
+import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
+import java.util.Set;
 
 public class TiledView implements Screen {
 
@@ -143,6 +146,7 @@ public class TiledView implements Screen {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
         font.draw(batch, "" + Player.getInstance().getName(),
                 0, NUM_TILES_VERTICAL * TILE_SIZE);
         font.draw(batch, "" + Game.getInstance().getDifficulty(),
@@ -155,9 +159,6 @@ public class TiledView implements Screen {
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
 
 
-
-
-
         //int UNIT = 32;
 
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
@@ -165,8 +166,39 @@ public class TiledView implements Screen {
             batch.draw(enemy.getTexture(), enemy.getX(false),
                     enemy.getY(false), TILE_SIZE, TILE_SIZE);
 
+            // Special case for BFS enemy
+            if (enemy instanceof TrackerEnemy) {
+                TrackerEnemy trackerEnemy = (TrackerEnemy) enemy;
+
+                // If chase status is chasing, do additional renders
+                if (trackerEnemy.getChaseStatus() == TrackerEnemy.ChaseStatus.CHASING) {
+
+                    // Get target tile and waypoint tile set from the BFS enemy, null-check each
+                    Position target = trackerEnemy.getGeneratedPath().getEndingTile();
+                    Set<Position> waypointTileSet = trackerEnemy
+                            .getGeneratedPath()
+                            .getWaypointTileSet();
+
+                    if (target != null && waypointTileSet != null) {
+                        // Get the target tile as a graphical position, then draw texture
+                        target = target.tileToGraphical();
+                        batch.draw(trackerEnemy.getTargetTexture(),
+                                target.getX(), target.getY(),
+                                32, 32);
+                        // Draw each of the waypoints
+                        for (Position waypoint : waypointTileSet) {
+                            waypoint = waypoint.tileToGraphical();
+                            batch.draw(trackerEnemy.getWaypointTexture(),
+                                    waypoint.getX(), waypoint.getY(),
+                                    32, 32);
+                        }
+                    }
+                }
+            }
         }
 
+        batch.draw(playerImage, Player.getInstance().getX(false),
+                Player.getInstance().getY(false), 32, 32);
         batch.end();
     }
 
