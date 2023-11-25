@@ -11,11 +11,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.example.cs2340c_team28.models.attack.StandardAttackStrategy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.MovementListener;
+import com.example.cs2340c_team28.models.attack.AttackListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
@@ -106,7 +108,11 @@ public class TiledView implements Screen {
         MovementListener listener = new MovementListener();
         listener.setMovementStrategy(new TileMovementStrategy());
 
+        AttackListener listener2 = new AttackListener();
+        listener2.setAttackStrategy(new StandardAttackStrategy());
+
         stage.addListener(listener);
+        stage.addListener(listener2);
         Gdx.input.setInputProcessor(stage);
 
         int spriteId = Player.getInstance().getSpriteId();
