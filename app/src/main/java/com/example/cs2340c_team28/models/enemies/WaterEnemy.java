@@ -56,6 +56,7 @@ public class WaterEnemy  extends Enemy {
             direction = 0;
         }
         movement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);
+        movement.setEndDelay(100);
         setCurrentMovement(movement);
     }
 

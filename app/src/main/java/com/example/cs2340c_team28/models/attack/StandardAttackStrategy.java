@@ -11,14 +11,16 @@ public class StandardAttackStrategy implements AttackStrategy {
     public void attack() {
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
-        //Game.getInstance().setScore(Game.getInstance().getScore() + 100);
+        
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             int ex = enemy.getX(true);
             int ey = enemy.getY(true);
 
-            if ((ex == x + 1) || (ex == x - 1) || (ey == y + 1) || (ey == y - 1)) {
+            if ((ex == x + 1 && ey == y) || (ex == x - 1 && ey == y)
+                    || (ey == y + 1 && ex == x) || (ey == y - 1 && ex == x)) {
                 enemy.setX(10000, true);
                 enemy.setY(10000, true);
+                Game.getInstance().setScore(Game.getInstance().getScore() + 25);
             }
 
         }
