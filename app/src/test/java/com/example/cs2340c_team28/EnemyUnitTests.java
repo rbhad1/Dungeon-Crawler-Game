@@ -94,17 +94,17 @@ public class EnemyUnitTests {
         int startY = game.getEnemyList().get(0).getY(true);
         // start is 5,10
 
-        gameViewModel.cycledUpdate(2, 200);
+        gameViewModel.cycledUpdate(2, 400);
 
         assertEquals(startX+1, game.getEnemyList().get(0).getX(true));
         assertEquals(startY, game.getEnemyList().get(0).getY(true));
-        gameViewModel.cycledUpdate(2, 200);
+        gameViewModel.cycledUpdate(2, 400);
         assertEquals(startX+1, game.getEnemyList().get(0).getX(true));
         assertEquals(startY+1, game.getEnemyList().get(0).getY(true));
-        gameViewModel.cycledUpdate(2, 200);
+        gameViewModel.cycledUpdate(2, 400);
         assertEquals(startX, game.getEnemyList().get(0).getX(true));
         assertEquals(startY+1, game.getEnemyList().get(0).getY(true));
-        gameViewModel.cycledUpdate(2, 200);
+        gameViewModel.cycledUpdate(2, 400);
         assertEquals(startX, game.getEnemyList().get(0).getX(true));
         assertEquals(startY, game.getEnemyList().get(0).getY(true));
     }
@@ -117,12 +117,12 @@ public class EnemyUnitTests {
         gameViewModel.cycledUpdate(4, 1);
         List<Enemy> enemylist = game.getEnemyList();
 
-        gameViewModel.cycledUpdate(2, 200);
+        gameViewModel.cycledUpdate(2, 400);
         // it starts at index 2
         assertNotEquals(2, enemylist.get(0).getX(true));
-        gameViewModel.cycledUpdate(10, 200);
+        gameViewModel.cycledUpdate(10, 400);
         assertEquals(8, enemylist.get(0).getX(true));
-        gameViewModel.cycledUpdate(2, 200);
+        gameViewModel.cycledUpdate(2, 400);
         assertNotEquals(9, enemylist.get(0).getX(true));
     }
 

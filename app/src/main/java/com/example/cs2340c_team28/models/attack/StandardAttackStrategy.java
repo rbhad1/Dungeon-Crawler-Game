@@ -11,7 +11,7 @@ public class StandardAttackStrategy implements AttackStrategy {
     public void attack() {
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
-        
+
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             int ex = enemy.getX(true);
             int ey = enemy.getY(true);
