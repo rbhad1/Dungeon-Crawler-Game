@@ -3,6 +3,8 @@ package com.example.cs2340c_team28.models.attack;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
+import com.example.cs2340c_team28.models.movement.Movement;
 
 import java.util.List;
 
@@ -15,14 +17,20 @@ public class StandardAttackStrategy implements AttackStrategy {
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             int ex = enemy.getX(true);
             int ey = enemy.getY(true);
-
-            if ((ex == x + 1 && ey == y) || (ex == x - 1 && ey == y)
-                    || (ey == y + 1 && ex == x) || (ey == y - 1 && ex == x)) {
+            if (enemy.getClass().equals(TrackerEnemy.class)) {
+                continue;
+            }
+            if ((ex <= x + 1 && ey == y && ex >= x - 1)
+                    || (ey <= y + 1 && ex == x && ey >= y - 1)) {
+                Player.getInstance().setAttack(true);
+                enemy.getCurrentMovement().setStatus(Movement.Status.COMPLETE);
                 enemy.setX(10000, true);
                 enemy.setY(10000, true);
+
                 Game.getInstance().setScore(Game.getInstance().getScore() + 25);
             }
 
         }
     }
+
 }

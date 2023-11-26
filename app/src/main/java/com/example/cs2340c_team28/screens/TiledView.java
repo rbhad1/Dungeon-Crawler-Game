@@ -166,6 +166,11 @@ public class TiledView implements Screen {
 
 
         //int UNIT = 32;
+        if (Player.getInstance().getAttack()) {
+            batch.draw(new Texture("explosion.jpg"), Player.getInstance().getX(false),
+                    Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
+            Player.getInstance().setAttack(false);
+        }
 
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             // TODO probably want to randomize start position
