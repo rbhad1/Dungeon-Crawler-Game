@@ -35,6 +35,7 @@ public class GroundEnemy extends Enemy {
                     true, 200);
         }
         movement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);
+        movement.setEndDelay(100);
         setCurrentMovement(movement);
     }
 
