@@ -88,6 +88,7 @@ public class Player extends Movable {
         this.originalHp = originalHp;
     }
 
+
     /**
      * Gets the ideal initial health points based on the given game difficulty
      *
