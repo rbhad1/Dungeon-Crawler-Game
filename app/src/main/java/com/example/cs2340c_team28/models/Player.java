@@ -38,6 +38,7 @@ public class Player extends Movable {
      */
     private int spriteId;
 
+    private boolean attack;
 
     public static Player getInstance() {
         return INSTANCE;
@@ -59,6 +60,12 @@ public class Player extends Movable {
         return originalHp;
     }
 
+    public void setAttack(boolean attack) {
+        this.attack = attack;
+    }
+    public boolean getAttack() {
+        return attack;
+    }
 
     /**
      * Set the player's health points
