@@ -12,11 +12,13 @@ import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.GlobalTime;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.observers.CollisionManager;
 import com.example.cs2340c_team28.models.observers.EnemyCollisionObserver;
+import com.example.cs2340c_team28.models.powerup.PickupEffect;
+import com.example.cs2340c_team28.models.powerup.PowerUpListFactory;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -103,7 +105,8 @@ public class GameViewModel  extends com.badlogic.gdx.Game
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
-        game.setEnemiesList(new EnemyHandler().createEnemyList());
+        game.setEnemiesList(new EnemyListFactory().createEnemyList());
+        game.setPickupEffectList(new PowerUpListFactory().createPowerUpList());
         // TODO enemies
     }
 
@@ -112,7 +115,8 @@ public class GameViewModel  extends com.badlogic.gdx.Game
         this.water = new TmxMapLoader().load("water-map.tmx");
         this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
         game.setCurrentMap(forest);
-        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        game.setEnemiesList(new EnemyListFactory().createEnemyList());
+        game.setPickupEffectList(new PowerUpListFactory().createPowerUpList());
     }
 
     /**
@@ -143,15 +147,18 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 .getCell(player.getX(true), player.getY(true));
         // Check if we've reached door
         if (game.getEnemyList() == null) {
-            game.setEnemiesList(new EnemyHandler().createEnemyList());
+            game.setEnemiesList(new EnemyListFactory().createEnemyList());
+            game.setPickupEffectList(new PowerUpListFactory().createPowerUpList());
         }
         if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
             if (game.getCurrentMap().equals(forest)) {
-                Game.getInstance().setCurrentMap(water);
-                Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+                game.setCurrentMap(water);
+                game.setEnemiesList(new EnemyListFactory().createEnemyList());
+                game.setPickupEffectList(new PowerUpListFactory().createPowerUpList());
             } else if (game.getCurrentMap().equals(water)) {
-                Game.getInstance().setCurrentMap(dungeon);
-                Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+                game.setCurrentMap(dungeon);
+                game.setEnemiesList(new EnemyListFactory().createEnemyList());
+                game.setPickupEffectList(new PowerUpListFactory().createPowerUpList());
             } else if (game.getCurrentMap().equals(dungeon)) {
                 this.endGame();
             }
@@ -162,11 +169,20 @@ public class GameViewModel  extends com.badlogic.gdx.Game
             enemy.move();
             handleMovement(enemy);
         }
-        if (System.currentTimeMillis() - Player.getInstance().getLastAttack() < 3000) {
-            Player.getInstance().setCanAttack(false);
-        } else {
-            Player.getInstance().setCanAttack(true);
+
+        Player.getInstance().setCanAttack(
+                System.currentTimeMillis() - Player.getInstance().getLastAttack() >= 3000);
+
+        for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
+            if (pickupEffect.getPosition(true)
+                    .equals(Player.getInstance().getPosition(true))) {
+                // Player should pick up the power-up
+                // TODO: add code to pick up the power-up
+                pickupEffect.setCollected(true);
+            }
         }
+
+
     }
 
     public void handlePlayerEnemyCollisions() {

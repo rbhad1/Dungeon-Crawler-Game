@@ -9,6 +9,16 @@ import com.example.cs2340c_team28.models.Positionable;
 public class PickupEffect extends Positionable {
     private final PowerUp powerUp;
 
+    private boolean collected = false;
+
+    public boolean isCollected() {
+        return collected;
+    }
+
+    public void setCollected(boolean collected) {
+        this.collected = collected;
+    }
+
     public PickupEffect(PowerUp powerUp) {
         this.powerUp = powerUp;
     }

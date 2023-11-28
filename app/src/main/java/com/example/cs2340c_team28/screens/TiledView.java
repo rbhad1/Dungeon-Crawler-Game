@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.attack.StandardAttackStrategy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.MovementListener;
@@ -21,6 +21,7 @@ import com.example.cs2340c_team28.models.attack.AttackListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
+import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class TiledView implements Screen {
         this.gameViewModel = gameViewModel;
     }
 
-    private EnemyHandler enemyHandler = new EnemyHandler();
+    private EnemyListFactory enemyListFactory = new EnemyListFactory();
 
     public List<Enemy> getEnemyList() {
         return Game.getInstance().getEnemyList();
@@ -230,6 +231,14 @@ public class TiledView implements Screen {
                         }
                     }
                 }
+            }
+        }
+
+        // Render pickup effects (power-ups)
+        for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
+            if (!pickupEffect.isCollected()) {
+                batch.draw(pickupEffect.getPowerUp().getTexture(),
+                        pickupEffect.getX(false), pickupEffect.getY(false));
             }
         }
 
