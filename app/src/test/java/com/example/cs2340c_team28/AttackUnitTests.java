@@ -56,7 +56,7 @@ public class AttackUnitTests {
         gameViewModel.doPreinitialization();
         StandardAttackStrategy attack = new StandardAttackStrategy();
         Game game = Game.getInstance();
-        game.setCurrentMap(gameViewModel.getWater());
+
         gameViewModel.cycledUpdate(1, 1);
         Player player = Player.getInstance();
         Enemy enemy = game.getEnemyList().get(0);

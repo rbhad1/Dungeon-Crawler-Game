@@ -12,6 +12,7 @@ import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.enemies.GroundEnemy;
 import com.example.cs2340c_team28.models.enemies.WaterEnemy;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 
 import org.junit.Test;
 
@@ -65,11 +66,12 @@ public class EnemyUnitTests {
 
         int counter = 0;
         for (Enemy enemy : game.getEnemyList()) {
-            if (enemy instanceof WaterEnemy || enemy instanceof AirEnemy) {
+            if (enemy instanceof WaterEnemy || enemy instanceof AirEnemy
+                    || enemy instanceof TrackerEnemy) {
                 counter++;
             }
         }
-        assertEquals(3, counter);
+        assertEquals(4, counter);
     }
     @Test @Sprint(4)
     public void waterEnemyMovesInCircle() {
