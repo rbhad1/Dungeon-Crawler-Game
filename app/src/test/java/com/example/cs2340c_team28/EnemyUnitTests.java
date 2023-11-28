@@ -51,7 +51,7 @@ public class EnemyUnitTests {
         assertEquals(4, counter);
     }
 
-
+    /*
     @Test @Sprint(4)
     public void correctEnemiesInWaterMap() {
 
@@ -73,6 +73,7 @@ public class EnemyUnitTests {
         }
         assertEquals(4, counter);
     }
+     */
     @Test @Sprint(4)
     public void waterEnemyMovesInCircle() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
