@@ -21,6 +21,13 @@ public class SuperSpeed extends PowerUp {
         player.getCurrentMovement().setDuration(player.getCurrentMovement().getDuration() / 2);
 
     }
+    public boolean isSuperSpeedComplete() {
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = currentTime - getPowerUpStartTime();
+
+        return elapsedTime < POWER_UP_DURATION;
+    }
+
 
 
 }

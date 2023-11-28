@@ -5,6 +5,8 @@ import com.example.cs2340c_team28.models.enemies.TextureFactory;
 
 
 public abstract class PowerUp {
+    protected static final long POWER_UP_DURATION = 5000;
+    protected long powerUpStartTime;
     protected Texture texture;
     protected String imgRes;
     public PowerUp() {
@@ -12,6 +14,14 @@ public abstract class PowerUp {
     protected abstract void activate();
     public void assignTexture() {
         texture = new Texture(imgRes);
+    }
+    protected abstract boolean isSuperSpeedComplete();
+
+    public long getPowerUpStartTime() {
+        return powerUpStartTime;
+    }
+    public void setPowerUpDuration(long powerUpStartTime) {
+        this.powerUpStartTime = powerUpStartTime;
     }
 
     public Texture getTexture() {
