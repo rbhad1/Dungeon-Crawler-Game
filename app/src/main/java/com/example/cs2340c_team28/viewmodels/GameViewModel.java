@@ -162,6 +162,11 @@ public class GameViewModel  extends com.badlogic.gdx.Game
             enemy.move();
             handleMovement(enemy);
         }
+        if (System.currentTimeMillis() - Player.getInstance().getLastAttack() < 3000) {
+            Player.getInstance().setCanAttack(false);
+        } else {
+            Player.getInstance().setCanAttack(true);
+        }
     }
 
     public void handlePlayerEnemyCollisions() {

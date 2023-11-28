@@ -76,6 +76,7 @@ public class TiledView implements Screen {
      * The font for the text
      */
     private BitmapFont font;
+    private int count = 0;
 
     /**
      * TiledView Constructor
@@ -161,17 +162,39 @@ public class TiledView implements Screen {
                 6 * TILE_SIZE, NUM_TILES_VERTICAL * TILE_SIZE);
         font.draw(batch, "HP: " + Player.getInstance().getHp(),
                 6 * TILE_SIZE, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
+
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
+
 
 
         //int UNIT = 32;
         if (Player.getInstance().getAttack()) {
             batch.draw(new Texture("result.png"),
                     Player.getInstance().getX(false) - 32,
+                    Player.getInstance().getY(false),
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false),
                     Player.getInstance().getY(false) - 32,
-                    TILE_SIZE * 3, TILE_SIZE * 3);
-            Player.getInstance().setAttack(false);
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false) + 32,
+                    Player.getInstance().getY(false),
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false),
+                    Player.getInstance().getY(false) + 32,
+                    TILE_SIZE, TILE_SIZE);
+            count += 1;
+            if (count > 20) {
+                Player.getInstance().setAttack(false);
+                count = 0;
+            }
+        }
+        if (Player.getInstance().getCanAttack()) {
+            batch.draw(new Texture("tnt.png"), Player.getInstance().getX(false) - 16,
+                    Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
         }
 
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
