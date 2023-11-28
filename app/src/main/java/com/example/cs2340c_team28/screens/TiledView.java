@@ -191,7 +191,8 @@ public class TiledView implements Screen {
                 Player.getInstance().setAttack(false);
                 count = 0;
             }
-        } else {
+        }
+        if (Player.getInstance().getCanAttack()) {
             batch.draw(new Texture("tnt.png"), Player.getInstance().getX(false) - 16,
                     Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
         }

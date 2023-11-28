@@ -39,6 +39,8 @@ public class Player extends Movable {
     private int spriteId;
 
     private boolean attack;
+    private boolean canAttack;
+    private long lastAttack = 0;
 
     public static Player getInstance() {
         return INSTANCE;
@@ -65,6 +67,18 @@ public class Player extends Movable {
     }
     public boolean getAttack() {
         return attack;
+    }
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+    public boolean getCanAttack() {
+        return canAttack;
+    }
+    public void setLastAttack(long lastAttack) {
+        this.lastAttack = lastAttack;
+    }
+    public long getLastAttack() {
+        return this.lastAttack;
     }
 
     /**

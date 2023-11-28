@@ -13,32 +13,32 @@ public class StandardAttackStrategy implements AttackStrategy {
     private long lastCall = 0;
 
     public void attack() {
-        currentTime = System.currentTimeMillis();
-        if (System.currentTimeMillis() - lastCall < 3000) {
-            return;
-        }
-        int x = Player.getInstance().getX(true);
-        int y = Player.getInstance().getY(true);
-        Player.getInstance().setAttack(true);
-        for (Enemy enemy : Game.getInstance().getEnemyList()) {
-            int ex = enemy.getX(true);
-            int ey = enemy.getY(true);
-            if (enemy.getClass().equals(TrackerEnemy.class)) {
-                continue;
+        if (Player.getInstance().getCanAttack()) {
+            int x = Player.getInstance().getX(true);
+            int y = Player.getInstance().getY(true);
+            Player.getInstance().setAttack(true);
+            for (Enemy enemy : Game.getInstance().getEnemyList()) {
+                int ex = enemy.getX(true);
+                int ey = enemy.getY(true);
+                if (enemy.getClass().equals(TrackerEnemy.class)) {
+                    continue;
+                }
+                if ((ex <= x + 1 && ey == y && ex >= x - 1)
+                        || (ey <= y + 1 && ex == x && ey >= y - 1)) {
+
+                    enemy.getCurrentMovement().setStatus(Movement.Status.COMPLETE);
+                    enemy.setX(10000, true);
+                    enemy.setY(10000, true);
+
+                    Game.getInstance().setScore(Game.getInstance().getScore() + 25);
+                }
+
             }
-
-            if ((ex <= x + 1 && ey == y && ex >= x - 1)
-                    || (ey <= y + 1 && ex == x && ey >= y - 1)) {
-
-                enemy.getCurrentMovement().setStatus(Movement.Status.COMPLETE);
-                enemy.setX(10000, true);
-                enemy.setY(10000, true);
-
-                Game.getInstance().setScore(Game.getInstance().getScore() + 25);
-            }
-
+            Player.getInstance().setLastAttack(System.currentTimeMillis());
+            Player.getInstance().setCanAttack(false);
         }
-        lastCall = currentTime;
     }
+
+
 
 }
