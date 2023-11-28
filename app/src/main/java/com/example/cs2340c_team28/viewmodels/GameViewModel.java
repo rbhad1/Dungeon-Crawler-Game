@@ -179,6 +179,7 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 // Player should pick up the power-up
                 // TODO: add code to pick up the power-up
                 pickupEffect.setCollected(true);
+                game.setScore(game.getScore() + 10);
             }
         }
 
