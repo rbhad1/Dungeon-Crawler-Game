@@ -15,8 +15,11 @@ import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyHandler;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
+import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.observers.CollisionManager;
 import com.example.cs2340c_team28.models.observers.EnemyCollisionObserver;
+import com.example.cs2340c_team28.models.powerup.Decorator;
+import com.example.cs2340c_team28.models.powerup.SuperSpeed;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -357,5 +360,17 @@ public class GameViewModel  extends com.badlogic.gdx.Game
         Game.getInstance().setScoreTime(getTime());
         Player.getInstance().setCurrentMovement(null);
     }
+
+    public void superSpeed() {
+        int startTime = 0;
+        int duration = 5000;
+        long currentTime = GlobalTime.getInstance().getTime();
+        Decorator decorator = new Decorator(new SuperSpeed());
+        while (startTime + duration < currentTime) {
+            TileMovementStrategy.MOVE_DURATION = TileMovementStrategy.MOVE_DURATION / 2;
+            decorator.activate();
+        }
+    }
+    // call pickup effect
 
 }

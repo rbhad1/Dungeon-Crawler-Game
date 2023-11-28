@@ -38,6 +38,11 @@ public class Player extends Movable {
      */
     private int spriteId;
 
+    private boolean superSpeed = false;
+
+    public boolean getSuperSpeed() {
+        return superSpeed;
+    }
 
     public static Player getInstance() {
         return INSTANCE;
