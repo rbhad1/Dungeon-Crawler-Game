@@ -3,6 +3,10 @@ package com.example.cs2340c_team28.models;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.powerup.PickupEffect;
+import com.example.cs2340c_team28.models.powerup.PowerUp;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +63,8 @@ public class Game {
     private TiledMapTileLayer doorLayer;
 
     private List<Enemy> enemyList;
+
+    private List<PickupEffect> pickupEffectList = new ArrayList<>();
 
     /**
      * Get the difficulty of the game
@@ -138,4 +144,11 @@ public class Game {
         return enemyList;
     }
 
+    public List<PickupEffect> getPickupEffectList() {
+        return pickupEffectList;
+    }
+
+    public void setPickupEffectList(List<PickupEffect> pickupEffectList) {
+        this.pickupEffectList = pickupEffectList;
+    }
 }

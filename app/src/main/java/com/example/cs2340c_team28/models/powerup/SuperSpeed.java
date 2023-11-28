@@ -1,9 +1,11 @@
 package com.example.cs2340c_team28.models.powerup;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Movement;
 
 public class SuperSpeed extends PowerUp {
+
 
     public SuperSpeed() {
         super();
@@ -21,6 +23,9 @@ public class SuperSpeed extends PowerUp {
         // Get the current time and start time (from the movement)
 
     }
-
+    @Override
+    public Texture getTexture() {
+        return new Texture("superspeed.png");
+    }
 
 }

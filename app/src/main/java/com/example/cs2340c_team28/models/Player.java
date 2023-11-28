@@ -38,11 +38,9 @@ public class Player extends Movable {
      */
     private int spriteId;
 
-    private boolean superSpeed = false;
-
-    public boolean getSuperSpeed() {
-        return superSpeed;
-    }
+    private boolean attack;
+    private boolean canAttack;
+    private long lastAttack = 0;
 
     public static Player getInstance() {
         return INSTANCE;
@@ -64,6 +62,24 @@ public class Player extends Movable {
         return originalHp;
     }
 
+    public void setAttack(boolean attack) {
+        this.attack = attack;
+    }
+    public boolean getAttack() {
+        return attack;
+    }
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+    public boolean getCanAttack() {
+        return canAttack;
+    }
+    public void setLastAttack(long lastAttack) {
+        this.lastAttack = lastAttack;
+    }
+    public long getLastAttack() {
+        return this.lastAttack;
+    }
 
     /**
      * Set the player's health points
@@ -92,7 +108,6 @@ public class Player extends Movable {
     public void setOriginalHp(int originalHp) {
         this.originalHp = originalHp;
     }
-
 
     /**
      * Gets the ideal initial health points based on the given game difficulty

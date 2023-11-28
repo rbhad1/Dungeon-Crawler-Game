@@ -9,7 +9,7 @@ import com.example.cs2340c_team28.models.movement.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemyHandler {
+public class EnemyListFactory {
 
     public List<Enemy> createEnemyList() {
         Game game = Game.getInstance();

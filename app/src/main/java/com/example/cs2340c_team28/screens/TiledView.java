@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.attack.StandardAttackStrategy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.MovementListener;
@@ -21,9 +21,7 @@ import com.example.cs2340c_team28.models.attack.AttackListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
-import com.example.cs2340c_team28.models.powerup.Decorator;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
-import com.example.cs2340c_team28.models.powerup.SuperSpeed;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
@@ -79,6 +77,7 @@ public class TiledView implements Screen {
      * The font for the text
      */
     private BitmapFont font;
+    private int count = 0;
 
     /**
      * TiledView Constructor
@@ -88,11 +87,8 @@ public class TiledView implements Screen {
         this.gameViewModel = gameViewModel;
     }
 
-    private EnemyHandler enemyHandler = new EnemyHandler();
+    private EnemyListFactory enemyListFactory = new EnemyListFactory();
 
-    private boolean collected = false;
-    private Texture speedImg;
-    PickupEffect speedToken;
     public List<Enemy> getEnemyList() {
         return Game.getInstance().getEnemyList();
     }
@@ -167,39 +163,41 @@ public class TiledView implements Screen {
                 6 * TILE_SIZE, NUM_TILES_VERTICAL * TILE_SIZE);
         font.draw(batch, "HP: " + Player.getInstance().getHp(),
                 6 * TILE_SIZE, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
+
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
 
 
 
-        if (!collected && Game.getInstance().getCurrentMap().getLayers().get("forest") != null) {
-            speedImg = new Texture("speed.png");
-            batch.draw(speedImg, 2 * 32, 10 * 32, 20, 20);
-            speedToken = new PickupEffect(new SuperSpeed());
-            speedToken.setX(2*32, false);
-            speedToken.setY(10*32, false);
-            if (Player.getInstance().getPosition(true).equals(speedToken.getPosition(true))) {
-                collected = true;
-                speedImg.dispose();
-                Decorator decorator = new Decorator(new SuperSpeed());
-                decorator.activate();
-
+        //int UNIT = 32;
+        if (Player.getInstance().getAttack()) {
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false) - 32,
+                    Player.getInstance().getY(false),
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false),
+                    Player.getInstance().getY(false) - 32,
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false) + 32,
+                    Player.getInstance().getY(false),
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false),
+                    Player.getInstance().getY(false) + 32,
+                    TILE_SIZE, TILE_SIZE);
+            count += 1;
+            if (count > 20) {
+                Player.getInstance().setAttack(false);
+                count = 0;
             }
         }
+        if (Player.getInstance().getCanAttack()) {
+            batch.draw(new Texture("tnt.png"), Player.getInstance().getX(false) - 16,
+                    Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
+        }
 
-
-
-
-        //int UNIT = 32;
-        enemyHandling();
-
-        batch.draw(playerImage, Player.getInstance().getX(false),
-                Player.getInstance().getY(false), 32, 32);
-
-        batch.end();
-    }
-
-    public void enemyHandling() {
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             // TODO probably want to randomize start position
             batch.draw(enemy.getTexture(), enemy.getX(false),
@@ -236,8 +234,18 @@ public class TiledView implements Screen {
             }
         }
 
-    }
+        // Render pickup effects (power-ups)
+        for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
+            if (!pickupEffect.isCollected()) {
+                batch.draw(pickupEffect.getPowerUp().getTexture(),
+                        pickupEffect.getX(false), pickupEffect.getY(false));
+            }
+        }
 
+        batch.draw(playerImage, Player.getInstance().getX(false),
+                Player.getInstance().getY(false), 32, 32);
+        batch.end();
+    }
 
     @Override
     public void resize(int width, int height) {
