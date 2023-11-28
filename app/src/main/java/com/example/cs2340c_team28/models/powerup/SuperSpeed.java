@@ -20,9 +20,6 @@ public class SuperSpeed extends PowerUp {
         }
         player.getCurrentMovement().setDuration(player.getCurrentMovement().getDuration() / 2);
 
-        // TODO add time component
-        // Get the current time and start time (from the movement)
-
     }
 
 

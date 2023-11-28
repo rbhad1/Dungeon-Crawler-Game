@@ -131,6 +131,7 @@ public class GameViewModel  extends com.badlogic.gdx.Game
         updateGameLogic();
         handlePlayerEnemyCollisions();
     }
+    int duration = 0;
 
     /**
      * Updates score and time of the game
@@ -175,7 +176,6 @@ public class GameViewModel  extends com.badlogic.gdx.Game
 
         Player.getInstance().setCanAttack(
                 System.currentTimeMillis() - Player.getInstance().getLastAttack() >= 3000);
-
         for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
             if (pickupEffect.getPosition(true)
                     .equals(Player.getInstance().getPosition(true))) {
@@ -183,14 +183,12 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 // Player should pick up the power-up
                 // TODO: add code to pick up the power-up
                 long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
-                int duration = 0;
                 int finalDuration = 5000;
-                while (duration < finalDuration) {
+                if (duration < finalDuration) {
                     TileMovementStrategy.MOVE_DURATION = originalMoveDuration / 2;
                     Decorator decorator = new Decorator(new SuperSpeed());
                     decorator.activate();
                     duration++;
-
                 }
                 TileMovementStrategy.MOVE_DURATION = originalMoveDuration;
             }

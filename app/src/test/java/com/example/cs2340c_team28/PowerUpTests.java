@@ -14,6 +14,7 @@ import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
+import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.powerup.Decorator;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.models.powerup.SuperSpeed;
@@ -69,7 +70,7 @@ public class PowerUpTests {
     }
 
     @Test
-    public void pickupEffectInForestMap() {
+    public void moveDurationUpdating() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
 
@@ -77,8 +78,10 @@ public class PowerUpTests {
         Game game = Game.getInstance();
         game.setCurrentMap(gameViewModel.getForest());
 
-        Game.getInstance().getPickupEffectList();
-
+        long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
+        Decorator decorator = new Decorator(new SuperSpeed());
+        decorator.activate();
+        assertNotEquals(originalMoveDuration, TileMovementStrategy.MOVE_DURATION);
 
     }
 
