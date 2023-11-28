@@ -162,8 +162,10 @@ public class TiledView implements Screen {
                 6 * TILE_SIZE, NUM_TILES_VERTICAL * TILE_SIZE);
         font.draw(batch, "HP: " + Player.getInstance().getHp(),
                 6 * TILE_SIZE, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
+
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
+
 
 
         //int UNIT = 32;
@@ -189,7 +191,9 @@ public class TiledView implements Screen {
                 Player.getInstance().setAttack(false);
                 count = 0;
             }
-
+        } else {
+            batch.draw(new Texture("tnt.png"), Player.getInstance().getX(false) - 16,
+                    Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
         }
 
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
