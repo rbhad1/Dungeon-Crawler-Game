@@ -92,6 +92,7 @@ public class TiledView implements Screen {
 
     private boolean collected = false;
     private Texture speedImg;
+    PickupEffect speedToken;
     public List<Enemy> getEnemyList() {
         return Game.getInstance().getEnemyList();
     }
@@ -169,19 +170,25 @@ public class TiledView implements Screen {
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
 
+
+
         if (!collected && Game.getInstance().getCurrentMap().getLayers().get("forest") != null) {
             speedImg = new Texture("speed.png");
             batch.draw(speedImg, 2 * 32, 10 * 32, 20, 20);
+            speedToken = new PickupEffect(new SuperSpeed());
+            speedToken.setX(2*32, false);
+            speedToken.setY(10*32, false);
+            if (Player.getInstance().getPosition(true).equals(speedToken.getPosition(true))) {
+                collected = true;
+                speedImg.dispose();
+                Decorator decorator = new Decorator(new SuperSpeed());
+                decorator.activate();
+
+            }
         }
-        PickupEffect speedToken = new PickupEffect(new SuperSpeed());
-        speedToken.setX(2*32, false);
-        speedToken.setY(10*32, false);
-        if (Player.getInstance().getPosition(true).equals(speedToken.getPosition(true))) {
-            collected = true;
-            speedImg.dispose();
-            Decorator decorator = new Decorator(new SuperSpeed());
-            decorator.activate();
-        }
+
+
+
 
         //int UNIT = 32;
         enemyHandling();
