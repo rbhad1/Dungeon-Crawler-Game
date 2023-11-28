@@ -9,8 +9,14 @@ import com.example.cs2340c_team28.models.movement.Movement;
 import java.util.List;
 
 public class StandardAttackStrategy implements AttackStrategy {
+    private long currentTime;
+    private long lastCall = 0;
 
     public void attack() {
+        currentTime = System.currentTimeMillis();
+        if (System.currentTimeMillis() - lastCall < 3000) {
+            return;
+        }
         int x = Player.getInstance().getX(true);
         int y = Player.getInstance().getY(true);
         Player.getInstance().setAttack(true);
@@ -32,6 +38,7 @@ public class StandardAttackStrategy implements AttackStrategy {
             }
 
         }
+        lastCall = currentTime;
     }
 
 }
