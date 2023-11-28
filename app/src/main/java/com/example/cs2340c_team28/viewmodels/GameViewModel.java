@@ -12,7 +12,7 @@ import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.GlobalTime;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.observers.CollisionManager;
@@ -103,7 +103,7 @@ public class GameViewModel  extends com.badlogic.gdx.Game
 
         game.setScore(Game.MAX_SCORE);
         game.setScoreTime(getTime());
-        game.setEnemiesList(new EnemyHandler().createEnemyList());
+        game.setEnemiesList(new EnemyListFactory().createEnemyList());
         // TODO enemies
     }
 
@@ -112,7 +112,7 @@ public class GameViewModel  extends com.badlogic.gdx.Game
         this.water = new TmxMapLoader().load("water-map.tmx");
         this.dungeon = new TmxMapLoader().load("dungeon-map.tmx");
         game.setCurrentMap(forest);
-        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
     }
 
     /**
@@ -143,15 +143,15 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 .getCell(player.getX(true), player.getY(true));
         // Check if we've reached door
         if (game.getEnemyList() == null) {
-            game.setEnemiesList(new EnemyHandler().createEnemyList());
+            game.setEnemiesList(new EnemyListFactory().createEnemyList());
         }
         if (possibleDoorCell != null && possibleDoorCell.getTile().getId() != 0) {
             if (game.getCurrentMap().equals(forest)) {
                 Game.getInstance().setCurrentMap(water);
-                Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+                Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
             } else if (game.getCurrentMap().equals(water)) {
                 Game.getInstance().setCurrentMap(dungeon);
-                Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+                Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
             } else if (game.getCurrentMap().equals(dungeon)) {
                 this.endGame();
             }

@@ -3,25 +3,18 @@ package com.example.cs2340c_team28;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.enemies.GroundEnemy;
 import com.example.cs2340c_team28.models.enemies.WaterEnemy;
-import com.example.cs2340c_team28.models.movement.Movement;
-import com.example.cs2340c_team28.models.movement.Position;
-import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
-import com.example.cs2340c_team28.screens.TiledView;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,10 +79,10 @@ public class EnemyUnitTests {
         Game game = Game.getInstance();
 
         game.setCurrentMap(gameViewModel.getWater());
-        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
 
         gameViewModel.cycledUpdate(1, 1);
-        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
         int startX = game.getEnemyList().get(0).getX(true);
         int startY = game.getEnemyList().get(0).getY(true);
         // start is 5,10
@@ -135,7 +128,7 @@ public class EnemyUnitTests {
 
         // Set the current map to the desired map (e.g., forest)
         game.setCurrentMap(gameViewModel.getForest());
-        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
 
         // Update the game for a certain number of cycles
         gameViewModel.cycledUpdate(1, 1);
@@ -165,7 +158,7 @@ public class EnemyUnitTests {
 
         // Set the current map to the desired map
         game.setCurrentMap(gameViewModel.getForest());
-        Game.getInstance().setEnemiesList(new EnemyHandler().createEnemyList());
+        Game.getInstance().setEnemiesList(new EnemyListFactory().createEnemyList());
 
         // Update the game for a certain number of cycles
         gameViewModel.cycledUpdate(1, 1);
