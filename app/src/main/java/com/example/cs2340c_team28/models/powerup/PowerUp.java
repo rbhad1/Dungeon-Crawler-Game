@@ -1,6 +1,7 @@
 package com.example.cs2340c_team28.models.powerup;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.example.cs2340c_team28.models.Game;
 
 /**
  * Class for in-game power-ups. This class is primarily focused on the functionality of the powerup.
@@ -49,6 +50,7 @@ public abstract class PowerUp {
             wrapped.apply();
         }
         this.apply();
+        Game.getInstance().setScore(Game.getInstance().getScore() + 10);
     }
 
     /**
