@@ -15,10 +15,13 @@ import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
+import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.observers.CollisionManager;
 import com.example.cs2340c_team28.models.observers.EnemyCollisionObserver;
+import com.example.cs2340c_team28.models.powerup.Decorator;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.models.powerup.PowerUpListFactory;
+import com.example.cs2340c_team28.models.powerup.SuperSpeed;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -176,14 +179,27 @@ public class GameViewModel  extends com.badlogic.gdx.Game
         for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
             if (pickupEffect.getPosition(true)
                     .equals(Player.getInstance().getPosition(true))) {
+                pickupEffect.setCollected(true);
                 // Player should pick up the power-up
                 // TODO: add code to pick up the power-up
-                pickupEffect.setCollected(true);
+                long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
+                int duration = 0;
+                int finalDuration = 5000;
+                while (duration < finalDuration) {
+                    TileMovementStrategy.MOVE_DURATION = originalMoveDuration / 2;
+                    Decorator decorator = new Decorator(new SuperSpeed());
+                    decorator.activate();
+                    duration++;
+
+                }
+                TileMovementStrategy.MOVE_DURATION = originalMoveDuration;
             }
         }
 
 
     }
+
+
 
     public void handlePlayerEnemyCollisions() {
         if (collisionManager == null) {

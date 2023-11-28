@@ -1,17 +1,18 @@
 package com.example.cs2340c_team28.models.powerup;
 
-import android.media.Image;
-
 import com.badlogic.gdx.graphics.Texture;
-import com.example.cs2340c_team28.models.GlobalTime;
+import com.example.cs2340c_team28.models.enemies.TextureFactory;
 
-import org.w3c.dom.Text;
 
 public abstract class PowerUp {
     protected Texture texture;
+    protected String imgRes;
     public PowerUp() {
     }
     protected abstract void activate();
+    public void assignTexture() {
+        texture = new Texture(imgRes);
+    }
 
     public Texture getTexture() {
         return texture;

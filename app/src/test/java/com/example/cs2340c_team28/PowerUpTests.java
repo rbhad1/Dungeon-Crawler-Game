@@ -15,6 +15,7 @@ import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.powerup.Decorator;
+import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.models.powerup.SuperSpeed;
 import com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
@@ -67,5 +68,18 @@ public class PowerUpTests {
 
     }
 
+    @Test
+    public void pickupEffectInForestMap() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Player player = Player.getInstance();
+        Game game = Game.getInstance();
+        game.setCurrentMap(gameViewModel.getForest());
+
+        Game.getInstance().getPickupEffectList();
+
+
+    }
 
 }
