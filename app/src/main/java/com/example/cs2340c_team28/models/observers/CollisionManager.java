@@ -34,6 +34,7 @@ public class CollisionManager {
                     for (EnemyCollisionObserver observer : observers) {
                         observer.collisionOccurred();
                     }
+                    game.setScore(game.getScore() - 10);
                     setPlayerInvincible();
                     setInvincibilityStartTime(System.currentTimeMillis());
                 }
