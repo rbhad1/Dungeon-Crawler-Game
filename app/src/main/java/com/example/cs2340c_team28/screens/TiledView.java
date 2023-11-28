@@ -9,11 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.attack.StandardAttackStrategy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
-import com.example.cs2340c_team28.models.enemies.EnemyHandler;
+import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.MovementListener;
@@ -21,6 +24,7 @@ import com.example.cs2340c_team28.models.attack.AttackListener;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
+import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
@@ -41,7 +45,7 @@ public class TiledView implements Screen {
     /**
      * Number of tiles in the vertical direction
      */
-    private static final int NUM_TILES_VERTICAL = 17;
+    private static final int NUM_TILES_VERTICAL = 18;
 
     /**
      * Renderer for the tilemap
@@ -77,6 +81,9 @@ public class TiledView implements Screen {
      */
     private BitmapFont font;
 
+    private Button attackButton;
+    private int count = 0;
+
     /**
      * TiledView Constructor
      * @param gameViewModel the view model the the tile model takes in
@@ -85,7 +92,7 @@ public class TiledView implements Screen {
         this.gameViewModel = gameViewModel;
     }
 
-    private EnemyHandler enemyHandler = new EnemyHandler();
+    private EnemyListFactory enemyListFactory = new EnemyListFactory();
 
     public List<Enemy> getEnemyList() {
         return Game.getInstance().getEnemyList();
@@ -112,7 +119,14 @@ public class TiledView implements Screen {
         listener2.setAttackStrategy(new StandardAttackStrategy());
 
         stage.addListener(listener);
-        stage.addListener(listener2);
+        // stage.addListener(listener2);
+        stage.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                new StandardAttackStrategy().attack();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
         Gdx.input.setInputProcessor(stage);
 
         int spriteId = Player.getInstance().getSpriteId();
@@ -131,9 +145,6 @@ public class TiledView implements Screen {
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
         font = new BitmapFont();
-
-
-
     }
 
     @Override
@@ -161,17 +172,44 @@ public class TiledView implements Screen {
                 6 * TILE_SIZE, NUM_TILES_VERTICAL * TILE_SIZE);
         font.draw(batch, "HP: " + Player.getInstance().getHp(),
                 6 * TILE_SIZE, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
+
+        if (Player.getInstance().getCanAttack()) {
+            font.draw(batch, "Tap anywhere to attack!",
+                    2 * TILE_SIZE, (NUM_TILES_VERTICAL - 1.25f) * TILE_SIZE);
+        }
+
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
+
 
 
         //int UNIT = 32;
         if (Player.getInstance().getAttack()) {
             batch.draw(new Texture("result.png"),
                     Player.getInstance().getX(false) - 32,
+                    Player.getInstance().getY(false),
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false),
                     Player.getInstance().getY(false) - 32,
-                    TILE_SIZE * 3, TILE_SIZE * 3);
-            Player.getInstance().setAttack(false);
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false) + 32,
+                    Player.getInstance().getY(false),
+                    TILE_SIZE, TILE_SIZE);
+            batch.draw(new Texture("result.png"),
+                    Player.getInstance().getX(false),
+                    Player.getInstance().getY(false) + 32,
+                    TILE_SIZE, TILE_SIZE);
+            count += 1;
+            if (count > 20) {
+                Player.getInstance().setAttack(false);
+                count = 0;
+            }
+        }
+        if (Player.getInstance().getCanAttack()) {
+            batch.draw(new Texture("tnt.png"), Player.getInstance().getX(false) - 16,
+                    Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
         }
 
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
@@ -207,6 +245,14 @@ public class TiledView implements Screen {
                         }
                     }
                 }
+            }
+        }
+
+        // Render pickup effects (power-ups)
+        for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
+            if (!pickupEffect.isCollected()) {
+                batch.draw(pickupEffect.getPowerUp().getTexture(),
+                        pickupEffect.getX(false), pickupEffect.getY(false));
             }
         }
 
