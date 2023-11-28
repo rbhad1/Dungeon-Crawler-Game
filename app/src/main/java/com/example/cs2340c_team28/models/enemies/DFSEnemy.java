@@ -10,142 +10,108 @@ import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 
+import java.util.Map;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.List;
+import java.util.Stack;
 
-public class BFSEnemy extends Enemy {
+public class DFSEnemy extends Enemy {
 
-    /**
-     * The duration of the movement.
-     * <p>
-     * Note that while this is constant now we might want to implement this differently so that
-     *  movement duration can be different based on difficulty.
-     */
     private static final long MOVEMENT_DURATION = 150;
 
-    /**
-     * The time duration to delay after each individual movement.
-     * If 0, the BFSEnemy will appear to follow a smooth path
-     */
     private static final long MOVEMENT_END_DELAY = 0;
 
-    /**
-     * The time duration to wait to follow the player again after a path is finished.
-     * <p>
-     * Note that while this is constant now we might want to implement this differently so that
-     *  it can be different based on difficulty.
-     */
     private static final long DESIRED_PATH_BREAK_TIME = 3000;
 
-    /**
-     * The next path component to process to start or continue movement along a path.
-     * If this is null, there is no currently-generated path.
-     * <p>
-     * This variable effectively represents the starting node of a doubly-linked list.
-     * See {@link PathComponent} for more information about how path components link together.
-     */
-    private PathComponent startingPathComponent = null;
+    private BFSEnemy.PathComponent startingPathComponent = null;
 
-    /**
-     * The set of positions that are on our path that we haven't visited yet.
-     * This should correspond to the same positions that are in the path components but serves as
-     *  a more efficient way to access them
-     */
     private Set<Position> waypointTileSet = null;
 
-    /**
-     * The time that the most recent path finished.
-     * This is used so that we can figure out when to calculate the next path.
-     */
     private long lastPathFinish = GlobalTime.getInstance().getTime();
 
-    /**
-     * The tile that the BFSEnemy is targeting. This should be the same as the position
-     *  in the last element of the path components linked list that {@link #startingPathComponent}
-     *  points to.
-     */
     private Position targetTile = null;
 
     /**
      * The texture representing the target (where the BFSEnemy is trying to get to)
      */
     private final Texture targetTexture =
-            TextureFactory.getInstance().createTexture("sprites_enemy/BFS-target.png");
+            TextureFactory.getInstance().createTexture("sprites_enemy/DFS-target.png");
 
     /**
      * The texture representing a waypoint along the BFSEnemy's path
      */
     private final Texture waypointTexture =
-            TextureFactory.getInstance().createTexture("sprites_enemy/BFS-waypoint.png");
+            TextureFactory.getInstance().createTexture("sprites_enemy/DFS-waypoint.png");
 
-    public BFSEnemy() {
-        super.imgRes = "sprites_enemy/BFS-sprite.png";
+
+    public DFSEnemy() {
+        super.imgRes = "sprites_enemy/DFS-sprite.png";
         super.assignTexture();
     }
 
     /**
      * Determine the fastest path for the BFSEnemy. This contains the BFS algorithm.
      */
-    private void determineFastestPath() {
+    public void determineFastestPath() {
 
         Game game = Game.getInstance();
-        // Create a queue of positions that we'll be visiting
-        LinkedList<PathComponent> pathComponentsQueue = new LinkedList<>();
+
         // Create a set of positions that we've already visited so we don't re-visit.
         HashSet<Position> visitedPositions = new HashSet<>();
-        // Add the BFSEnemy's current position to the queue since this is where we'll start from
-        pathComponentsQueue.add(new PathComponent(this.getPosition(true)));
+
+        // Create a stack of position's that we'll be visiting
+        Stack<BFSEnemy.PathComponent> pathComponentsStack = new Stack<>();
 
         // Create a variable representing the component at which we end the path.
-        PathComponent finalComponent = null;
+        BFSEnemy.PathComponent finalComponent = null;
 
-        // Loop while there are still path components to visit
-        while (!pathComponentsQueue.isEmpty()) {
-            // Get the pathc component off the top of the queue
-            PathComponent topOfQueue = pathComponentsQueue.pop();
-            // Check if we've already visited the position
-            if (visitedPositions.contains(topOfQueue.position)) {
-                // Don't check this position again
-                continue;
-            } else {
-                visitedPositions.add(topOfQueue.position);
+        // Add the DFSEnemy's current position to the stack
+        pathComponentsStack.push(new BFSEnemy.PathComponent(this.getPosition(true)));
+
+        while (!pathComponentsStack.isEmpty()) {
+            BFSEnemy.PathComponent topOfStack = pathComponentsStack.pop();
+
+            if (!visitedPositions.contains(topOfStack.position)) {
+                visitedPositions.add(topOfStack.position);
             }
 
             // First see if this is a valid position. If it isn't, continue.
             TiledMapTileLayer.Cell newCell = game.getWalkableLayer()
-                    .getCell(topOfQueue.position.getX(), topOfQueue.position.getY());
+                    .getCell(topOfStack.position.getX(), topOfStack.position.getY());
             if (newCell == null || newCell.getTile().getId() == 0) {
                 continue;
             }
 
             // Then see if it's the correct position. (aka at player location) If it is, break.
-            if (topOfQueue.position.equals(Player.getInstance().getPosition(true))) {
-                finalComponent = topOfQueue;
+            if (topOfStack.position.equals(Player.getInstance().getPosition(true))) {
+                finalComponent = topOfStack;
                 break;
             }
 
-            // Add new position options to the queue for each direction from the current tile
-            pathComponentsQueue.add(new PathComponent(
-                    topOfQueue.position.add(new Position(1, 0)), topOfQueue));
-            pathComponentsQueue.add(new PathComponent(
-                    topOfQueue.position.add(new Position(-1, 0)), topOfQueue));
-            pathComponentsQueue.add(new PathComponent(
-                    topOfQueue.position.add(new Position(0, 1)), topOfQueue));
-            pathComponentsQueue.add(new PathComponent(
-                    topOfQueue.position.add(new Position(0, -1)), topOfQueue));
+            // Add new position options to the stack for each direction from the current tile
+            pathComponentsStack.push(new BFSEnemy.PathComponent(
+                    topOfStack.position.add(new Position(1, 0)), topOfStack));
+            pathComponentsStack.push(new BFSEnemy.PathComponent(
+                    topOfStack.position.add(new Position(-1, 0)), topOfStack));
+            pathComponentsStack.push(new BFSEnemy.PathComponent(
+                    topOfStack.position.add(new Position(0, 1)), topOfStack));
+            pathComponentsStack.push(new BFSEnemy.PathComponent(
+                    topOfStack.position.add(new Position(0, -1)), topOfStack));
+
         }
 
         // We are now finished with the loop and *might* have a valid ending location.
         // We've chained all the path components so that they point to their previous element
         //  so now we'll create forward links so that we can move along the path efficiently
         waypointTileSet = new HashSet<>();
-        for (PathComponent current = finalComponent; current != null; current = current.previous) {
+        for (BFSEnemy.PathComponent current = finalComponent; current != null; current = current.previous) {
             // Add positions to the waypoint tile set
             waypointTileSet.add(current.position);
 
             // Get the previous path component, and if not null, set its next value to current
-            PathComponent previous = current.previous;
+            BFSEnemy.PathComponent previous = current.previous;
             if (previous != null) {
                 // There's still a prior element that we can access
                 previous.next = current;
@@ -159,6 +125,7 @@ public class BFSEnemy extends Enemy {
         if (finalComponent != null) {
             targetTile = finalComponent.position;
         }
+
 
     }
 
@@ -223,14 +190,14 @@ public class BFSEnemy extends Enemy {
         return waypointTileSet;
     }
 
-    public ChaseStatus getChaseStatus() {
+    public BFSEnemy.ChaseStatus getChaseStatus() {
         if (this.getPosition(true)
                 .equals(Player.getInstance().getPosition(true))) {
-            return ChaseStatus.AT_PLAYER;
+            return BFSEnemy.ChaseStatus.AT_PLAYER;
         } else if (this.startingPathComponent == null) {
-            return ChaseStatus.WAITING;
+            return BFSEnemy.ChaseStatus.WAITING;
         } else {
-            return ChaseStatus.CHASING;
+            return BFSEnemy.ChaseStatus.CHASING;
         }
     }
 
@@ -254,49 +221,4 @@ public class BFSEnemy extends Enemy {
         WAITING
     }
 
-    /**
-     * Class representing components along a path to the player.
-     * This is essential for the BFS algorithm and creating "chains" of possible paths.
-     * Note that this effectively creates a LinkedList with its previous and next variables.
-     */
-    static class PathComponent {
-        /**
-         * The position represented by this path component
-         */
-        final Position position;
-
-        /**
-         * The path component that comes before this one
-         */
-        PathComponent previous;
-
-        /**
-         * The path component that comes after this one
-         */
-        PathComponent next;
-
-        /**
-         * Construct the path component
-         * @param position The position that the path component represents
-         */
-        public PathComponent(Position position) {
-            this(position, null);
-        }
-
-        /**
-         * Construct the path component
-         * @param position The position that the path component represents
-         * @param previous The previous path component
-         */
-        public PathComponent(Position position, PathComponent previous) {
-            this.position = position;
-            this.previous = previous;
-        }
-
-        @NonNull
-        @Override
-        public String toString() {
-            return "PathComponent{" + "position=" + position + '}';
-        }
-    }
 }
