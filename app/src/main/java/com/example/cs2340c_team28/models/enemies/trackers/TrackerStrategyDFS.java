@@ -31,6 +31,7 @@ public class TrackerStrategyDFS implements TrackerStrategy {
         pathComponentsStack.push(new PathComponent(originTile));
 
         while (!pathComponentsStack.isEmpty()) {
+            // pop from the stack
             PathComponent topOfStack = pathComponentsStack.pop();
 
             // if position we are currently at has not been visited, add it to the set
