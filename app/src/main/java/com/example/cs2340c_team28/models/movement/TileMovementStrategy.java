@@ -4,7 +4,8 @@ import com.example.cs2340c_team28.models.Player;
 
 public class TileMovementStrategy implements MovementStrategy {
 
-    public static final long MOVE_DURATION = 100;
+    public static long MOVE_DURATION = 100;
+
 
     @Override
     public void moveUp() {

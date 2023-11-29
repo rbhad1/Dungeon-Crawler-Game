@@ -5,8 +5,9 @@ public class Movement {
     private final Position endGraphical;
 
     private long startTime;
-    private final long duration;
+    private long duration;
 
+    private long currentDuration;
     private long endDelay;
 
     private Status status = Status.IN_PROGRESS;
@@ -48,6 +49,9 @@ public class Movement {
     public long getDuration() {
         return duration;
     }
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
 
     public Status getStatus() {
         return status;
@@ -58,6 +62,13 @@ public class Movement {
             throw new IllegalArgumentException("Status cannot be null.");
         }
         this.status = status;
+    }
+
+    public long getCurrentDuration() {
+        return currentDuration;
+    }
+    public void setCurrentDuration(long currentDuration) {
+        this.currentDuration = currentDuration;
     }
 
     public Movement(Position start, Position end,

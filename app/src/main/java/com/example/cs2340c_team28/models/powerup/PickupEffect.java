@@ -7,7 +7,7 @@ import com.example.cs2340c_team28.models.Positionable;
  * Stores a location by extending positionable, and holds a power-up.
  */
 public class PickupEffect extends Positionable {
-    private final PowerUp powerUp;
+    private final PowerUpDecorator powerUp;
 
     private boolean collected = false;
 
@@ -19,11 +19,11 @@ public class PickupEffect extends Positionable {
         this.collected = collected;
     }
 
-    public PickupEffect(PowerUp powerUp) {
+    public PickupEffect(PowerUpDecorator powerUp) {
         this.powerUp = powerUp;
     }
 
-    public PowerUp getPowerUp() {
+    public PowerUpDecorator getPowerUp() {
         return powerUp;
     }
 }

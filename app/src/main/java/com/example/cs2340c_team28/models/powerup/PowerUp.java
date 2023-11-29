@@ -1,67 +1,67 @@
 package com.example.cs2340c_team28.models.powerup;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.example.cs2340c_team28.models.GlobalTime;
 
-/**
- * Class for in-game power-ups. This class is primarily focused on the functionality of the powerup.
- * Follows the decorator pattern
- */
+
 public abstract class PowerUp {
+    /**
+     * Time that the power-up starts.
+     */
+    private long startTime = GlobalTime.getInstance().getTime();
 
     /**
-     * A wrapped powerup to comply with the decorator pattern
+     * Duration of the power-up
      */
-    private PowerUp wrapped;
+    private long duration = 5000;
 
     /**
-     * The time at which the powerup started
+     * Texture graphic to show on screen
      */
-    private long startTime;
+    private Texture texture;
 
     /**
-     * The duration of the powerup
+     * Current state of the power-up
      */
-    private final long duration;
+    private State state = State.NOT_ACTIVATED;
 
-    /**
-     * The texture corresponding to the powerup
-     */
-    private final Texture texture;
-
-    /**
-     * Construct the powerup
-     * @param wrapped The wrapped powerup
-     * @param startTime The start time
-     * @param duration The duration
-     */
-    public PowerUp(PowerUp wrapped, long startTime, long duration, Texture texture) {
-        this.wrapped = wrapped;
-        this.startTime = startTime;
-        this.duration = duration;
+    public PowerUp(Texture texture) {
         this.texture = texture;
     }
 
     /**
-     * Apply this powerup and wrapped powerups
+     * External method to apply power-up if it is active
      */
-    public void applyAll() {
-        if (wrapped != null) {
-            wrapped.apply();
+    public void apply() {
+
+        if (state == State.NOT_ACTIVATED) {
+            this.state = State.ACTIVE;
+            this.startTime = GlobalTime.getInstance().getTime();
         }
-        this.apply();
+
+        if (state == State.ACTIVE) {
+            this.doPowerUpEffect();
+            if (GlobalTime.getInstance().getTime() > this.startTime + this.duration) {
+                this.state = State.FINISHED;
+            }
+        }
     }
 
     /**
-     * Apply this specific powerup
+     * Internal method to actually do the effect of the powerup
      */
-    protected abstract void apply();
+    protected abstract void doPowerUpEffect();
 
-    public void setWrapped(PowerUp wrapped) {
-        this.wrapped = wrapped;
+    /**
+     * See if the power-up can safely deactivate. By default this is true
+     * @return If the game is in a state where the power-up can safely deactivate
+     */
+    protected boolean canSafelyDeactivate() {
+        return true;
     }
 
-    public PowerUp getWrapped() {
-        return wrapped;
+    public Texture getTexture() {
+        return texture;
     }
 
     public long getStartTime() {
@@ -76,7 +76,14 @@ public abstract class PowerUp {
         return duration;
     }
 
-    public Texture getTexture() {
-        return texture;
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
+
+    public enum State {
+        NOT_ACTIVATED,
+        ACTIVE,
+        FINISHED
+    }
+
 }
