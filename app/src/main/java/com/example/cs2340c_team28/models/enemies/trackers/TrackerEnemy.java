@@ -19,6 +19,14 @@ public class TrackerEnemy extends Enemy {
     private long movementDuration = setMovementDuration();
 
     /**
+     * Get the movement duration
+     * @return the movement duration
+     */
+    public long getMovementDuration() {
+        return movementDuration;
+    }
+
+    /**
      * Sets the speed of the enemy based on difficulty.
      */
     public long setMovementDuration() {

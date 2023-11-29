@@ -2,17 +2,23 @@ package com.example.cs2340c_team28;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
+import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.enemies.GroundEnemy;
 import com.example.cs2340c_team28.models.enemies.WaterEnemy;
+import com.example.cs2340c_team28.models.enemies.trackers.GeneratedPath;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerStrategy;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerStrategyDFS;
 
 import org.junit.Test;
 
@@ -180,5 +186,30 @@ public class EnemyUnitTests {
 
         // Check if the ground enemy's X coordinate has changed
         assertEquals(initialX, game.getEnemyList().get(1).getX(true));
+    }
+
+    @Test @Sprint(5)
+    public void testGetMovementDuration() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+        Game game = Game.getInstance();
+        TrackerStrategy trackerStrategy = new TrackerStrategyDFS();
+        TrackerEnemy trackerEnemy = new TrackerEnemy(trackerStrategy);
+        long expectedDuration = trackerEnemy.setMovementDuration();
+
+        assertEquals(expectedDuration, trackerEnemy.getMovementDuration());
+    }
+
+    @Test @Sprint(5)
+    public void testTrackerEnemyGeneratedPath() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Game game = Game.getInstance();
+        TrackerStrategy trackerStrategy = new TrackerStrategyDFS();
+        TrackerEnemy trackerEnemy = new TrackerEnemy(trackerStrategy);
+
+        assertNotNull(trackerEnemy.getGeneratedPath());
+        assertEquals(GeneratedPath.class, trackerEnemy.getGeneratedPath().getClass());
     }
 }
