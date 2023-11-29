@@ -29,7 +29,7 @@ public class PowerUpTests {
     }
 
     @Test
-    public void checkIfSpeedUpdates() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void checkIfSpeedUpdates() {
 
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
