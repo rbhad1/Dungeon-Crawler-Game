@@ -2,18 +2,31 @@ package com.example.cs2340c_team28;
 
 import static org.junit.Assert.*;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
+import com.example.cs2340c_team28.models.attack.StandardAttackStrategy;
+import com.example.cs2340c_team28.models.enemies.Enemy;
+import com.example.cs2340c_team28.models.enemies.GroundEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
+import com.example.cs2340c_team28.models.powerup.PickupEffect;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -392,5 +405,61 @@ public class GameUnitTests {
 
         assertEquals(initialHealth - 50, player.getHp());
         assertTrue(gmv.getGameOver());
+    }
+
+    @Test @Sprint(5)
+    public void scoreDecreaseUponPlayerTakingDamage() {
+        Game game = Game.getInstance();
+        GameViewModelTester gmv = new GameViewModelTester();
+
+        gmv.doPreinitialization();
+        game.setDifficulty(Difficulty.MEDIUM);
+        game.setCurrentMap(gmv.getForest());
+
+        Player player = Player.getInstance();
+        player.setHp(Player.initialHp(game.getDifficulty()));
+        game.setScore(Game.MAX_SCORE);
+        int initialScore = game.getScore();
+
+        gmv.collisionOccurred();
+
+        assertEquals(initialScore - 10, game.getScore());
+    }
+
+    @Test @Sprint(5)
+    public void scoreIncreaseUponPlayerKillingEnemy() {
+        Game game = Game.getInstance();
+        GameViewModelTester gmv = new GameViewModelTester();
+
+        gmv.doPreinitialization();
+        game.setDifficulty(Difficulty.MEDIUM);
+        game.setCurrentMap(gmv.getForest());
+
+        StandardAttackStrategy sas = new StandardAttackStrategy();
+
+        Player player = Player.getInstance();
+        player.setHp(Player.initialHp(game.getDifficulty()));
+
+        List<Enemy> enemies = new ArrayList<>();
+        Enemy enemy = new GroundEnemy();
+        enemy.setX(100, true);
+        enemy.setY(100, true);
+        Position enemyStartPosition = new Position(100, 100);
+        Position enemyEndPosition = new Position(100, 100);
+        Movement enemyMovement = new Movement(enemyStartPosition, enemyEndPosition, true);
+        enemy.setCurrentMovement(enemyMovement);
+        enemies.add(enemy);
+        game.setEnemiesList(enemies);
+
+        player.setX(100, true);
+        player.setY(100, true);
+        player.setCanAttack(true);
+
+        game.setScore(Game.MAX_SCORE);
+        int initialScore = game.getScore();
+
+        sas.attack();
+
+        assertEquals(initialScore + 25, game.getScore());
     }
 }
