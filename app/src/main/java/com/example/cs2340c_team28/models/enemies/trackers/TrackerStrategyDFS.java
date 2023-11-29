@@ -5,7 +5,10 @@ import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -54,15 +57,26 @@ public class TrackerStrategyDFS implements TrackerStrategy {
                 break;
             }
 
+            // Generate possible options for next path component
+            List<PathComponent> pathComponentOptions = Arrays.asList(
+                    new PathComponent(
+                            topOfStack.getPosition().add(new Position(1, 0)), topOfStack),
+                    new PathComponent(
+                            topOfStack.getPosition().add(new Position(-1, 0)), topOfStack),
+                    new PathComponent(
+                            topOfStack.getPosition().add(new Position(0, 1)), topOfStack),
+                    new PathComponent(
+                            topOfStack.getPosition().add(new Position(0, -1)), topOfStack)
+            );
+
+            // Randomize choices
+            Collections.shuffle(pathComponentOptions);
+
             // Add new position options to the stack for each direction from the current tile
-            pathComponentsStack.push(new PathComponent(
-                    topOfStack.getPosition().add(new Position(1, 0)), topOfStack));
-            pathComponentsStack.push(new PathComponent(
-                    topOfStack.getPosition().add(new Position(-1, 0)), topOfStack));
-            pathComponentsStack.push(new PathComponent(
-                    topOfStack.getPosition().add(new Position(0, 1)), topOfStack));
-            pathComponentsStack.push(new PathComponent(
-                    topOfStack.getPosition().add(new Position(0, -1)), topOfStack));
+            for (PathComponent pathComponent : pathComponentOptions) {
+                pathComponentsStack.push(pathComponent);
+            }
+
 
         }
 
