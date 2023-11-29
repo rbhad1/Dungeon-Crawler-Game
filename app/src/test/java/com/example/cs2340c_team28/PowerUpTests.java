@@ -7,20 +7,13 @@ import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
-import com.example.cs2340c_team28.models.Difficulty;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.Player;
-import com.example.cs2340c_team28.models.enemies.AirEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
-import com.example.cs2340c_team28.models.powerup.Decorator;
-import com.example.cs2340c_team28.models.powerup.PickupEffect;
-import com.example.cs2340c_team28.models.powerup.PowerUp;
-import com.example.cs2340c_team28.models.powerup.SuperSpeed;
-import com.example.cs2340c_team28.models.powerup.SuperSpeedTester;
-import com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel;
+import com.example.cs2340c_team28.models.powerup.PowerUpDecorator;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import org.junit.Test;
@@ -63,8 +56,8 @@ public class PowerUpTests {
 
         handleMovement.invoke(gameViewModel, movable);
 
-        Decorator decorator = new Decorator(new SuperSpeedTester());
-        decorator.activate();
+        PowerUpDecorator powerUpDecorator = new PowerUpDecorator(new SuperSpeedTester());
+        powerUpDecorator.activate();
         long newDuration = player.getCurrentMovement().getDuration();
 
         assertNotEquals(playerDuration, newDuration);

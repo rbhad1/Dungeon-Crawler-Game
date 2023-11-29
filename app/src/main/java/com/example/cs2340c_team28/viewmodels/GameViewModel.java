@@ -15,13 +15,12 @@ import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.EnemyListFactory;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
-import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.observers.CollisionManager;
 import com.example.cs2340c_team28.models.observers.EnemyCollisionObserver;
-import com.example.cs2340c_team28.models.powerup.Decorator;
+import com.example.cs2340c_team28.models.powerup.PowerUpDecorator;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.models.powerup.PowerUpListFactory;
-import com.example.cs2340c_team28.models.powerup.SuperSpeed;
+import com.example.cs2340c_team28.models.powerup.SuperSpeedDecorator;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -178,28 +177,33 @@ public class GameViewModel  extends com.badlogic.gdx.Game
 
         Player.getInstance().setCanAttack(
                 System.currentTimeMillis() - Player.getInstance().getLastAttack() >= 3000);
+
+        // See if player touching any power-up, pick up if applicable
         for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
+            // Skip if already collected
+            if (pickupEffect.isCollected()) {
+                continue;
+            }
+
+            // See if touching player
             if (pickupEffect.getPosition(true)
                     .equals(Player.getInstance().getPosition(true))) {
+                // Set collected and get the underneath power-up
                 pickupEffect.setCollected(true);
-                setPowerUpStartTime(System.currentTimeMillis());
+                PowerUpDecorator powerUpDecorator = pickupEffect.getPowerUp();
+
+                // Wrap the existing power-up and then set the player power-up
+                powerUpDecorator.setWrapped(Player.getInstance().getPowerUp());
+                Player.getInstance().setPowerUp(powerUpDecorator);
             }
         }
-        // Player should pick up the power-up
-        // TODO: add code to pick up the power-up
-        if (!isSuperSpeedComplete()) {
-//                if (duration < finalDuration) {
-//                    TileMovementStrategy.MOVE_DURATION = originalMoveDuration / 2;
-            Decorator decorator = new Decorator(new SuperSpeed());
-            decorator.activate();
-//                    duration++;
+
+        // Process the power-up, if there is one
+        if (Player.getInstance().getPowerUp() != null) {
+            Player.getInstance().getPowerUp().apply();
         }
-//                if (duration == finalDuration) {
-//                    TileMovementStrategy.MOVE_DURATION = originalMoveDuration;
-//                }
+
     }
-
-
 
     protected static final long POWER_UP_DURATION = 5000;
     protected long powerUpStartTime;

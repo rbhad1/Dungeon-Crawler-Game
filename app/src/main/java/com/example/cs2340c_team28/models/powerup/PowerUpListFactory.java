@@ -14,7 +14,7 @@ public class PowerUpListFactory {
 
         ArrayList<PickupEffect> powerUpList = new ArrayList<>();
         if (currentMap.getLayers().get("forest") != null) {
-            PickupEffect pickupEffect1 = new PickupEffect(new SuperSpeed());
+            PickupEffect pickupEffect1 = new PickupEffect(new SuperSpeedDecorator());
             pickupEffect1.setPosition(new Position(2, 10), true);
             powerUpList.add(pickupEffect1);
 

@@ -3,6 +3,8 @@ package com.example.cs2340c_team28.models;
 
 import androidx.annotation.NonNull;
 
+import com.example.cs2340c_team28.models.powerup.PowerUp;
+
 
 /**
  * Class representing a player in the game
@@ -41,6 +43,11 @@ public class Player extends Movable {
     private boolean attack;
     private boolean canAttack;
     private long lastAttack = 0;
+
+    /**
+     * The power-up, or a chain of power-ups if decorator pattern is used
+     */
+    private PowerUp powerUp;
 
     public static Player getInstance() {
         return INSTANCE;
@@ -107,6 +114,14 @@ public class Player extends Movable {
 
     public void setOriginalHp(int originalHp) {
         this.originalHp = originalHp;
+    }
+
+    public PowerUp getPowerUp() {
+        return powerUp;
+    }
+
+    public void setPowerUp(PowerUp powerUp) {
+        this.powerUp = powerUp;
     }
 
     /**
