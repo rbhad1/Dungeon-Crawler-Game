@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.example.cs2340c_team28.annotation.Sprint;
 import com.example.cs2340c_team28.helpers.GameViewModelTester;
 import com.example.cs2340c_team28.helpers.LibGdxTester;
 import com.example.cs2340c_team28.models.Game;
@@ -13,6 +14,7 @@ import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.powerup.PowerUp;
+import com.example.cs2340c_team28.models.powerup.RegenerationPowerUp;
 import com.example.cs2340c_team28.models.powerup.SuperSpeedDecorator;
 
 import org.junit.Test;
@@ -28,7 +30,7 @@ public class PowerUpTests {
         LibGdxTester.initializeForTests();
     }
 
-    @Test
+    @Test @Sprint(5)
     public void checkIfSpeedUpdates() {
 
         GameViewModelTester gameViewModel = new GameViewModelTester();
@@ -55,7 +57,7 @@ public class PowerUpTests {
 
     }
 
-    @Test
+    @Test @Sprint(5)
     public void testingDurationInDeactivation() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
@@ -96,6 +98,55 @@ public class PowerUpTests {
         newMovementDuration = player.getCurrentMovement().getDuration();
         assertEquals(originalMovementDuration, newMovementDuration);
         gameViewModel.cycledUpdate(10, 50);
-            }
+    }
+
+    @Test @Sprint(5)
+    public void testRegenerationPowerUpDoesIncreaseHealth() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Player player = Player.getInstance();
+        player.setHp(100);
+        player.setOriginalHp(100);
+
+        // Decrease the hp by a lot
+        player.setHp(player.getHp() - 10);
+        assertNotEquals(player.getOriginalHp(), player.getHp());
+
+        PowerUp powerUp = new RegenerationPowerUp();
+        powerUp.setDuration(1000);
+        player.setPowerUp(powerUp);
+
+        gameViewModel.cycledUpdate(2, 1);
+        assertEquals(player.getOriginalHp(), player.getHp());
+        player.setHp(0);
+        assertEquals(0, player.getHp());
+
+        gameViewModel.cycledUpdate(2, 1);
+        assertEquals(player.getOriginalHp(), player.getHp());
+    }
+
+    @Test @Sprint(5)
+    public void testRegenerationPowerUpDoesNotExceedOriginalHealth() {
+        GameViewModelTester gameViewModel = new GameViewModelTester();
+        gameViewModel.doPreinitialization();
+
+        Player player = Player.getInstance();
+
+        int original = 100;
+        player.setOriginalHp(original);
+        for (int i = original; i > 0; i -= 5) {
+            player.setHp(i);
+
+            PowerUp powerUp = new RegenerationPowerUp();
+            powerUp.setDuration(1000);
+            player.setPowerUp(powerUp);
+
+            gameViewModel.cycledUpdate(1, 1);
+
+            assertTrue(player.getHp() <= player.getOriginalHp());
+
+        }
+    }
 
 }
