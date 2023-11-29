@@ -1,6 +1,8 @@
 package com.example.cs2340c_team28.models.enemies.trackers;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.example.cs2340c_team28.models.Difficulty;
+import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.GlobalTime;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.Enemy;
@@ -10,13 +12,33 @@ import com.example.cs2340c_team28.models.movement.Movement;
 import java.util.HashSet;
 
 public class TrackerEnemy extends Enemy {
+
     /**
      * The duration of the movement.
-     * <p>
-     * Note that while this is constant now we might want to implement this differently so that
-     *  movement duration can be different based on difficulty.
      */
-    private static final long MOVEMENT_DURATION = 150;
+    private long movementDuration = setMovementDuration();
+
+    /**
+     * Sets the speed of the enemy based on difficulty.
+     */
+    public long setMovementDuration() {
+        Game game = Game.getInstance();
+        Difficulty difficulty = game.getDifficulty();
+
+        switch (difficulty) {
+            case EASY:
+                movementDuration = 150;
+                break;
+            case MEDIUM:
+                movementDuration = 110;
+                break;
+            case HARD:
+                movementDuration = 90;
+                break;
+        }
+
+        return movementDuration;
+    }
 
     /**
      * The time duration to delay after each individual movement.
@@ -30,7 +52,7 @@ public class TrackerEnemy extends Enemy {
      * Note that while this is constant now we might want to implement this differently so that
      *  it can be different based on difficulty.
      */
-    private static final long DESIRED_PATH_BREAK_TIME = 3000;
+    private static final long DESIRED_PATH_BREAK_TIME = 1500;
 
     /**
      * The next path component to process to start or continue movement along a path.
@@ -86,7 +108,7 @@ public class TrackerEnemy extends Enemy {
                     this.getPosition(true),
                     this.generatedPath.getStartingPathComponent().getPosition(),
                     true,
-                    MOVEMENT_DURATION
+                    movementDuration
             );
             // Ignore collisions even though we should be going on the valid path anyway
             newMovement.setCollisionStyle(Movement.CollisionStyle.IGNORE_COLLISIONS);

@@ -15,7 +15,6 @@ import java.util.Stack;
 public class TrackerStrategyDFS implements TrackerStrategy {
     @Override
     public GeneratedPath generatePath(Position originTile) {
-
         // Initial eventual return values
         PathComponent startingPathComponent = null;
         Set<Position> waypointTileSet = new HashSet<>();
