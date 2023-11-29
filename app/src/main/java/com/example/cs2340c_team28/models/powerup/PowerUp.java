@@ -41,7 +41,8 @@ public abstract class PowerUp {
 
         if (state == State.ACTIVE) {
             this.doPowerUpEffect();
-            if (GlobalTime.getInstance().getTime() > this.startTime + this.duration) {
+            if (GlobalTime.getInstance().getTime() > this.startTime + this.duration
+                && this.canSafelyDeactivate()) {
                 this.state = State.FINISHED;
             }
         }
@@ -78,6 +79,10 @@ public abstract class PowerUp {
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    public State getState() {
+        return state;
     }
 
     public enum State {

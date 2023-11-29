@@ -28,21 +28,23 @@ public class TrackerEnemy extends Enemy {
 
     /**
      * Sets the speed of the enemy based on difficulty.
+     *
+     * @return The new movement duration that was set
      */
     public long setMovementDuration() {
         Game game = Game.getInstance();
         Difficulty difficulty = game.getDifficulty();
 
         switch (difficulty) {
-            case EASY:
-                movementDuration = 150;
-                break;
-            case MEDIUM:
-                movementDuration = 110;
-                break;
-            case HARD:
-                movementDuration = 90;
-                break;
+        case EASY:
+            movementDuration = 150;
+            break;
+        case MEDIUM:
+            movementDuration = 110;
+            break;
+        default:
+            movementDuration = 90;
+            break;
         }
 
         return movementDuration;

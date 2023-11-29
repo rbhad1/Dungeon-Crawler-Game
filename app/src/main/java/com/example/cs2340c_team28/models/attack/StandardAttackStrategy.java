@@ -6,8 +6,6 @@ import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.movement.Movement;
 
-import java.util.List;
-
 public class StandardAttackStrategy implements AttackStrategy {
     private long currentTime;
     private long lastCall = 0;

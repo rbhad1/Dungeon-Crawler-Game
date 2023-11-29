@@ -14,16 +14,28 @@ public class PowerUpListFactory {
 
         ArrayList<PickupEffect> powerUpList = new ArrayList<>();
         if (currentMap.getLayers().get("forest") != null) {
-            PickupEffect pickupEffect1 = new PickupEffect(new SuperSpeedDecorator());
-            pickupEffect1.setPosition(new Position(2, 10), true);
-            powerUpList.add(pickupEffect1);
+            PickupEffect pickupEffect = new PickupEffect(new JumpingPowerUp());
+            pickupEffect.setPosition(new Position(2, 10), true);
+            powerUpList.add(pickupEffect);
+
+            pickupEffect = new PickupEffect(new SuperSpeedDecorator());
+            pickupEffect.setPosition(new Position(8, 2), true);
+            powerUpList.add(pickupEffect);
+
+            pickupEffect = new PickupEffect(new RegenerationPowerUp());
+            pickupEffect.setPosition(new Position(6, 12), true);
+            powerUpList.add(pickupEffect);
 
 
         } else if (currentMap.getLayers().get("rocks") != null) {
             // water
-            PickupEffect pickupEffect1 = new PickupEffect(null);
-            pickupEffect1.setPosition(new Position(2, 10), true);
-            // powerUpList.add(pickupEffect1) ;
+            PickupEffect pickupEffect = new PickupEffect(new SuperSpeedDecorator());
+            pickupEffect.setPosition(new Position(0, 14), true);
+            powerUpList.add(pickupEffect);
+
+            pickupEffect = new PickupEffect(new RegenerationPowerUp());
+            pickupEffect.setPosition(new Position(8, 6), true);
+            powerUpList.add(pickupEffect);
 
         } else {
             // dungeon

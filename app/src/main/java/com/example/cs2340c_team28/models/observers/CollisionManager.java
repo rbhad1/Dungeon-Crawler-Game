@@ -27,6 +27,7 @@ public class CollisionManager {
     }
 
     public void checkCollisions() {
+        reportPlayerInvincible();
         for (Enemy enemy : enemies) {
             if (checkCollision(enemy)) {
                 // Collision has occurred
@@ -39,6 +40,10 @@ public class CollisionManager {
                 }
             }
         }
+    }
+
+    private void reportPlayerInvincible() {
+        Player.getInstance().setInvincible(isPlayerInvincible());
     }
 
     private boolean checkCollision(Enemy enemy) {

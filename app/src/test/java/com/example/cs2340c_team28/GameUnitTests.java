@@ -94,7 +94,7 @@ public class GameUnitTests {
         new TileMovementStrategy().moveUp();
 
         // Call updateGameLogic() which should transition room
-        gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
+        gameViewModel.cycledUpdate(4, TileMovementStrategy.getMoveDuration() * 2);
 
         // Check that we've moved successfully
         assertEquals(player.getX(true), 4);
@@ -133,7 +133,7 @@ public class GameUnitTests {
 
         for (Runnable r: movements) {
             r.run();
-            gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
+            gameViewModel.cycledUpdate(4, TileMovementStrategy.getMoveDuration() * 2);
         }
 
         assertEquals(player.getX(true), 1);
@@ -199,7 +199,7 @@ public class GameUnitTests {
         player.setY(1, true);
 
         new TileMovementStrategy().moveLeft();
-        gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
+        gameViewModel.cycledUpdate(4, TileMovementStrategy.getMoveDuration() * 2);
 
         assertEquals(player.getX(true), 0);
         assertNotEquals(player.getX(true), -1);
@@ -209,7 +209,7 @@ public class GameUnitTests {
 
         new TileMovementStrategy().moveRight();
         gameViewModel.updateGameLogic();
-        gameViewModel.incrementTime(TileMovementStrategy.MOVE_DURATION * 2);
+        gameViewModel.incrementTime(TileMovementStrategy.getMoveDuration() * 2);
         gameViewModel.updateGameLogic();
 
         assertEquals(player.getX(true), 15);
@@ -233,7 +233,7 @@ public class GameUnitTests {
 
         new TileMovementStrategy().moveRight();
         Movement originalMovement = player.getCurrentMovement();
-        gameViewModel.cycledUpdate(6, TileMovementStrategy.MOVE_DURATION * 2);
+        gameViewModel.cycledUpdate(6, TileMovementStrategy.getMoveDuration() * 2);
 
         assertEquals(0, player.getX(true));
         assertEquals(3, player.getY(true));
@@ -258,7 +258,7 @@ public class GameUnitTests {
 
         new TileMovementStrategy().moveUp();
         Movement originalMovement = player.getCurrentMovement();
-        gameViewModel.cycledUpdate(4, TileMovementStrategy.MOVE_DURATION * 2);
+        gameViewModel.cycledUpdate(4, TileMovementStrategy.getMoveDuration() * 2);
 
         assertEquals(0, player.getX(true));
         assertEquals(1, player.getY(true));

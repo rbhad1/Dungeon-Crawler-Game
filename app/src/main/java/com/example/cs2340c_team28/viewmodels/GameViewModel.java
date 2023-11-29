@@ -20,7 +20,6 @@ import com.example.cs2340c_team28.models.observers.EnemyCollisionObserver;
 import com.example.cs2340c_team28.models.powerup.PowerUpDecorator;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
 import com.example.cs2340c_team28.models.powerup.PowerUpListFactory;
-import com.example.cs2340c_team28.models.powerup.SuperSpeedDecorator;
 import com.example.cs2340c_team28.screens.TiledView;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
@@ -65,8 +64,6 @@ public class GameViewModel  extends com.badlogic.gdx.Game
     private TiledView tiledview;
 
     private CollisionManager collisionManager;
-
-//    private long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
 
 
     public GameViewModel(LibGdxActivity activity) {
@@ -132,7 +129,6 @@ public class GameViewModel  extends com.badlogic.gdx.Game
         updateGameLogic();
         handlePlayerEnemyCollisions();
     }
-    int duration = 0;
 
     /**
      * Updates score and time of the game
@@ -146,6 +142,12 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 game.setScore(game.getScore() - 1);
             }
             game.setScoreTime(currentTime);
+        }
+
+
+        // Process the power-up, if there is one
+        if (Player.getInstance().getPowerUp() != null) {
+            Player.getInstance().getPowerUp().apply();
         }
 
         TiledMapTileLayer.Cell possibleDoorCell = game.getDoorLayer()
@@ -200,12 +202,6 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 game.setScore(game.getScore() + 10);
             }
         }
-
-        // Process the power-up, if there is one
-        if (Player.getInstance().getPowerUp() != null) {
-            Player.getInstance().getPowerUp().apply();
-        }
-
     }
 
     protected static final long POWER_UP_DURATION = 5000;

@@ -25,6 +25,8 @@ import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
+import com.example.cs2340c_team28.models.powerup.PowerUp;
+import com.example.cs2340c_team28.models.powerup.PowerUpDecorator;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
@@ -181,7 +183,13 @@ public class TiledView implements Screen {
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
 
-
+        if (Player.getInstance().isInvincible()) {
+            int offset = 20;
+            batch.draw(new Texture("result1.png"),
+                    Player.getInstance().getX(false) - offset,
+                    Player.getInstance().getY(false) - offset,
+                    TILE_SIZE + offset * 2, TILE_SIZE + offset * 2);
+        }
 
         //int UNIT = 32;
         if (Player.getInstance().getAttack()) {
@@ -211,6 +219,8 @@ public class TiledView implements Screen {
             batch.draw(new Texture("tnt.png"), Player.getInstance().getX(false) - 16,
                     Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
         }
+
+        displayPowerUpStatusEffect(batch, Player.getInstance().getPowerUp());
 
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             // TODO probably want to randomize start position
@@ -252,13 +262,28 @@ public class TiledView implements Screen {
         for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
             if (!pickupEffect.isCollected()) {
                 batch.draw(pickupEffect.getPowerUp().getTexture(),
-                        pickupEffect.getX(false), pickupEffect.getY(false), 20, 20);
+                        pickupEffect.getX(false) + 5,
+                        pickupEffect.getY(false) + 5,
+                        TILE_SIZE - 10,
+                        TILE_SIZE - 10);
             }
         }
 
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), 32, 32);
         batch.end();
+    }
+
+    private void displayPowerUpStatusEffect(SpriteBatch batch, PowerUp powerUp) {
+        if (powerUp != null) {
+            if (powerUp.getState() == PowerUp.State.ACTIVE) {
+                batch.draw(powerUp.getTexture(), Player.getInstance().getX(false) + 18,
+                        Player.getInstance().getY(false), 14, 14);
+                if (powerUp instanceof PowerUpDecorator) {
+                    displayPowerUpStatusEffect(batch, ((PowerUpDecorator) powerUp).getWrapped());
+                }
+            }
+        }
     }
 
     @Override
