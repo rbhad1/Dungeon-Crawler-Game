@@ -34,6 +34,8 @@ public class Player extends Movable {
 
     private int originalHp;
 
+    private boolean invincible = false;
+
     /**
      * An integer id representing the player's sprite graphic,
      *  avoids storing resource name in the data model
@@ -122,6 +124,14 @@ public class Player extends Movable {
 
     public void setPowerUp(PowerUp powerUp) {
         this.powerUp = powerUp;
+    }
+
+    public boolean isInvincible() {
+        return invincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        this.invincible = invincible;
     }
 
     /**

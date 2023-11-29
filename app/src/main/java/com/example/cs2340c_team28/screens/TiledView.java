@@ -183,7 +183,13 @@ public class TiledView implements Screen {
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
 
-
+        if (Player.getInstance().isInvincible()) {
+            int offset = 20;
+            batch.draw(new Texture("result1.png"),
+                    Player.getInstance().getX(false) - offset,
+                    Player.getInstance().getY(false) - offset,
+                    TILE_SIZE + offset * 2, TILE_SIZE + offset * 2);
+        }
 
         //int UNIT = 32;
         if (Player.getInstance().getAttack()) {
