@@ -242,6 +242,7 @@ public class GameViewModel  extends com.badlogic.gdx.Game
 
         // Set hp such that it doesn't go below zero
         player.setHp(Math.max(player.getHp() - damage, 0));
+        game.setScore(game.getScore() - 10);
     }
 
     private int getDamageBasedOnDifficulty() {
