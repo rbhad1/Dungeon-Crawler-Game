@@ -25,6 +25,8 @@ import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
+import com.example.cs2340c_team28.models.powerup.PowerUp;
+import com.example.cs2340c_team28.models.powerup.PowerUpDecorator;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
 import java.util.List;
@@ -212,6 +214,8 @@ public class TiledView implements Screen {
                     Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);
         }
 
+        displayPowerUpStatusEffect(batch, Player.getInstance().getPowerUp());
+
         for (Enemy enemy : Game.getInstance().getEnemyList()) {
             // TODO probably want to randomize start position
             batch.draw(enemy.getTexture(), enemy.getX(false),
@@ -262,6 +266,18 @@ public class TiledView implements Screen {
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), 32, 32);
         batch.end();
+    }
+
+    private void displayPowerUpStatusEffect(SpriteBatch batch, PowerUp powerUp) {
+        if (powerUp != null) {
+            if (powerUp.getState() == PowerUp.State.ACTIVE) {
+                batch.draw(powerUp.getTexture(), Player.getInstance().getX(false) + 18,
+                        Player.getInstance().getY(false), 14, 14);
+                if (powerUp instanceof PowerUpDecorator) {
+                    displayPowerUpStatusEffect(batch, ((PowerUpDecorator) powerUp).getWrapped());
+                }
+            }
+        }
     }
 
     @Override

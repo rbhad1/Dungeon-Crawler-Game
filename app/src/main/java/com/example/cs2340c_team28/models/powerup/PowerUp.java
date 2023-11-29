@@ -81,6 +81,10 @@ public abstract class PowerUp {
         this.duration = duration;
     }
 
+    public State getState() {
+        return state;
+    }
+
     public enum State {
         NOT_ACTIVATED,
         ACTIVE,
