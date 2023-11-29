@@ -17,7 +17,9 @@ import com.example.cs2340c_team28.models.movement.Position;
 import com.example.cs2340c_team28.models.movement.TileMovementStrategy;
 import com.example.cs2340c_team28.models.powerup.Decorator;
 import com.example.cs2340c_team28.models.powerup.PickupEffect;
+import com.example.cs2340c_team28.models.powerup.PowerUp;
 import com.example.cs2340c_team28.models.powerup.SuperSpeed;
+import com.example.cs2340c_team28.models.powerup.SuperSpeedTester;
 import com.example.cs2340c_team28.viewmodels.ConfigScreenViewModel;
 import com.example.cs2340c_team28.viewmodels.GameViewModel;
 
@@ -61,7 +63,7 @@ public class PowerUpTests {
 
         handleMovement.invoke(gameViewModel, movable);
 
-        Decorator decorator = new Decorator(new SuperSpeed());
+        Decorator decorator = new Decorator(new SuperSpeedTester());
         decorator.activate();
         long newDuration = player.getCurrentMovement().getDuration();
 
@@ -70,7 +72,7 @@ public class PowerUpTests {
     }
 
     @Test
-    public void moveDurationUpdating() {
+    public void testingDurationInDeactivation() {
         GameViewModelTester gameViewModel = new GameViewModelTester();
         gameViewModel.doPreinitialization();
 
@@ -79,9 +81,9 @@ public class PowerUpTests {
         game.setCurrentMap(gameViewModel.getForest());
 
         long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
-        Decorator decorator = new Decorator(new SuperSpeed());
-        decorator.activate();
-        assertNotEquals(originalMoveDuration, TileMovementStrategy.MOVE_DURATION);
+        SuperSpeedTester speed = new SuperSpeedTester();
+        speed.deactivate();
+        assertEquals(originalMoveDuration, TileMovementStrategy.MOVE_DURATION);
 
     }
 

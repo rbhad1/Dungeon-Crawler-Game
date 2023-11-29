@@ -1,7 +1,6 @@
 package com.example.cs2340c_team28.models.powerup;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.example.cs2340c_team28.models.enemies.TextureFactory;
 
 
 public abstract class PowerUp {
@@ -15,7 +14,7 @@ public abstract class PowerUp {
     public void assignTexture() {
         texture = new Texture(imgRes);
     }
-    protected abstract boolean isSuperSpeedComplete();
+    //    protected abstract boolean isSuperSpeedComplete();
 
     public long getPowerUpStartTime() {
         return powerUpStartTime;

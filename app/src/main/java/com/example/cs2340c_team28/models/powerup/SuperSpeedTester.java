@@ -2,15 +2,17 @@ package com.example.cs2340c_team28.models.powerup;
 
 import com.example.cs2340c_team28.models.Player;
 
-public class SuperSpeed extends PowerUp {
-
+/**
+ * FOR TESTING PURPOSES -- Only different is doesn't assign texture to
+ * avoid loading assets for JUnit testing
+ * DON'T EDIT
+ */
+public class SuperSpeedTester extends PowerUp {
     private boolean superSpeedActivated = false;
 
 
-    public SuperSpeed() {
+    public SuperSpeedTester() {
         super();
-        super.imgRes = "speed.png";
-        super.assignTexture();
     }
     @Override
     public void activate() {
@@ -21,7 +23,6 @@ public class SuperSpeed extends PowerUp {
         }
         player.getCurrentMovement().setDuration(player.getCurrentMovement().getDuration() / 2);
         superSpeedActivated = true;
-
     }
 
     public void deactivate() {
@@ -34,6 +35,5 @@ public class SuperSpeed extends PowerUp {
             player.getCurrentMovement().setDuration(player.getCurrentMovement().getDuration() * 2);
         }
     }
-
 
 }

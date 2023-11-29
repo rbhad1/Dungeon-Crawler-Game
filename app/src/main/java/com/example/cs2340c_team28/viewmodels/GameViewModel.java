@@ -67,6 +67,8 @@ public class GameViewModel  extends com.badlogic.gdx.Game
 
     private CollisionManager collisionManager;
 
+//    private long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
+
 
     public GameViewModel(LibGdxActivity activity) {
         this.activity = activity;
@@ -180,24 +182,40 @@ public class GameViewModel  extends com.badlogic.gdx.Game
             if (pickupEffect.getPosition(true)
                     .equals(Player.getInstance().getPosition(true))) {
                 pickupEffect.setCollected(true);
-                // Player should pick up the power-up
-                // TODO: add code to pick up the power-up
-                long originalMoveDuration = TileMovementStrategy.MOVE_DURATION;
-                int finalDuration = 5000;
-                if (duration < finalDuration) {
-                    TileMovementStrategy.MOVE_DURATION = originalMoveDuration / 2;
-                    Decorator decorator = new Decorator(new SuperSpeed());
-                    decorator.activate();
-                    duration++;
-                }
-                TileMovementStrategy.MOVE_DURATION = originalMoveDuration;
+                setPowerUpStartTime(System.currentTimeMillis());
             }
         }
-
-
+        // Player should pick up the power-up
+        // TODO: add code to pick up the power-up
+        if (!isSuperSpeedComplete()) {
+//                if (duration < finalDuration) {
+//                    TileMovementStrategy.MOVE_DURATION = originalMoveDuration / 2;
+            Decorator decorator = new Decorator(new SuperSpeed());
+            decorator.activate();
+//                    duration++;
+        }
+//                if (duration == finalDuration) {
+//                    TileMovementStrategy.MOVE_DURATION = originalMoveDuration;
+//                }
     }
 
 
+
+    protected static final long POWER_UP_DURATION = 5000;
+    protected long powerUpStartTime;
+
+    public boolean isSuperSpeedComplete() {
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = currentTime - getPowerUpStartTime();
+
+        return elapsedTime < POWER_UP_DURATION;
+    }
+    public long getPowerUpStartTime() {
+        return powerUpStartTime;
+    }
+    public void setPowerUpStartTime(long powerUpStartTime) {
+        this.powerUpStartTime = powerUpStartTime;
+    }
 
     public void handlePlayerEnemyCollisions() {
         if (collisionManager == null) {
