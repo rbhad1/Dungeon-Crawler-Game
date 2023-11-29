@@ -148,6 +148,12 @@ public class GameViewModel  extends com.badlogic.gdx.Game
             game.setScoreTime(currentTime);
         }
 
+
+        // Process the power-up, if there is one
+        if (Player.getInstance().getPowerUp() != null) {
+            Player.getInstance().getPowerUp().apply();
+        }
+
         TiledMapTileLayer.Cell possibleDoorCell = game.getDoorLayer()
                 .getCell(player.getX(true), player.getY(true));
         // Check if we've reached door
@@ -200,12 +206,6 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 game.setScore(game.getScore() + 10);
             }
         }
-
-        // Process the power-up, if there is one
-        if (Player.getInstance().getPowerUp() != null) {
-            Player.getInstance().getPowerUp().apply();
-        }
-
     }
 
     protected static final long POWER_UP_DURATION = 5000;
