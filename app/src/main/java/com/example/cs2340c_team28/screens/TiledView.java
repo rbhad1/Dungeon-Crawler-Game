@@ -9,7 +9,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.example.cs2340c_team28.models.attack.StandardAttackStrategy;
 import com.example.cs2340c_team28.models.enemies.Enemy;
@@ -42,7 +45,7 @@ public class TiledView implements Screen {
     /**
      * Number of tiles in the vertical direction
      */
-    private static final int NUM_TILES_VERTICAL = 17;
+    private static final int NUM_TILES_VERTICAL = 18;
 
     /**
      * Renderer for the tilemap
@@ -77,6 +80,8 @@ public class TiledView implements Screen {
      * The font for the text
      */
     private BitmapFont font;
+
+    private Button attackButton;
     private int count = 0;
 
     /**
@@ -114,7 +119,14 @@ public class TiledView implements Screen {
         listener2.setAttackStrategy(new StandardAttackStrategy());
 
         stage.addListener(listener);
-        stage.addListener(listener2);
+        // stage.addListener(listener2);
+        stage.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                new StandardAttackStrategy().attack();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
         Gdx.input.setInputProcessor(stage);
 
         int spriteId = Player.getInstance().getSpriteId();
@@ -133,9 +145,6 @@ public class TiledView implements Screen {
         playerImage = new Texture(imageResource);
         batch = new SpriteBatch();
         font = new BitmapFont();
-
-
-
     }
 
     @Override
@@ -163,6 +172,11 @@ public class TiledView implements Screen {
                 6 * TILE_SIZE, NUM_TILES_VERTICAL * TILE_SIZE);
         font.draw(batch, "HP: " + Player.getInstance().getHp(),
                 6 * TILE_SIZE, (NUM_TILES_VERTICAL - 0.5f) * TILE_SIZE);
+
+        if (Player.getInstance().getCanAttack()) {
+            font.draw(batch, "Tap anywhere to attack!",
+                    2 * TILE_SIZE, (NUM_TILES_VERTICAL - 1.25f) * TILE_SIZE);
+        }
 
         batch.draw(playerImage, Player.getInstance().getX(false),
                 Player.getInstance().getY(false), TILE_SIZE, TILE_SIZE);

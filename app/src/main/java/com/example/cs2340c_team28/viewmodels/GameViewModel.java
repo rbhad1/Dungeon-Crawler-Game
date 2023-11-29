@@ -195,6 +195,9 @@ public class GameViewModel  extends com.badlogic.gdx.Game
                 // Wrap the existing power-up and then set the player power-up
                 powerUpDecorator.setWrapped(Player.getInstance().getPowerUp());
                 Player.getInstance().setPowerUp(powerUpDecorator);
+
+                // Increment score
+                game.setScore(game.getScore() + 10);
             }
         }
 
