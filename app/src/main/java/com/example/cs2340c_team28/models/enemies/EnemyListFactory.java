@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerEnemy;
 import com.example.cs2340c_team28.models.enemies.trackers.TrackerStrategyBFS;
+import com.example.cs2340c_team28.models.enemies.trackers.TrackerStrategyDFS;
 import com.example.cs2340c_team28.models.movement.Position;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class EnemyListFactory {
             enemyList.add(enemy3);
             enemyList.add(enemy4);
 
-            TrackerEnemy enemy5 = new TrackerEnemy(new TrackerStrategyBFS());
+            TrackerEnemy enemy5 = new TrackerEnemy(new TrackerStrategyDFS());
             enemy5.setPosition(new Position(7, 0), true);
             enemyList.add(enemy5);
 

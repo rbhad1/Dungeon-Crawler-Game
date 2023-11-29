@@ -56,7 +56,7 @@ public class Game {
     /**
      * The difficulty of the game
      */
-    private Difficulty difficulty;
+    private Difficulty difficulty = Difficulty.EASY;
 
     private TiledMap currentMap;
     private TiledMapTileLayer walkableLayer;
