@@ -1,11 +1,7 @@
 package com.example.cs2340c_team28.models.powerup;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.example.cs2340c_team28.models.Game;
 import com.example.cs2340c_team28.models.Player;
 import com.example.cs2340c_team28.models.enemies.TextureFactory;
-import com.example.cs2340c_team28.models.movement.Movement;
-import com.example.cs2340c_team28.models.movement.Position;
 
 public class RegenerationPowerUp extends PowerUpDecorator {
 
@@ -25,7 +21,8 @@ public class RegenerationPowerUp extends PowerUpDecorator {
 
         if (!alreadyAppliedFirstBoost) {
             Player.getInstance().setHp(
-                    Math.min(Player.getInstance().getHp() + Player.getInstance().getOriginalHp() / 2,
+                    Math.min(
+                            Player.getInstance().getHp() + Player.getInstance().getOriginalHp() / 2,
                             Player.getInstance().getOriginalHp())
             );
             alreadyAppliedFirstBoost = true;

@@ -4,8 +4,11 @@ import com.example.cs2340c_team28.models.Player;
 
 public class TileMovementStrategy implements MovementStrategy {
 
-    public static long MOVE_DURATION = 100;
+    private static long moveDuration = 100;
 
+    public static long getMoveDuration() {
+        return moveDuration;
+    }
 
     @Override
     public void moveUp() {
@@ -19,7 +22,7 @@ public class TileMovementStrategy implements MovementStrategy {
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x, y + 1),
-                true, MOVE_DURATION));
+                true, moveDuration));
     }
     @Override
     public void moveDown() {
@@ -33,7 +36,7 @@ public class TileMovementStrategy implements MovementStrategy {
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x, y - 1),
-                true, MOVE_DURATION));
+                true, moveDuration));
     }
     @Override
     public void moveLeft() {
@@ -47,7 +50,7 @@ public class TileMovementStrategy implements MovementStrategy {
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x - 1, y),
-                true, MOVE_DURATION));
+                true, moveDuration));
     }
     @Override
     public void moveRight() {
@@ -61,7 +64,7 @@ public class TileMovementStrategy implements MovementStrategy {
         Player.getInstance().setCurrentMovement(new Movement(
                 new Position(x, y),
                 new Position(x + 1, y),
-                true, MOVE_DURATION));
+                true, moveDuration));
     }
 
     private boolean cannotStartMovement() {

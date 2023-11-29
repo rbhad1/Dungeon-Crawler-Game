@@ -2,14 +2,11 @@ package com.example.cs2340c_team28.models.powerup;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.example.cs2340c_team28.models.Game;
-import com.example.cs2340c_team28.models.Movable;
 import com.example.cs2340c_team28.models.Player;
-import com.example.cs2340c_team28.models.enemies.Enemy;
 import com.example.cs2340c_team28.models.enemies.TextureFactory;
 import com.example.cs2340c_team28.models.movement.Movement;
 import com.example.cs2340c_team28.models.movement.Position;
 
-import java.util.HashMap;
 
 public class JumpingPowerUp extends PowerUpDecorator {
 
