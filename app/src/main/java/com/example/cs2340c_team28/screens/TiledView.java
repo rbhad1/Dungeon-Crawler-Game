@@ -252,7 +252,10 @@ public class TiledView implements Screen {
         for (PickupEffect pickupEffect : Game.getInstance().getPickupEffectList()) {
             if (!pickupEffect.isCollected()) {
                 batch.draw(pickupEffect.getPowerUp().getTexture(),
-                        pickupEffect.getX(false), pickupEffect.getY(false), 20, 20);
+                        pickupEffect.getX(false) + 5,
+                        pickupEffect.getY(false) + 5,
+                        TILE_SIZE - 10,
+                        TILE_SIZE - 10);
             }
         }
 
